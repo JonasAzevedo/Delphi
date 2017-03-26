@@ -1,0 +1,3 @@
+bd
+username = CORRETOR
+senha = UBA_CORRETOR

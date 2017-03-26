@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{355f8050-813f-428f-8f6e-6176febceb1a}</ProjectGuid>
+    <MainSource>tmsexd2007.dpk</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\tmsexd2007.bpl</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>Package</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="ImplicitBuild">False</Package_Options><Package_Options Name="DesigntimeOnly">False</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options><Package_Options Name="PackageDescription">TMS Component Pack Extra</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2067</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">tmsexd2007.dpk</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="tmsexd2007.dpk">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="AdvFocusHelper.pas" />
+    <DCCReference Include="advfocushelperreg.dcr" />
+    <DCCReference Include="advfocushelperreg.dcr" />
+    <DCCReference Include="AdvFocusHelperReg.pas" />
+    <DCCReference Include="AdvSmoothButton.pas" />
+    <DCCReference Include="advsmoothbuttonreg.dcr" />
+    <DCCReference Include="advsmoothbuttonreg.dcr" />
+    <DCCReference Include="AdvSmoothButtonReg.pas" />
+    <DCCReference Include="AdvSmoothCalendar.pas" />
+    <DCCReference Include="advsmoothcalendarreg.dcr" />
+    <DCCReference Include="advsmoothcalendarreg.dcr" />
+    <DCCReference Include="AdvSmoothCalendarReg.pas" />
+    <DCCReference Include="AdvSmoothDatePicker.pas" />
+    <DCCReference Include="advsmoothdatepickerreg.dcr" />
+    <DCCReference Include="advsmoothdatepickerreg.dcr" />
+    <DCCReference Include="AdvSmoothDatePickerReg.pas" />
+    <DCCReference Include="AdvSmoothEddd.pas" />
+    <DCCReference Include="AdvSmoothEdit.pas" />
+    <DCCReference Include="AdvSmoothEditButton.pas" />
+    <DCCReference Include="AdvSmoothFillEditor.pas">
+      <Form>AdvSmoothFillEditorForm</Form>
+    </DCCReference>
+    <DCCReference Include="AdvSmoothFillPreview.pas" />
+    <DCCReference Include="AdvSmoothFillPreviewReg.pas" />
+    <DCCReference Include="AdvSmoothGDIP.pas" />
+    <DCCReference Include="AdvSmoothHTMLEditor.pas">
+      <Form>AdvSmoothHTMLEditorForm</Form>
+    </DCCReference>
+    <DCCReference Include="AdvSmoothLabel.pas" />
+    <DCCReference Include="advsmoothlabelreg.dcr" />
+    <DCCReference Include="advsmoothlabelreg.dcr" />
+    <DCCReference Include="AdvSmoothLabelReg.pas" />
+    <DCCReference Include="AdvSmoothListBox.pas" />
+    <DCCReference Include="advsmoothlistboxreg.dcr" />
+    <DCCReference Include="advsmoothlistboxreg.dcr" />
+    <DCCReference Include="AdvSmoothListBoxReg.pas" />
+    <DCCReference Include="AdvSmoothMenu.pas" />
+    <DCCReference Include="advsmoothmenureg.dcr" />
+    <DCCReference Include="advsmoothmenureg.dcr" />
+    <DCCReference Include="AdvSmoothMenuReg.pas" />
+    <DCCReference Include="AdvSmoothPanel.pas" />
+    <DCCReference Include="advsmoothpanelreg.dcr" />
+    <DCCReference Include="advsmoothpanelreg.dcr" />
+    <DCCReference Include="AdvSmoothPanelReg.pas" />
+    <DCCReference Include="AdvSmoothSelectors.pas" />
+    <DCCReference Include="AdvSmoothSelectorsReg.pas" />
+    <DCCReference Include="AdvSmoothSpin.pas" />
+    <DCCReference Include="AdvSmoothSpinReg.pas" />
+    <DCCReference Include="AdvSmoothStyles.pas">
+      <Form>AdvSmoothStyleForm</Form>
+    </DCCReference>
+    <DCCReference Include="AdvSmoothTheme.pas" />
+    <DCCReference Include="AdvSmoothXPVS.pas" />
+    <DCCReference Include="AdvSyskeyboardHook.pas" />
+    <DCCReference Include="AdvSyskeyboardHookReg.dcr" />
+    <DCCReference Include="AdvSyskeyboardHookReg.dcr" />
+    <DCCReference Include="AdvSyskeyboardHookReg.pas" />
+    <DCCReference Include="AdvTouchKeyboard.pas" />
+    <DCCReference Include="AdvTouchKeyboardReg.pas" />
+    <DCCReference Include="calcomp.pas" />
+    <DCCReference Include="calcreg.dcr" />
+    <DCCReference Include="calcreg.dcr" />
+    <DCCReference Include="calcreg.pas" />
+    <DCCReference Include="calpanel.pas" />
+    <DCCReference Include="calpreg.dcr" />
+    <DCCReference Include="calpreg.dcr" />
+    <DCCReference Include="calpreg.pas" />
+    <DCCReference Include="ellipslabel.pas" />
+    <DCCReference Include="ellipslblreg.dcr" />
+    <DCCReference Include="ellipslblreg.dcr" />
+    <DCCReference Include="ellipslblreg.pas" />
+    <DCCReference Include="exeinfo.pas" />
+    <DCCReference Include="exeinforeg.dcr" />
+    <DCCReference Include="exeinforeg.dcr" />
+    <DCCReference Include="exeinforeg.pas" />
+    <DCCReference Include="formsize.pas" />
+    <DCCReference Include="frmshape.pas" />
+    <DCCReference Include="frmsreg.dcr" />
+    <DCCReference Include="frmsreg.dcr" />
+    <DCCReference Include="frmsreg.pas" />
+    <DCCReference Include="fsreg.dcr" />
+    <DCCReference Include="fsreg.dcr" />
+    <DCCReference Include="fsreg.pas" />
+    <DCCReference Include="GDIPFill.pas" />
+    <DCCReference Include="GDIPPictureContainer.pas" />
+    <DCCReference Include="gdippicturecontainerreg.dcr" />
+    <DCCReference Include="gdippicturecontainerreg.dcr" />
+    <DCCReference Include="GDIPPictureContainerReg.pas" />
+    <DCCReference Include="hotspotimage.pas" />
+    <DCCReference Include="hotspotimagereg.dcr" />
+    <DCCReference Include="hotspotimagereg.dcr" />
+    <DCCReference Include="hotspotimagereg.pas" />
+    <DCCReference Include="layeredform.pas" />
+    <DCCReference Include="lfreg.dcr" />
+    <DCCReference Include="lfreg.dcr" />
+    <DCCReference Include="lfreg.pas" />
+    <DCCReference Include="linelibrary.pas" />
+    <DCCReference Include="macrorecorder.pas" />
+    <DCCReference Include="macrorecorderreg.dcr" />
+    <DCCReference Include="macrorecorderreg.dcr" />
+    <DCCReference Include="macrorecorderreg.pas" />
+    <DCCReference Include="moneycal.pas" />
+    <DCCReference Include="rtl.dcp" />
+    <DCCReference Include="sysmon.pas" />
+    <DCCReference Include="sysmreg.dcr" />
+    <DCCReference Include="sysmreg.dcr" />
+    <DCCReference Include="sysmreg.pas" />
+    <DCCReference Include="tmsd2007.dcp" />
+    <DCCReference Include="vcl.dcp" />
+  </ItemGroup>
+</Project>

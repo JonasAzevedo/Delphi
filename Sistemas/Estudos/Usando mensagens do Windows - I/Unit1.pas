@@ -1,0 +1,55 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls;
+
+type
+  TfrmPrincipal = class(TForm)
+    lblWMPaint: TLabel;
+    lblWMPaste: TLabel;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    procedure FormCreate(Sender: TObject);
+  private
+    totPaint: Integer;
+    totPaste: Integer;
+    procedure WMPaint(var msg: TWMPaint); message WM_PAINT;
+    procedure WMPaste(var msg: TWMPaint); message WM_PASTE;
+  public
+
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.DFM}
+
+procedure TfrmPrincipal.WMPaint(var msg: TWMPaint);
+begin
+  Beep;
+  inc(totPaint);
+  lblWMPaint.Caption := IntToStr(totPaint);
+  inherited;
+end;
+
+procedure TfrmPrincipal.WMPaste(var msg: TWMPaint);
+begin
+  MessageBeep(0);
+  inc(totPaste);
+  lblWMPaste.Caption := IntToStr(totPaste);
+  inherited;
+end;
+
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  totPaint := 0;
+  totPaste := 0;
+end;
+
+end.

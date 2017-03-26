@@ -1,0 +1,387 @@
+unit unObjEstado;
+
+interface
+
+  type TObjEstado = class
+
+    private
+      codigo: Integer;
+      nome: String[50];
+      sigla: String[2];
+    public
+      procedure setCodigo(pnCodigo: Integer);
+      procedure setNome(psNome: String);
+      procedure setSigla(psSigla: String);
+
+      function getCodigo(): Integer;
+      function getNome(): String;
+      function getSigla(): String;
+      //verifica se existe diferença no objeto. Quando estiver editando registro
+      function verificarDiferencaCadastro(nome:String; data_nascimento:TDate;
+       cpf,identidade,sexo,estado_civil,profissao,local_trabalho,telefone_residencial,
+       telefone_celular,telefone_comercial,email,endereco_rua,endereco_bairro,
+       endereco_uf,endereco_cidade,endereco_cep,endereco_numero,
+       endereco_complemento:String): boolean;
+  end;
+
+implementation
+
+uses Variants;
+
+{ TObjEstado }
+
+//tratamento de valores nulos
+//Integer = 0
+//String = ''
+//Date = 0
+
+{***** set's e get's *****}      
+procedure TObjEstado.setCodigo(codigo: Integer);
+begin
+  try
+    Self. codigo := codigo;
+  except
+    Self.codigo := 0;
+  end;
+end;
+
+function TObjCliente.getCodigo: Integer;
+begin
+  Result := Self.codigo;
+end;
+
+procedure TObjCliente.setData_cadatro(data_cadastro: TDateTime);
+begin
+  try
+    Self.data_cadatro := data_cadastro;
+  except
+    Self.data_cadatro := 0;
+  end;
+end;
+
+function TObjCliente.getData_cadatro: TDateTime;
+begin
+  Result := Self.data_cadatro;
+end;
+
+procedure TObjCliente.setNome(nome: String);
+begin
+  try
+    Self.nome := nome;
+  except
+    Self.nome := '';
+  end;
+end;
+
+function TObjCliente.getNome: String;
+begin
+  Result := Self.nome;
+end;
+
+procedure TObjCliente.setData_nascimento(data_nascimento: TDate);
+begin
+  try
+    Self.data_nascimento := data_nascimento;
+  except
+    Self.data_nascimento := 0;
+  end;
+end;
+
+function TObjCliente.getData_nascimento: TDate;
+begin
+  Result := Self.data_nascimento;
+end;
+
+procedure TObjCliente.setCpf(cpf: String);
+begin
+  try
+    Self.cpf := cpf;
+  except
+    Self.cpf := '';
+  end;
+end;
+
+function TObjCliente.getCpf: String;
+begin
+  Result := Self.cpf;
+end;
+
+procedure TObjCliente.setIdentidade(identidade: String);
+begin
+  try
+    Self.identidade := identidade;
+  except
+    Self.identidade := '';
+  end;
+end;
+
+function TObjCliente.getIdentidade: String;
+begin
+  Result := Self.identidade;
+end;
+
+procedure TObjCliente.setSexo(sexo: String);
+begin
+  try
+    Self.sexo := sexo;
+  except
+    Self.sexo := '';
+  end;
+end;
+
+function TObjCliente.getSexo: String;
+begin
+  Result := Self.sexo;
+end;
+
+procedure TObjCliente.setEstado_civil(estado_civil: String);
+begin
+  try
+    Self.estado_civil := estado_civil;
+  except
+    Self.estado_civil := '';
+  end;
+end;
+
+function TObjCliente.getEstado_civil: String;
+begin
+  Result := Self.estado_civil;
+end;
+
+procedure TObjCliente.setProfissao(profissao: String);
+begin
+  try
+    Self.profissao := profissao;
+  except
+    Self.profissao := '';
+  end;
+end;
+
+function TObjCliente.getProfissao: String;
+begin
+  Result := Self.profissao;
+end;
+
+procedure TObjCliente.setLocal_trabalho(local_trabalho: String);
+begin
+  try
+    Self.local_trabalho := local_trabalho;
+  except
+    Self.local_trabalho := '';
+  end;
+end;
+
+function TObjCliente.getLocal_trabalho: String;
+begin
+  Result := Self.local_trabalho;
+end;
+
+procedure TObjCliente.setTelefone_residencial(telefone_residencial: String);
+begin
+  try
+    Self.telefone_residencial := telefone_residencial;
+  except
+    Self.telefone_residencial := '';
+  end;
+end;
+
+function TObjCliente.getTelefone_residencial: String;
+begin
+  Result := Self.telefone_residencial;
+end;
+
+procedure TObjCliente.setTelefone_comercial(telefone_comercial: String);
+begin
+  try
+    Self.telefone_comercial := telefone_comercial;
+  except
+    Self.telefone_comercial := '';
+  end;
+end;
+
+function TObjCliente.getTelefone_comercial: String;
+begin
+  Result := Self.telefone_comercial;
+end;
+
+procedure TObjCliente.setTelefone_celular(telefone_celular: String);
+begin
+  try
+    Self.telefone_celular := telefone_celular;
+  except
+    Self.telefone_celular := '';
+  end;
+end;
+
+function TObjCliente.getTelefone_celular: String;
+begin
+  Result := Self.telefone_celular;
+end;
+
+procedure TObjCliente.setEmail(email: String);
+begin
+  try
+    Self.email := email;
+  except
+    Self.email := '';
+  end;
+end;
+
+function TObjCliente.getEmail: String;
+begin
+  Result := Self.email;
+end;
+
+procedure TObjCliente.setEndereco_rua(endereco_rua: String);
+begin
+  try
+    Self.endereco_rua := endereco_rua;
+  except
+    Self.endereco_rua := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_rua: String;
+begin
+  Result := Self.endereco_rua;
+end;
+
+procedure TObjCliente.setEndereco_bairro(endereco_bairro: String);
+begin
+  try
+    Self.endereco_bairro := endereco_bairro;
+  except
+    Self.endereco_bairro := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_bairro: String;
+begin
+  Result := Self.endereco_bairro;
+end;
+
+procedure TObjCliente.setEndereco_uf(endereco_uf: String);
+begin
+  try
+    Self.endereco_uf := endereco_uf;
+  except
+    Self.endereco_uf := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_uf: String;
+begin
+  Result := Self.endereco_uf;
+end;
+
+procedure TObjCliente.setEndereco_cidade(endereco_cidade: String);
+begin
+  try
+    Self.endereco_cidade := endereco_cidade;
+  except
+    Self.endereco_cidade := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_cidade: String;
+begin
+  Result := Self.endereco_cidade;
+end;
+
+procedure TObjCliente.setEndereco_cep(endereco_cep: String);
+begin
+  try
+    Self.endereco_cep := endereco_cep;
+  except
+    Self.endereco_cep := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_cep: String;
+begin
+  Result := Self.endereco_cep;
+end;
+
+procedure TObjCliente.setEndereco_numero(endereco_numero: String);
+begin
+  try
+    Self.endereco_numero := endereco_numero;
+  except
+    Self.endereco_numero := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_numero: String;
+begin
+  Result := Self.endereco_numero;
+end;
+
+procedure TObjCliente.setEndereco_complemento(endereco_complemento: String);
+begin
+  try
+    Self.endereco_complemento := endereco_complemento;
+  except
+    Self.endereco_complemento := '';
+  end;
+end;
+
+function TObjCliente.getEndereco_complemento: String;
+begin
+  Result := Self.endereco_complemento;
+end;
+
+{***** procedimentos diversos *****}
+//verifica se existe diferença no objeto. Quando estiver editando registro
+function TObjCliente.verificarDiferencaCadastro(nome:String; data_nascimento:TDate;
+ cpf,identidade,sexo,estado_civil,profissao,local_trabalho,telefone_residencial,
+ telefone_celular,telefone_comercial,email,endereco_rua,endereco_bairro,
+ endereco_uf,endereco_cidade,endereco_cep,endereco_numero,
+ endereco_complemento:String): boolean;
+var
+  retorno: boolean;
+begin
+  retorno := false;
+
+  if(nome <> Self.getNome)then
+    retorno := true;
+  if(data_nascimento <> Self.getData_nascimento)then
+    retorno := true;
+  if(cpf <> Self.getCpf)then
+    retorno := true;
+  if(identidade <> Self.getIdentidade)then
+    retorno := true;
+  if(sexo <> Self.getSexo)then
+    retorno := true;
+  if(estado_civil <> Self.getEstado_civil)then
+    retorno := true;
+  if(profissao <> Self.getProfissao)then
+    retorno := true;
+  if(local_trabalho <> Self.getLocal_trabalho)then
+    retorno := true;
+  if(telefone_residencial <> Self.getTelefone_residencial)then
+    retorno := true;
+  if(telefone_celular <> Self.getTelefone_celular)then
+    retorno := true;
+  if(telefone_comercial <> Self.getTelefone_comercial)then
+    retorno := true;    
+  if(email <> Self.getEmail)then
+    retorno := true;
+  if(endereco_rua <> Self.getEndereco_rua)then
+    retorno := true;
+  if(endereco_bairro <> Self.getEndereco_bairro)then
+    retorno := true;
+  if(endereco_uf <> Self.getEndereco_uf)then
+    retorno := true;
+  if(endereco_cidade <> Self.getEndereco_cidade)then
+    retorno := true;
+  if(endereco_cep <> Self.getEndereco_cep)then
+    retorno := true;
+  if(endereco_numero <> Self.getEndereco_numero)then
+    retorno := true;
+  if(endereco_complemento <> Self.getEndereco_complemento)then
+    retorno := true;
+
+  Result := retorno;
+end;
+
+end.

@@ -1,0 +1,94 @@
+unit unRelatorioLocacaoResumo;
+
+interface
+
+uses Windows, SysUtils, Messages, Classes, Graphics, Controls,
+  StdCtrls, ExtCtrls, Forms, QuickRpt, QRCtrls;
+
+type
+  TqckRepRelatorioLocacaoResumo = class(TQuickRep)
+    QRBand1: TQRBand;
+    QRLabel7: TQRLabel;
+    QRLabel1: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRShape1: TQRShape;
+    QRBand3: TQRBand;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRBand4: TQRBand;
+    qrShpDivisao: TQRShape;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+    qrLblRegistros: TQRLabel;
+    qrLblValorTotal: TQRLabel;
+    qrLblValorPago: TQRLabel;
+    qrLblValorDeve: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRLabel16: TQRLabel;
+    QRDBText8: TQRDBText;
+    qrLblStatus: TQRLabel;
+    procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
+    procedure QRBand3BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure QRBand4BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+  private
+    vlrTotal,vlrPago,vlrDeve: Real;
+  public
+
+  end;
+
+var
+  qckRepRelatorioLocacaoResumo: TqckRepRelatorioLocacaoResumo;
+
+implementation
+
+uses unSelecionaRelatorioLocacoes;
+
+{$R *.DFM}
+
+procedure TqckRepRelatorioLocacaoResumo.QuickRepBeforePrint(
+  Sender: TCustomQuickRep; var PrintReport: Boolean);
+begin
+  vlrTotal := 0;
+  vlrPago := 0;
+  vlrDeve := 0;
+end;
+
+procedure TqckRepRelatorioLocacaoResumo.QRBand3BeforePrint(
+  Sender: TQRCustomBand; var PrintBand: Boolean);
+begin
+  vlrTotal := vlrTotal + frmSelecionaRelatorioLocacoes.cdsLocacaoResumoVALOR_TOTAL.AsFloat;
+  vlrPago := vlrPago   + frmSelecionaRelatorioLocacoes.cdsLocacaoResumoVALOR_PAGO.AsFloat;
+  vlrDeve := vlrDeve   + frmSelecionaRelatorioLocacoes.cdsLocacaoResumoValor_Resta.AsFloat;
+
+  if (frmSelecionaRelatorioLocacoes.cdsLocacaoResumoSTATUS.AsInteger=0) then
+    qrLblStatus.Caption := 'Aberta'
+  else if (frmSelecionaRelatorioLocacoes.cdsLocacaoResumoSTATUS.AsInteger=1) then
+    qrLblStatus.Caption := 'Finalizada';
+end;
+
+procedure TqckRepRelatorioLocacaoResumo.QRBand4BeforePrint(
+  Sender: TQRCustomBand; var PrintBand: Boolean);
+begin
+  qrLblValorTotal.Caption := FormatFloat('#0.00',Self.vlrTotal);
+  qrLblValorPago.Caption := FormatFloat('#0.00',Self.vlrPago);
+  qrLblValorDeve.Caption := FormatFloat('#0.00',Self.vlrDeve);
+end;
+
+end.

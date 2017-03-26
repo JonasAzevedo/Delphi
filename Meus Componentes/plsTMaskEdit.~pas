@@ -1,0 +1,94 @@
+unit plsTMaskEdit;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Mask;
+
+type
+  TPlsMaskEdit = class(TMaskEdit)
+  private
+    colorRecebeFoco: TColor;
+    colorPerdeFoco: TColor;
+    procedure setColorRecebeFoco(cor: TColor);
+    procedure setColorPerdeFoco(cor: TColor);
+    function getColorRecebeFoco: TColor;
+    function getColorPerdeFoco: TColor;
+
+    procedure onCorEnter(Sender: TObject);
+    procedure onCorExit(Sender: TObject);
+  public
+    constructor Create(AOwner: Tcomponent);override;
+    destructor Destroy; override;
+  published
+    property plsCorRecebeFoco: TColor read getColorRecebeFoco write setColorRecebeFoco default clGreen;
+    property plsCorPerdeFoco: TColor read getColorPerdeFoco write setColorPerdeFoco default clWindow;
+  end;
+
+procedure Register;
+
+implementation
+
+{ TPlsMaskEdit }
+
+(* constructor *)
+constructor TPlsMaskEdit.Create(AOwner: Tcomponent);
+begin
+  inherited;
+
+  plsCorRecebeFoco := clGreen;
+  plsCorPerdeFoco := clWindow;
+
+  OnEnter := onCorEnter;
+  OnExit := onCorExit;
+end;
+
+(* destructor *)
+destructor TPlsMaskEdit.Destroy;
+begin
+  inherited;
+end;
+
+(* get's e set's *)
+function TPlsMaskEdit.getColorRecebeFoco: TColor;
+begin
+  Result := colorRecebeFoco;
+end;
+
+function TPlsMaskEdit.getColorPerdeFoco: TColor;
+begin
+  Result := colorPerdeFoco;
+end;
+
+procedure TPlsMaskEdit.setColorRecebeFoco(cor: TColor);
+begin
+  colorRecebeFoco := cor;
+end;
+
+procedure TPlsMaskEdit.setColorPerdeFoco(cor: TColor);
+begin
+  colorPerdeFoco := cor;
+end;
+
+(* métodos insere cor no botão *)
+procedure TPlsMaskEdit.onCorEnter(Sender: TObject);
+begin
+  if(Sender is TMaskEdit)then
+    TMaskEdit(Sender).Color := plsCorRecebeFoco;
+end;
+
+procedure TPlsMaskEdit.onCorExit(Sender: TObject);
+begin
+  if(Sender is TMaskEdit)then
+    TMaskEdit(Sender).Color := plsCorPerdeFoco;
+end;
+
+(* registra componente na palheta PULSE *)
+procedure Register;
+begin
+  RegisterComponents('Pulse', [TPlsMaskEdit]);
+end;
+
+end.
+ 

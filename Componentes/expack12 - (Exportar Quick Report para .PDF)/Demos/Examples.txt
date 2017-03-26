@@ -1,0 +1,29 @@
+-------
+SPANISH
+-------
+Example 1 -> Ejemplo de exportación de informes de QuickReport.
+             Se ve como se puede guardar un informe directamente
+             o bien desde una ventana de presentación preliminar.
+
+Example 2 -> Ejemplo de exportación de informes de FastReport.
+             Se ve como se puede guardar un informe directamente
+             o bien desde una ventana de presentación preliminar.
+
+Example 3 -> Exportación de QuickReport a todos los formatos gráficos directamente.
+
+Example 4 -> Exportación de FastReport a todos los formatos gráficos directamente.
+
+-------
+ENGLISH
+-------
+Example 1 -> Exporting QuickReport.
+             It show how export a report directly or from a
+             preview window.
+
+Example 2 -> Exporting FastReport.
+             It show how export a report directly or from a
+             preview window.
+
+Example 3 -> Exporting QuickReport to all graphics formats directly.
+
+Example 4 -> Exporting FastReport to all graphics formats directly.

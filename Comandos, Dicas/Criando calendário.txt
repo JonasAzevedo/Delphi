@@ -1,0 +1,67 @@
+Componente - Calendar
+---------------------------
+O que é?
+
+O componente Calendar é útil quando você desejar mostrar um calendário ao usuário e permitir
+que ele escolha uma data.
+Ele possui métodos para avançar ou retroceder o mês (NextMonth e PrevMonth, respectivamente)
+e o ano (NextYear e PrevYear).
+
+Principais propriedades
+
+*CalendarDate*
+A data representada pelo Calendar. Ela é do tipo TDateTime.
+
+*CellText*
+Uma matriz bidimensional com os textos das células. Esta propriedade é somente para leitura.
+
+*Day, Month e Year*
+Respectivamente, dia, mês e ano da data do calendário.
+
+*GridLineWidth*
+A espessura da linha da grade. Experimente definir GridLineWidth como 0 e Ctl3D como false
+para ver o efeito.
+
+*StartOfWeek*
+O primeiro dia da semana, que será apresentado na primeira coluna. Para começar na segunda-
+feira, use 1.
+
+*UseCurrentDate*
+Quando True, faz com que a data inicialmente exibida seja a data atual.
+
+Exemplo
+
+1. Em um novo projeto, coloque um componente Calendar no formulário e ajuste a propriedade
+StartOfWeek para 1.
+2. Coloque um componente ComboBox no formulário e ajuste a propriedade Style para 
+csDropDownList.
+Os itens serão criados no processador para OnCreate do formulário.
+3. Crie um processador para o evento OnChange do ComboBox e insira a linha:
+Calendar1.month := ComboBox1.ItemIndex +1;
+O mês apresentado pelo Calendar será o escolhido da lista. Como o mês comeca em 1 e o
+primeiro item do ComboBox tem índice 0, acrescentamos 1 ao índice do item escolhido. Deixe
+Sorted como False.
+4. Coloque um componente SpinEdit no formulário, crie um processador para o evento OnChange
+e insira a linha:
+Calendar1.Year := SpinEdit1.Value;
+5. Crie um processador para o evento OnCreate do formulário e troque o par begin/end pelas
+linhas:
+var
+ i : integer;
+begin
+for i := 1 to 12 do
+ ComboBox1.items.add(LongMonthNames[1]);
+ComboBox1.itemindex := Calendar1.month - 1;
+SpinEdit1.Value := Calendar1.Year;
+end;
+
+LongMonthNames é uma variável global que contém o nome dos meses, no formato longo 
+(ShortMonthNames contém os nomes no formato abreviado, jan, por exemplo).
+Usando as proppriedades Month e Year do Calendar, fazemos o ComboBox apresentar o nome do
+mês e o SpinEdit o ano corrente.
+Você ja pode executar o programa.
+Nota: Não salve o projeto com o nome Calendar, pois pode causar conflito com o nome da unit
+do componente Calendar. Isso vale também para outros componentes.
+---------------------------
+                                                          Artigo elaborado por Márcio Neves.
+                                                  E-mail para contato: gatobahia@hotmail.com

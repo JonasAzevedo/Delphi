@@ -1,0 +1,178 @@
+object Form1: TForm1
+  Left = -4
+  Top = -4
+  Width = 1288
+  Height = 808
+  Caption = 'Form1'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 1096
+    Top = 232
+    Width = 31
+    Height = 13
+    Caption = 'Nome:'
+    Visible = False
+  end
+  object lblCadastro: TLabel
+    Left = 904
+    Top = 176
+    Width = 3
+    Height = 13
+  end
+  object lblNome: TLabel
+    Left = 1147
+    Top = 592
+    Width = 41
+    Height = 13
+  end
+  object Label2: TLabel
+    Left = 1096
+    Top = 320
+    Width = 108
+    Height = 13
+    Caption = 'Qtde a ser cadastrado:'
+  end
+  object Label3: TLabel
+    Left = 1096
+    Top = 592
+    Width = 57
+    Height = 13
+    Caption = 'Nome atual:'
+  end
+  object Label4: TLabel
+    Left = 1096
+    Top = 32
+    Width = 36
+    Height = 13
+    Caption = 'E-mails:'
+  end
+  object Label5: TLabel
+    Left = 1096
+    Top = 120
+    Width = 50
+    Height = 13
+    Caption = 'Telefones:'
+  end
+  object Label6: TLabel
+    Left = 1096
+    Top = 624
+    Width = 27
+    Height = 13
+    Caption = 'Total:'
+  end
+  object lblTotal: TLabel
+    Left = 1128
+    Top = 624
+    Width = 3
+    Height = 13
+  end
+  object Button1: TButton
+    Left = 1096
+    Top = 672
+    Width = 169
+    Height = 49
+    Caption = 'PROCESSAR'
+    TabOrder = 6
+    OnClick = Button1Click
+  end
+  object edNome: TEdit
+    Left = 1096
+    Top = 248
+    Width = 121
+    Height = 21
+    TabOrder = 3
+    Text = 'edNome'
+    Visible = False
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Top = 755
+    Width = 1280
+    Height = 19
+    Panels = <
+      item
+        Width = 600
+      end
+      item
+        Width = 200
+      end
+      item
+        Width = 50
+      end>
+  end
+  object WebBrowser: TWebBrowser
+    Left = 0
+    Top = 0
+    Width = 1073
+    Height = 755
+    Align = alLeft
+    TabOrder = 0
+    OnStatusTextChange = WebBrowserStatusTextChange
+    OnProgressChange = WebBrowserProgressChange
+    OnDownloadBegin = WebBrowserDownloadBegin
+    OnDownloadComplete = WebBrowserDownloadComplete
+    ControlData = {
+      4C000000E66E0000084E00000000000000000000000000000000000000000000
+      000000004C000000000000000000000001000000E0D057007335CF11AE690800
+      2B2E126208000000000000004C0000000114020000000000C000000000000046
+      8000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000100000000000000000000000000000000000000}
+  end
+  object ProgressBar: TProgressBar
+    Left = 1096
+    Top = 648
+    Width = 169
+    Height = 17
+    TabOrder = 7
+  end
+  object mmPalavras: TMemo
+    Left = 1096
+    Top = 344
+    Width = 161
+    Height = 233
+    Lines.Strings = (
+      'Edson Rosseti'
+      'Gustavo de Andrade'
+      'Marcos Bazzo')
+    TabOrder = 5
+  end
+  object edQtde: TEdit
+    Left = 1208
+    Top = 312
+    Width = 49
+    Height = 21
+    TabOrder = 4
+    Text = '10'
+  end
+  object mmEmails: TMemo
+    Left = 1096
+    Top = 48
+    Width = 161
+    Height = 55
+    Lines.Strings = (
+      'eddiehunter000@msn.com'
+      'netodoivo@hotmail.com'
+      'bazzow@hotmail.com')
+    TabOrder = 1
+  end
+  object mmTelefones: TMemo
+    Left = 1096
+    Top = 136
+    Width = 161
+    Height = 73
+    Lines.Strings = (
+      '(49) 9966-2406'
+      '(49) 8837-1502'
+      '(49) 9935-0559 '
+      '(49) 9109-4509')
+    TabOrder = 2
+  end
+end

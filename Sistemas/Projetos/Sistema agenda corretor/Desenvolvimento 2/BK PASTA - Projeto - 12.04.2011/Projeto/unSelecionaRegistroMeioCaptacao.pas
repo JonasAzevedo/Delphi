@@ -1,0 +1,273 @@
+unit unSelecionaRegistroMeioCaptacao;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, unSelecionaRegistro, DBClient, Provider, DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, StdCtrls, Buttons, plsComboBox, plsEdit,
+  ExtCtrls, Grids, DBGrids;
+
+type
+  TfrmSelecionaRegistroMeioCaptacao = class(TfrmSelecionaRegistro)
+    zqrySelecionarRegistroCODIGO: TIntegerField;
+    zqrySelecionarRegistroNOME: TStringField;
+    zqrySelecionarRegistroCC_CODIGO: TStringField;
+    cdsSelecionarRegistroCODIGO: TIntegerField;
+    cdsSelecionarRegistroNOME: TStringField;
+    cdsSelecionarRegistroCC_CODIGO: TStringField;
+    procedure FormCreate(Sender: TObject);
+    procedure plsCbBxCampoPesquisarChange(Sender: TObject);
+    procedure cdsSelecionarRegistroAfterScroll(DataSet: TDataSet);
+    procedure plsEdValorPesquisarChange(Sender: TObject);
+  private
+    FiCodigo: integer;
+    FsNome: string;
+    FsCampoPesquisa: string;
+    FbSelecionarTodos: Boolean;
+    //pog - devido ao estar pesquisando por um registro inexistente, e abrir esta tela, a mensagem era apresentada duas vezes
+    FbMostraMensagemNaoEncontrouRegistro: Boolean;
+  public
+    procedure passarParametro(pTipo: String; pValores: OleVariant); override;
+    procedure selecionarTodosRegistros(); override;
+    procedure selecionouRegistro(); override;
+    procedure filtrarPesquisa(); override;
+    procedure configurarCaracteresAceitosPesquisa(); override;
+    procedure inserirNovoRegistro(); override;
+    procedure ConfigurarCampoPesquisa(); override;
+    //seleciona todos os registros do conjunto de dados da tela pai
+    procedure SelecionarTodosRegistrosConjuntoDadosTelaPai();
+  end;  
+
+var
+  frmSelecionaRegistroMeioCaptacao: TfrmSelecionaRegistroMeioCaptacao;
+
+implementation
+
+uses unCadAgenciamento, unConstantes, unCadMeioCaptacao, unCadCliente,
+  unCadPessoaJuridica, unCadPessoaFisica, unCadClientePessoaJuridica;
+
+{$R *.dfm}
+
+{ TfrmSelecionaRegistroMeioCaptacao }
+
+{***** Minhas Procedures - inicio *****}
+
+procedure TfrmSelecionaRegistroMeioCaptacao.passarParametro(pTipo: String; pValores: OleVariant);
+var
+  sCodMeioCaptacaoNovo: String;
+begin
+  inherited;
+
+  if(pTipo = PRM_INSERIU_REGISTRO_AO_ESTAR_SELECIONANDO)then
+  begin
+    Self.selecionarTodosRegistros();
+    SelecionarTodosRegistrosConjuntoDadosTelaPai();
+    if(MessageDlg('Selecionar o meio de captação que foi cadastrado?',mtConfirmation,[mbYes,mbNo],0)=mrYes)then
+    begin
+      sCodMeioCaptacaoNovo := pValores;
+      cdsSelecionarRegistro.Locate('CODIGO', sCodMeioCaptacaoNovo, []);
+      dbGrdDadosDblClick(Self);
+    end;
+  end
+
+  else if(pTipo = PRM_DEFINE_FILTRO_PADRAO_TELA_SELECAO)then
+  begin
+    plsCbBxCampoPesquisar.ItemIndex := 1;
+    FsCampoPesquisa := 'NOME';
+    ConfigurarCampoPesquisa();
+  end
+
+  else if(pTipo = PRM_ENVIA_FILTRO_PESQUISA)then
+  //pParametros[0]: campo do filtro
+  //pParametros[1]: valor do filtro
+  //pParametros[2]: FbSelecionarTodos - pode selecionar todos os registros
+  begin
+    plsEdValorPesquisar.Text := VarToStr(pValores[1]);
+    FbMostraMensagemNaoEncontrouRegistro := False;
+    if(pValores[0] = PRM_PESQUISA_NOME)then
+      filtrarPesquisa();
+    FbMostraMensagemNaoEncontrouRegistro := True;
+    FbSelecionarTodos := pValores[2];
+  end;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.filtrarPesquisa();
+begin
+  if((Self.FsCampoPesquisa = 'NOME')or(Self.FsCampoPesquisa = 'CC_CODIGO')) then
+  begin
+    cdsSelecionarRegistro.Filter := Self.FsCampoPesquisa + ' LIKE ' + QuotedStr('%' + plsEdValorPesquisar.Text + '%');
+    cdsSelecionarRegistro.Filtered := true;
+  end;
+
+  if(cdsSelecionarRegistro.RecordCount=0)then
+  begin
+    if(FbMostraMensagemNaoEncontrouRegistro)then
+      MessageDlg('Nenhum meio de captação encontrado.',mtInformation,[mbOK],0);
+    cdsSelecionarRegistro.Filter := STRING_INDEFINIDO;
+    cdsSelecionarRegistro.Filtered := true;
+    plsEdValorPesquisar.Clear;
+  end;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.selecionarTodosRegistros();
+begin
+  if(FbSelecionarTodos)then
+  begin
+    cdsSelecionarRegistro.Filter := '';
+    cdsSelecionarRegistro.Filtered := False;
+    cdsSelecionarRegistro.Close;
+
+    zQrySelecionarRegistro.Close;
+    zQrySelecionarRegistro.SQL.Clear;
+    zQrySelecionarRegistro.SQL.Add('SELECT codigo, nome, CAST(codigo AS VARCHAR(10)) AS cc_codigo ');
+    zQrySelecionarRegistro.SQL.Add('FROM meio_captacao ');
+    zQrySelecionarRegistro.SQL.Add(FoFuncoes.inserirCondicaoSelectNaoTrazerRegistroNulo());
+    zQrySelecionarRegistro.SQL.Add('ORDER BY nome');
+    zQrySelecionarRegistro.Open;
+    cdsSelecionarRegistro.Open;
+    cdsSelecionarRegistro.First;
+  end;
+
+  FbSelecionarTodos := True;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.selecionouRegistro();
+begin
+
+  if(cdsSelecionarRegistro.Active)then
+  begin
+    if(Self.FiTelaChamou = FORM_CAD_CLIENTE)then //TfrmCadCliente
+    begin
+      frmCadCliente.FoMeioCaptacao.codigo := FiCodigo;
+      frmCadCliente.FoMeioCaptacao.nome := FsNome;
+    end
+    else if(Self.FiTelaChamou = FORM_CAD_CLIENTE_PESSOA_JURIDICA)then //TfrmCadClientePessoaJuridica
+    begin
+      frmCadClientePessoaJuridica.FoMeioCaptacao.codigo := FiCodigo;
+      frmCadClientePessoaJuridica.FoMeioCaptacao.nome := FsNome;
+    end
+    else if(Self.FiTelaChamou = FORM_CAD_PESSOA_JURIDICA)then //TfrmCadPessoaJuridica
+    begin
+      frmCadPessoaJuridica.FoMeioCaptacao.codigo := FiCodigo;
+      frmCadPessoaJuridica.FoMeioCaptacao.nome := FsNome;
+    end
+    else if(Self.FiTelaChamou = FORM_CAD_PESSOA_FISICA)then //TfrmCadPessoaFisica
+    begin
+      frmCadPessoaFisica.FoMeioCaptacao.codigo := FiCodigo;
+      frmCadPessoaFisica.FoMeioCaptacao.nome := FsNome;
+    end;
+  end;
+
+  inherited;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.configurarCaracteresAceitosPesquisa();
+begin
+  if(Self.FsCampoPesquisa = 'NOME')then
+    plsEdValorPesquisar.plsCaracteresAceitos := todos
+  else if(Self.FsCampoPesquisa = 'CC_CODIGO') then
+    plsEdValorPesquisar.plsCaracteresAceitos := numeros;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.inserirNovoRegistro();
+begin
+  try
+    Application.CreateForm(TfrmCadMeioCaptacao,frmCadMeioCaptacao);
+    frmCadMeioCaptacao.iniciarTela(frmCadMeioCaptacao);
+    frmCadMeioCaptacao.passarParametro(PRM_INSERE_REGISTRO_AO_ESTAR_SELECIONANDO, FORM_SELECIONA_REGISTRO_MEIO_CAPTACAO);
+    frmCadMeioCaptacao.ShowModal;
+  finally
+    FreeAndNil(frmCadMeioCaptacao);
+  end;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.ConfigurarCampoPesquisa();
+begin
+  plsEdValorPesquisar.Clear;
+  FoFuncoes.focarComponente(plsEdValorPesquisar);
+
+  if(plsCbBxCampoPesquisar.ItemIndex = 0)then //código
+    plsEdValorPesquisar.plsCaracteresAceitos := numeros
+  else if(plsCbBxCampoPesquisar.ItemIndex = 1)then //nome
+    plsEdValorPesquisar.plsCaracteresAceitos := todos;
+end;
+
+//seleciona todos os registros do conjunto de dados da tela pai
+procedure TfrmSelecionaRegistroMeioCaptacao.SelecionarTodosRegistrosConjuntoDadosTelaPai();
+var
+  vParametros: Variant;
+begin
+  vParametros := VarArrayCreate([0,0],varVariant);
+  vParametros[0] := CONJUNTO_DADOS_MEIO_CAPTACAO;
+
+  if(Self.FiTelaChamou = FORM_CAD_CLIENTE)then //TfrmCadCliente
+    frmCadCliente.passarParametro(PRM_SELECIONAR_TODOS_REGISTROS_CONJUNTO_DADOS, vParametros)
+
+  else if(Self.FiTelaChamou = FORM_CAD_CLIENTE_PESSOA_JURIDICA)then //TfrmCadClientePessoaJuridica
+    frmCadClientePessoaJuridica.passarParametro(PRM_SELECIONAR_TODOS_REGISTROS_CONJUNTO_DADOS, vParametros)
+
+  else if(Self.FiTelaChamou = FORM_CAD_PESSOA_FISICA)then //TfrmCadPessoaFisica
+    frmCadPessoaFisica.passarParametro(PRM_SELECIONAR_TODOS_REGISTROS_CONJUNTO_DADOS, vParametros)
+
+  else if(Self.FiTelaChamou = FORM_CAD_PESSOA_JURIDICA)then //TfrmCadPessoaJuridica
+    frmCadPessoaJuridica.passarParametro(PRM_SELECIONAR_TODOS_REGISTROS_CONJUNTO_DADOS, vParametros);
+end;
+
+{***** Minhas Procedures - fim *****}
+
+procedure TfrmSelecionaRegistroMeioCaptacao.FormCreate(Sender: TObject);
+begin
+  inherited;
+  Self.FiCodigo := NUMERO_INDEFINIDO;
+  Self.FsNome := STRING_INDEFINIDO;
+  FbSelecionarTodos := True;
+  FbMostraMensagemNaoEncontrouRegistro := True;
+  selecionarTodosRegistros();
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.plsCbBxCampoPesquisarChange(
+  Sender: TObject);
+begin
+  inherited;
+  Self.FsCampoPesquisa := STRING_INDEFINIDO; //default
+  case plsCbBxCampoPesquisar.ItemIndex of
+    0: Self.FsCampoPesquisa := 'CC_CODIGO';
+    1: Self.FsCampoPesquisa := 'NOME';
+  end;
+
+  ConfigurarCampoPesquisa();
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.cdsSelecionarRegistroAfterScroll(
+  DataSet: TDataSet);
+begin
+  inherited;
+  Self.FiCodigo := cdsSelecionarRegistroCODIGO.AsInteger;
+  Self.FsNome := cdsSelecionarRegistroNOME.AsString;
+end;
+
+procedure TfrmSelecionaRegistroMeioCaptacao.plsEdValorPesquisarChange(
+  Sender: TObject);
+begin
+  inherited;
+  if ((Self.FsCampoPesquisa = 'CC_CODIGO')or(Self.FsCampoPesquisa = 'NOME'))then
+  begin
+    cdsSelecionarRegistro.Filter := Self.FsCampoPesquisa + ' LIKE ' + QuotedStr('%' + plsEdValorPesquisar.Text + '%');
+    cdsSelecionarRegistro.Filtered := True;
+    if(cdsSelecionarRegistro.RecordCount=0)then
+    begin
+      MessageDlg('Nenhum meio de captação encontrado.',mtInformation,[mbOK],0);
+      selecionarTodosRegistros();
+      FoFuncoes.focarComponente(plsEdValorPesquisar);
+    end;
+  end
+  else
+  //retira os filtro
+  begin
+    cdsSelecionarRegistro.Filter := STRING_INDEFINIDO;
+    cdsSelecionarRegistro.Filtered := False;
+  end;
+end;
+
+end.

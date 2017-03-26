@@ -1,0 +1,153 @@
+unit unPesquisandoBairro;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, unPesquisandoRegistro, DB, DBClient, StdCtrls, plsEdit,
+  ExtCtrls, Grids, DBGrids, ZAbstractRODataset, ZAbstractDataset, ZDataset;
+
+type
+  TfrmPesquisandoBairro = class(TfrmPesquisandoRegistro)
+    cdsPesquisandoCODIGO: TStringField;
+    cdsPesquisandoNOME: TStringField;
+    cdsPesquisandoCC_CODIGO: TStringField;
+    cdsPesquisandoNOME_CIDADE: TStringField;
+    zQryCidade: TZQuery;
+    zQryCidadeCODIGO: TIntegerField;
+    zQryCidadeDATA_CADASTRO: TDateTimeField;
+    zQryCidadeCOD_FK_ESTADO: TIntegerField;
+    zQryCidadeNOME: TStringField;
+  private
+    function GetNomeCidade(pnCodCidade:Integer): String;
+  protected
+    procedure selecionarTodosRegistros();
+    procedure popularClientDataSetPesquisa(poDados: TClientDataSet); override;
+    procedure OrdenarGrideRegistrosInciarTela; override;
+    procedure filtrarPesquisa(); override;
+    procedure selecionouRegistro(); override;
+    procedure configurarCaracteresAceitosPesquisa(); override;
+    procedure FormatarValores(); override;
+  public
+    procedure passarParametro(pTipo:String; pValores:OleVariant); override;
+  end;
+
+var
+  frmPesquisandoBairro: TfrmPesquisandoBairro;
+
+implementation
+
+uses unCadBairro, unConstantes;
+
+{$R *.dfm}
+
+{ TfrmPesquisandoBairro }
+
+(* procedimentos de controle *)
+
+procedure TfrmPesquisandoBairro.passarParametro(pTipo:String; pValores:OleVariant);
+begin
+  inherited;
+  
+  if(pTipo = PRM_SELECIONAR_TODOS_REGISTROS)then
+    Self.selecionarTodosRegistros();
+end;
+
+procedure TfrmPesquisandoBairro.selecionarTodosRegistros();
+begin
+end;
+
+procedure TfrmPesquisandoBairro.popularClientDataSetPesquisa(poDados: TClientDataSet);
+begin
+  cdsPesquisando.EmptyDataSet;
+  poDados.First;
+  while(not(poDados.Eof))do
+  begin
+    cdsPesquisando.Insert;
+    cdsPesquisando.FieldByName('CODIGO').AsString := poDados.FieldByName('CODIGO').AsString;
+    cdsPesquisando.FieldByName('NOME').AsString := poDados.FieldByName('NOME').AsString;
+    cdsPesquisando.FieldByName('CC_CODIGO').AsString := poDados.FieldByName('CODIGO').AsString;
+    cdsPesquisando.FieldByName('NOME_CIDADE').AsString := GetNomeCidade(poDados.FieldByName('COD_FK_CIDADE').AsInteger);
+    cdsPesquisando.Post;                                               
+    poDados.Next;
+  end;
+  cdsPesquisando.Active := True;
+end;
+
+function GetNomeCidade(pnCodCidade:Integer): String;
+
+procedure TfrmPesquisandoBairro.OrdenarGrideRegistrosInciarTela;
+var
+  sIndexName: String;
+  options: TIndexOptions;
+
+  procedure AdicionarIndice(psCampo:String);
+  begin
+    if (cdsPesquisando.IndexDefs.IndexOf(sIndexName)< 0) then
+      cdsPesquisando.AddIndex(sIndexName, psCampo, options);
+    cdsPesquisando.IndexName := sIndexName;
+  end;
+
+begin
+    if(Self.FsCampoPesquisa = 'CC_CODIGO')then
+    begin
+      sIndexName := 'CODIGO_ASC';
+      options := [];
+      AdicionarIndice('CODIGO');
+    end
+
+    else if(Self.FsCampoPesquisa = 'NOME')then
+    begin
+      sIndexName := 'NOME_ASC';
+      options := [];
+      AdicionarIndice('NOME');
+    end;
+end;
+
+procedure TfrmPesquisandoBairro.filtrarPesquisa();
+begin
+  if(Self.FsCampoPesquisa = 'NOME')or(Self.FsCampoPesquisa = 'CC_CODIGO') then
+  begin
+    cdsPesquisando.Filter := Self.FsCampoPesquisa + ' LIKE ' + QuotedStr('%' + plsEdValorPesquisa.Text + '%');
+    cdsPesquisando.Filtered := true;
+  end;
+
+  Self.FnTotalRegistrosFiltrandoPesquisa := cdsPesquisando.RecordCount;   
+  if(cdsPesquisando.RecordCount=0)then
+  begin
+    MessageDlg('Nenhum registro encontrado.',mtInformation,[mbOK],0);
+    cdsPesquisando.Filter := STRING_INDEFINIDO;
+    cdsPesquisando.Filtered := true;
+    plsEdValorPesquisa.Clear;
+  end;
+end;
+
+procedure TfrmPesquisandoBairro.selecionouRegistro();
+begin
+  if(cdsPesquisando.Active)then
+  begin
+    if(Self.FoNomeFormChamou is TfrmCadBairro)then
+    begin
+      (Self.FoNomeFormChamou as TfrmCadBairro).passarParametro(PRM_PESQUISOU,null);
+      (Self.FoNomeFormChamou as TfrmCadBairro).realizouPesquisa(cdsPesquisandoCODIGO.AsInteger);
+    end;
+    Self.Hide;
+  end;
+end;
+
+procedure TfrmPesquisandoBairro.configurarCaracteresAceitosPesquisa();
+begin
+  if(Self.FsCampoPesquisa = 'NOME')then
+    plsEdValorPesquisa.plsCaracteresAceitos := todos
+  else if(Self.FsCampoPesquisa = 'CC_CODIGO') then
+    plsEdValorPesquisa.plsCaracteresAceitos := numeros;
+end;
+
+procedure TfrmPesquisandoBairro.FormatarValores();
+begin
+
+end;
+
+(* fim - procedimentos de controle *)
+
+end.

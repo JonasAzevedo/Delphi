@@ -1,0 +1,1 @@
+Neste diretório são colocados os arquivos binários (exe,dll,dcp,bpl)

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/04/10 09:22:37.434.dproj,D:\My Documents\RAD Studio\Projects\Package1.dproj=D:\myfile\myskin\demo2\D2007\WinSkinD2007.dproj</Transaction>
+    <Transaction>2007/12/28 16:06:41.154.dcr,D:\myfile\myskin\source2.1\WinSkinReg.dcr=</Transaction>
+    <Transaction>2008/08/07 18:34:16.017.dcr,D:\MyFile\myskin\source2.1\WinSkinReg.dcr=</Transaction>
+    <Transaction>2008/10/30 20:37:28.406.dcr,D:\MyFile\myskin\source2.1\WinSkinReg.dcr=</Transaction>
+  </Transactions>
+</BorlandProject>

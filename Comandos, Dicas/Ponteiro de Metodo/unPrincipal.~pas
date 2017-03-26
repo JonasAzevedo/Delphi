@@ -1,0 +1,37 @@
+unit unPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TipoPonteiroMetodo = procedure(psMsg: String)  of object;  
+
+type
+  TfrmPrincipal = class(TForm)
+    edMensagem: TEdit;
+    Button1: TButton;
+  private
+    oPonteiroMetodo: TipoPonteiroMetodo;
+  public
+    procedure MetodoMensagem(psMensagem: String);
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+{ TForm1 }
+
+procedure TfrmPrincipal.MetodoMensagem(psMensagem: String);
+begin
+  ShowMessage(psMensagem);
+end;
+
+end.
+ 

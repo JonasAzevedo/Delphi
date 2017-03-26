@@ -1,0 +1,1 @@
+Neste diretório são colocados os arquivos de recurso (.res, .rc)

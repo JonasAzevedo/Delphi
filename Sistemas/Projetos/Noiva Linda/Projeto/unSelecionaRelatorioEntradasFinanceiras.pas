@@ -1,0 +1,163 @@
+unit unSelecionaRelatorioEntradasFinanceiras;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, StdCtrls, DBClient, Provider, DB, SqlExpr, AppEvnts,
+  Buttons, ComCtrls, Mask, SqlTimSt, ExtCtrls;
+
+type
+  TfrmSelecionaRelatorioEntradasFinanceiras = class(TForm)
+    lblData: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    mEdDataEntrada1: TMaskEdit;
+    mEdDataEntrada2: TMaskEdit;
+    StatusBar: TStatusBar;
+    btBtnGerar: TBitBtn;
+    btBtnNova: TBitBtn;
+    ApplicationEvents: TApplicationEvents;
+    qryRelatorioEntradaFinanceira: TSQLQuery;
+    dspRelatorioEntradaFinanceira: TDataSetProvider;
+    cdsRelatorioEntradaFinanceira: TClientDataSet;
+    ckBxLocacoes: TCheckBox;
+    ckBxVendas: TCheckBox;
+    qryRelatorioEntradaFinanceiraCODIGO: TIntegerField;
+    qryRelatorioEntradaFinanceiraCOD_LOCACAO: TIntegerField;
+    qryRelatorioEntradaFinanceiraCOD_VENDA: TIntegerField;
+    qryRelatorioEntradaFinanceiraCOD_CLIENTE: TIntegerField;
+    qryRelatorioEntradaFinanceiraTIPO: TStringField;
+    qryRelatorioEntradaFinanceiraVALOR: TFMTBCDField;
+    qryRelatorioEntradaFinanceiraDATA: TSQLTimeStampField;
+    qryRelatorioEntradaFinanceiraNOME: TStringField;
+    cdsRelatorioEntradaFinanceiraCODIGO: TIntegerField;
+    cdsRelatorioEntradaFinanceiraCOD_LOCACAO: TIntegerField;
+    cdsRelatorioEntradaFinanceiraCOD_VENDA: TIntegerField;
+    cdsRelatorioEntradaFinanceiraCOD_CLIENTE: TIntegerField;
+    cdsRelatorioEntradaFinanceiraTIPO: TStringField;
+    cdsRelatorioEntradaFinanceiraVALOR: TFMTBCDField;
+    cdsRelatorioEntradaFinanceiraDATA: TSQLTimeStampField;
+    cdsRelatorioEntradaFinanceiraNOME: TStringField;
+    procedure btBtnGerarClick(Sender: TObject);
+    procedure btBtnNovaClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    (*PROCEDURES DE CONTROLE*)
+    procedure limpar();//limpar componentes
+
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSelecionaRelatorioEntradasFinanceiras: TfrmSelecionaRelatorioEntradasFinanceiras;
+
+implementation
+
+uses unDM, unRelatorioEntradaFinanceira, unResumoRelatorio;
+
+{$R *.dfm}
+
+(*PROCEDURES DE CONTROLE*)
+procedure TfrmSelecionaRelatorioEntradasFinanceiras.limpar();
+begin
+  ckBxLocacoes.Checked := false;
+  ckBxVendas.Checked := false;
+  mEdDataEntrada1.Clear;
+  mEdDataEntrada2.Clear;
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+procedure TfrmSelecionaRelatorioEntradasFinanceiras.btBtnGerarClick(
+  Sender: TObject);
+var
+  pesquisarPor: String;
+  valorTotal: Real;
+begin
+  if((ckBxLocacoes.Checked=false)and(ckBxVendas.Checked=false))then
+    MessageDlg('Selecione um Tipo de Entrada Financeira!',mtInformation,[mbOk],0)
+  else
+    begin
+    qryRelatorioEntradaFinanceira.Close;
+    qryRelatorioEntradaFinanceira.SQL.Clear;
+    qryRelatorioEntradaFinanceira.SQL.Add('SELECT e.*,c.nome ');
+    qryRelatorioEntradaFinanceira.SQL.Add('FROM entrada_financeira e, cliente c ');
+    qryRelatorioEntradaFinanceira.SQL.Add('WHERE e.cod_cliente=c.codigo ');
+    //locações
+    if(ckBxLocacoes.Checked=false)then
+      qryRelatorioEntradaFinanceira.SQL.Add('AND e.cod_locacao IS NULL ');
+    //vendas
+    if(ckBxVendas.Checked=false)then
+      qryRelatorioEntradaFinanceira.SQL.Add('AND e.cod_venda IS NULL ');
+    //data de entrada
+    if((mEdDataEntrada1.Text <> '  /  /       :  ')and(mEdDataEntrada2.Text <> '  /  /       :  '))then
+      begin
+      qryRelatorioEntradaFinanceira.SQL.Add('AND CAST (e.data AS DATE) BETWEEN :dtEnt1 AND :dtEnt2 ');
+      qryRelatorioEntradaFinanceira.ParamByName('dtEnt1').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataEntrada1.Text);
+      qryRelatorioEntradaFinanceira.ParamByName('dtEnt2').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataEntrada2.Text);
+      end;
+    qryRelatorioEntradaFinanceira.SQL.Add('ORDER BY e.data,e.tipo');
+    qryRelatorioEntradaFinanceira.Prepared := true;
+    qryRelatorioEntradaFinanceira.Open;
+    cdsRelatorioEntradaFinanceira.Open;
+    cdsRelatorioEntradaFinanceira.Refresh;
+
+    if(cdsRelatorioEntradaFinanceira.RecordCount<>0) then
+      begin
+      //resumo
+      Application.CreateForm(TfrmResumoRelatorio,frmResumoRelatorio);
+      frmResumoRelatorio.Caption := 'NOIVA LINDA --> Entradas Financeiras'; //título form
+      if (ckBxLocacoes.Checked=true) then //pesquisa por
+        pesquisarPor := 'Locações';
+      if (ckBxVendas.Checked=true) then
+        begin
+        if(pesquisarPor = '') then
+          pesquisarPor := 'Vendas'
+        else
+          pesquisarPor := pesquisarPor + ', Vendas';
+        end;
+      frmResumoRelatorio.lblPesquisaPor.Caption := pesquisarPor;
+      if ((mEdDataEntrada1.Text<>'  /  /       :  ')and(mEdDataEntrada2.Text<>'  /  /       :  '))then //período
+        frmResumoRelatorio.lblPeriodo.Caption := mEdDataEntrada1.Text + ' - ' + mEdDataEntrada2.Text
+      else
+        frmResumoRelatorio.lblPeriodo.Caption := 'Todos';
+
+      valorTotal := 0; //Valor Total
+      cdsRelatorioEntradaFinanceira.First;
+      while (not(cdsRelatorioEntradaFinanceira.Eof)) do
+        begin
+        valorTotal := valorTotal + cdsRelatorioEntradaFinanceiraVALOR.AsFloat;
+        cdsRelatorioEntradaFinanceira.Next;
+        end;
+      frmResumoRelatorio.lblValorTotal.Caption := FormatFloat('#0.00',valorTotal);
+      frmResumoRelatorio.lblTotalRegistros.Caption := IntToStr(cdsRelatorioEntradaFinanceira.RecordCount);
+
+      frmResumoRelatorio.ShowModal;
+      frmResumoRelatorio.Free;
+      end
+    else
+      begin
+      MessageDlg('Nenhuma Entrada Financeira encontrada!',mtInformation,[mbOK],0);
+      btBtnNova.SetFocus;
+      end;
+    end;
+end;
+
+procedure TfrmSelecionaRelatorioEntradasFinanceiras.btBtnNovaClick(
+  Sender: TObject);
+begin
+  limpar();
+end;
+
+procedure TfrmSelecionaRelatorioEntradasFinanceiras.FormKeyDown(
+  Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if (Key=27) then
+    Self.Close;
+end;
+
+end.
+

@@ -1,0 +1,59 @@
+unit unRelatorio;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, RLReport, jpeg, unFuncoes;
+
+type
+  TfrmRelatorio = class(TForm)
+    rlRelatorio: TRLReport;
+    bndCabecalho: TRLBand;
+    RLLabel1: TRLLabel;
+    RLLabel8: TRLLabel;
+    RLImage1: TRLImage;
+    RLLabel9: TRLLabel;
+    RLLabel10: TRLLabel;
+    RLDraw1: TRLDraw;
+    RLDraw2: TRLDraw;
+    RLLabel11: TRLLabel;
+    RLLabel12: TRLLabel;
+    RLLabel13: TRLLabel;
+    RLLabel14: TRLLabel;
+    RLLabel15: TRLLabel;
+    RLLabel16: TRLLabel;
+    RLLabel17: TRLLabel;
+    RLDraw3: TRLDraw;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
+  protected
+    FoFuncoes: TFuncoes;
+  public
+    procedure PassaParametro(const psParametro: string; const pvValor: OleVariant); dynamic;
+  end;
+
+
+implementation
+
+{$R *.dfm}
+
+{ TfrmRelatorio }
+
+procedure TfrmRelatorio.PassaParametro(const psParametro: string; const pvValor: OleVariant);
+begin
+  inherited;
+end;
+
+procedure TfrmRelatorio.FormCreate(Sender: TObject);
+begin
+  FoFuncoes := TFuncoes.Create;
+end;
+
+procedure TfrmRelatorio.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FoFuncoes);
+end;
+
+end.

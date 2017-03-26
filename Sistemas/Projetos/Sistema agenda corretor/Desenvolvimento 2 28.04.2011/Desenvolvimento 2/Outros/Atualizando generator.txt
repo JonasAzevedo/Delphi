@@ -1,0 +1,17 @@
+SET GENERATOR gen_agenciamentos TO 0;
+SET GENERATOR gen_agenda TO 0;
+SET GENERATOR gen_bairro TO 0;
+SET GENERATOR gen_cidade TO 0;
+SET GENERATOR gen_cliente TO 0;
+SET GENERATOR gen_construtora TO 0;
+SET GENERATOR gen_imovel TO 0;
+SET GENERATOR gen_imovel_de_interesse TO 0;
+SET GENERATOR gen_log TO 0;
+SET GENERATOR gen_meio_captacao TO 0;
+SET GENERATOR gen_pessoa_fisica TO 0;
+SET GENERATOR gen_pessoa_juridica TO 0;
+SET GENERATOR gen_profissao TO 0;
+SET GENERATOR gen_rua TO 0;
+SET GENERATOR gen_sistema_diversos TO 0;
+SET GENERATOR gen_tipo_imovel TO 0;
+SET GENERATOR gen_vendas TO 0;

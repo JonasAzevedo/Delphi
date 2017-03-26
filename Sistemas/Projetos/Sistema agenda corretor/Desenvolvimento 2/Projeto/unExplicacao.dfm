@@ -1,0 +1,63 @@
+object frmExplicacao: TfrmExplicacao
+  Left = 494
+  Top = 161
+  BorderStyle = bsDialog
+  Caption = 'frmExplicacao'
+  ClientHeight = 204
+  ClientWidth = 454
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnKeyPress = FormKeyPress
+  PixelsPerInch = 96
+  TextHeight = 13
+  object grpBxPesoCaracAgenciamento: TGroupBox
+    Left = 6
+    Top = 8
+    Width = 441
+    Height = 153
+    Caption = 'Peso para cada Caracter'#237'stica do Agenciamento encontrado '
+    TabOrder = 0
+    object plsMemoPesoCaracAgenciamento: TPlsMemo
+      Left = 2
+      Top = 15
+      Width = 437
+      Height = 136
+      Align = alClient
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      Lines.Strings = (
+        '-> Tipo do Im'#243'vel = peso 1'
+        '-> Situa'#231#227'o = peso 1'
+        '-> Condi'#231#227'o de Pagamento = peso 1'
+        '-> Valor = peso 2 (margem de 25%)'
+        
+          '-> Caracter'#237'stica do Im'#243'vel = peso 1 (para cada caracter'#237'stica i' +
+          'gual)'
+        '-> Regi'#227'o Localidade = peso 2')
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+      plsCorRecebeFoco = clSilver
+    end
+  end
+  object BitBtn1: TBitBtn
+    Left = 368
+    Top = 168
+    Width = 75
+    Height = 25
+    Caption = '&Fechar'
+    TabOrder = 1
+    OnClick = BitBtn1Click
+    Kind = bkClose
+  end
+end

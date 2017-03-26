@@ -1,0 +1,678 @@
+(* busca agenciamentos que atendam o imóvel de interesse *)
+unit unBuscarAgenciamentosParaImovelInteresse;
+
+interface
+
+uses
+  ZConnection, ZDataset, Provider, DBClient, unConstantes;
+
+  type TAgenciamentosParaImovelInteresse = class
+
+    private
+      FnCdImovelInteresse: Integer; //código do imóvel de interesse
+      FzQueryImovelInteresse: TZQuery; //query do imóvel de interesse
+      FzQueryImovInteresseRegiaoLocal: TZQuery; //query das regiões localidade do imóvel de interesse
+      FzQueryAgenciamento: TZQuery; //query para encontrar agenciamentos que satisfazam o imóvel de interesse
+      FcdsDados: TClientDataSet; //clientDataSet com os dados dos agenciamentos que stisfazam o imóvel de interesse
+
+      procedure SetCdImovelInteresse(pnCdImovInteresse: Integer);
+      function GetCdImovelInteresse: Integer;
+
+      procedure GetDadosImovelInteresse; //pega o imóvel de interesse
+      procedure GetDadosImovInteresseRegiaoLocal; //pega as regiões localidades do imóvel de interesse
+      function GetBairrosRegiaoLocalImovInteresse: String; //pega o(s) código(s) do(s) bairro(s) da(s) regiões de localidade de interesse
+      procedure CriarDataSetDadosAgenciamentosSatisfazem; //cria o dataSet com os agenciamentos que satisfazem o imóvel de interesse - (retorno)
+      procedure AdicionarAgenciamentoEncontrado(psCampoCodigo:String;psCampoIgual:String;psCampoValor:string; const psValorAdicionar:String = STRING_INDEFINIDO); //adiciona ao FcdsDados os agenciamentos encontrados
+      procedure ChamarFuncoesBuscarAgenciamentos; //chama as funções que irá buscar os agenciamentos
+      procedure AddCondicaoAgenciamentosAtivos(const psAliasAgenciamento:string = 'a'; const psAliasImovel:string = 'i'); //adiciona condições para o SQL retornar apenas agenciamentos ativos
+      procedure AgenciamentosTipoImovel; //busca pelos agenciamentos com o tipo de imóvel igual ao do imóvel de interesse
+      procedure AgenciamentosSituacao; //busca pelos agenciamentos com a situação igual ao do imóvel de interesse
+      procedure AgenciamentosValor; //busca pelos agenciamentos com valor igual ou aproximado ao do imóvel de interesse
+      procedure AgenciamentosCondicaoPagamento; //busca pelos agenciamentos com condição de pagamento igual ao do imóvel de interesse
+      procedure AgenciamentosCaracteristicasImovel; //busca pelos agenciamentos com características do imóvel igual ou parecidas ao do imóvel de interesse
+      procedure AgenciamentosLocalidade; //busca pelos agenciamentos com regiões localidades que atendam ao imóvel de interesse
+      procedure OrganizarAgenciamentosPeso; //dá peso e ordena os agenciamentos
+    public
+      constructor CriaObjeto(pnCdImovInteresse: Integer);
+      function GetTotalAgenciamentos: Integer;
+      function GetDataSet: OleVariant;
+  end;
+
+implementation
+
+uses
+  unDM, Classes,
+  SysUtils, //IntToStr
+  DB; //ftInteger..
+
+const
+  sTIPO_IMOVEL = 'tipo do imóvel';
+  sSITUACAO_DESEJAVEL = 'situação desejável';
+  sVALOR_IMOVEL = 'valor do imóvel';
+  sCONDICAO_PAGAMENTO = 'condição de pagamento';
+  sCARACTERISTICA = 'característica';
+  sREGIAO_LOCALIDADE = 'região localidade';
+  dPORCENTAGEM_DIFERENCA_SELECIONAR_VALOR_IMOVEL = '25';
+
+  //peso se um campo do agenciamento for igual ao do imóvel de interesse
+  nPESO_TIPO_IMOVEL = 1;
+  nPESO_SITUACAO = 1;
+  nPESO_CONDICAO_PAGAMENTO = 1;
+  nPESO_VALOR = 2;
+  nPESO_CARACTERISTICA_IMOVEL = 1; //por característica
+  nPESO_REGIAO_LOCALIDADE = 2;
+
+(* TAgenciamentosParaImovelInteresse *)
+
+constructor TAgenciamentosParaImovelInteresse.CriaObjeto(pnCdImovInteresse: Integer);
+begin
+  //iniciando variáveis
+  SetCdImovelInteresse(pnCdImovInteresse);
+
+  FzQueryImovelInteresse := TZQuery.Create(nil);
+  FzQueryImovInteresseRegiaoLocal := TZQuery.Create(nil);
+  FzQueryAgenciamento := TZQuery.Create(nil);
+  FcdsDados := TClientDataSet.Create(nil);
+
+  FzQueryImovelInteresse.Connection := DM.ZConnection;
+  FzQueryImovInteresseRegiaoLocal.Connection := DM.ZConnection;
+  FzQueryAgenciamento.Connection := DM.ZConnection;
+
+  GetDadosImovelInteresse;
+  if(FzQueryImovelInteresse.RecordCount = 1)then
+  begin
+    GetDadosImovInteresseRegiaoLocal;
+    ChamarFuncoesBuscarAgenciamentos;
+  end;
+end;
+
+function TAgenciamentosParaImovelInteresse.GetTotalAgenciamentos: Integer;
+begin
+  Result := FcdsDados.RecordCount;
+end;
+
+function TAgenciamentosParaImovelInteresse.GetDataSet: OleVariant;
+begin
+  Result := FcdsDados.Data;
+end;
+
+procedure TAgenciamentosParaImovelInteresse.SetCdImovelInteresse(pnCdImovInteresse: Integer);
+begin
+  try
+    FnCdImovelInteresse := pnCdImovInteresse;
+  except
+    FnCdImovelInteresse := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TAgenciamentosParaImovelInteresse.GetCdImovelInteresse(): Integer;
+begin
+  Result := FnCdImovelInteresse;
+end;
+
+procedure TAgenciamentosParaImovelInteresse.GetDadosImovelInteresse;
+begin
+  FzQueryImovelInteresse.Close;
+  FzQueryImovelInteresse.SQL.Clear;
+  FzQueryImovelInteresse.SQL.Add('SELECT * FROM imovel_de_interesse i ');
+  FzQueryImovelInteresse.SQL.Add('WHERE i.codigo=:codigo');
+  FzQueryImovelInteresse.ParamByName('codigo').AsInteger := GetCdImovelInteresse;
+  FzQueryImovelInteresse.Open;
+end;
+
+procedure TAgenciamentosParaImovelInteresse.GetDadosImovInteresseRegiaoLocal;
+begin
+  FzQueryImovInteresseRegiaoLocal.Close;
+  FzQueryImovInteresseRegiaoLocal.SQL.Clear;
+  FzQueryImovInteresseRegiaoLocal.SQL.Add('SELECT * FROM imov_interesse_regiao_local i ');
+  FzQueryImovInteresseRegiaoLocal.SQL.Add('WHERE i.cod_fk_imovel_de_interesse=:cod_fk_imovel_de_interesse');
+  FzQueryImovInteresseRegiaoLocal.ParamByName('cod_fk_imovel_de_interesse').AsInteger := GetCdImovelInteresse;
+  FzQueryImovInteresseRegiaoLocal.Open;
+end;
+
+function TAgenciamentosParaImovelInteresse.GetBairrosRegiaoLocalImovInteresse: String;
+var
+  sRegioesLocal: String;
+  zQuery: TZQuery;
+  sSql: String;
+  sRetorno: String;
+begin
+  sRetorno := STRING_INDEFINIDO;
+  zQuery := TZQuery.Create(nil);
+  zQuery.Connection := DM.ZConnection;
+
+  //pegando o(s) código(s) da região localidade do imóvel de interesse
+  sRegioesLocal := STRING_INDEFINIDO;
+  if(FzQueryImovInteresseRegiaoLocal.Active)and(FzQueryImovInteresseRegiaoLocal.RecordCount > NUMERO_INDEFINIDO)then
+  begin
+    FzQueryImovInteresseRegiaoLocal.First;
+    while not(FzQueryImovInteresseRegiaoLocal.Eof)do
+    begin
+      if(sRegioesLocal <> STRING_INDEFINIDO)then
+        sRegioesLocal := sRegioesLocal + ',';
+      sRegioesLocal := sRegioesLocal + FzQueryImovInteresseRegiaoLocal.FieldByName('cod_fk_regiao_localidade').AsString;
+      FzQueryImovInteresseRegiaoLocal.Next;
+    end;
+
+    //pegando o(s) código(s) do bairro da região de localidade
+    sSql := 'SELECT * FROM regiao_localidade_bairro WHERE cod_fk_regiao_localidade IN(' +sRegioesLocal+ ')';
+    zQuery.Close;
+    zQuery.SQL.Clear;
+    zQuery.SQL.Add(sSql);
+    zQuery.Open;
+
+    if(zQuery.Active)and(zQuery.RecordCount > NUMERO_INDEFINIDO)then
+    begin
+      zQuery.First;
+      while not(zQuery.Eof)do
+      begin
+        if(sRetorno <> STRING_INDEFINIDO)then
+          sRetorno := sRetorno + ',';
+        sRetorno := sRetorno + zQuery.FieldByName('cod_fk_bairro').AsString;
+        zQuery.Next;
+      end;
+    end;
+  end;
+
+  Result := sRetorno;
+end;
+
+procedure TAgenciamentosParaImovelInteresse.CriarDataSetDadosAgenciamentosSatisfazem;
+begin
+  if(FcdsDados.Active)then
+    FcdsDados.EmptyDataSet;
+  FcdsDados.FieldDefs.Add('CODIGO', ftInteger, 0, True); //código do agenciamento
+  //FcdsDados.FieldDefs.Add('CAMPO_IGUAL', ftString, 100, True); //campo que é igual entre o agenciamento e o imóvel de interesse
+  //FcdsDados.FieldDefs.Add('VALOR', ftString, 200, True); //valor que é igual entre o agenciamento e o imóvel de interesse
+  FcdsDados.FieldDefs.Add('IGUAL_TIPO_IMOVEL', ftInteger, 0, False); //tipo do imóvel igual
+  FcdsDados.FieldDefs.Add('VALOR_TIPO_IMOVEL', ftString, 60, False); //valor do tipo do imóvel
+  FcdsDados.FieldDefs.Add('IGUAL_SITUACAO', ftInteger, 0, False); //situação do imóvel igual
+  FcdsDados.FieldDefs.Add('VALOR_SITUACAO', ftString, 20, False); //valor da situação
+  FcdsDados.FieldDefs.Add('IGUAL_CONDICAO_PAGAMENTO', ftInteger, 0, False); //condição de pagamento igual
+  FcdsDados.FieldDefs.Add('VALOR_CONDICAO_PAGAMENTO', ftString, 20, False); //valor da condição de pagamento
+  FcdsDados.FieldDefs.Add('IGUAL_VALOR', ftInteger, 0, False); //valor igual
+  FcdsDados.FieldDefs.Add('VALOR_VALOR', ftString, 20, False); //valor do valor
+  FcdsDados.FieldDefs.Add('IGUAL_CARACTERISTICAS_IMOVEL', ftInteger, 0, False); //características do imóvel igual
+  FcdsDados.FieldDefs.Add('VALOR_CARACTERISTICAS_IMOVEL', ftString, 500, False); //valor das características do imóvel
+  FcdsDados.FieldDefs.Add('IGUAL_REGIAO_LOCALIDADE', ftInteger, 0, False); //região localidade do imóvel igual
+  FcdsDados.FieldDefs.Add('VALOR_REGIAO_LOCALIDADE', ftString, 500, False); //valor das regiões localidades do imóvel
+  FcdsDados.FieldDefs.Add('PESO', ftInteger, 0, False); //peso do agenciamento
+  FcdsDados.CreateDataSet;
+  FcdsDados.Open;
+end;
+
+
+//adiciona ao FcdsDados os agenciamentos encontrados
+procedure TAgenciamentosParaImovelInteresse.AdicionarAgenciamentoEncontrado(
+ psCampoCodigo:String;psCampoIgual:String;psCampoValor:string;
+ const psValorAdicionar:String = STRING_INDEFINIDO);
+
+ function GetValorAdicionar: String;
+ begin
+   if(psValorAdicionar = STRING_INDEFINIDO)then
+     Result := FzQueryAgenciamento.FieldByName(psCampoValor).AsString
+   else
+     Result := psValorAdicionar;
+ end;
+
+ procedure EditarDataSetDados;
+ var
+   sAux: String;
+ begin
+   FcdsDados.Edit;
+   if(psCampoIgual = sTIPO_IMOVEL)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := GetValorAdicionar;
+   end
+   else if(psCampoIgual = sSITUACAO_DESEJAVEL)then
+   begin
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := GetValorAdicionar;
+   end
+   else if(psCampoIgual = sCONDICAO_PAGAMENTO)then
+   begin
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := GetValorAdicionar;
+   end
+   else if(psCampoIgual = sVALOR_IMOVEL)then
+   begin
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := GetValorAdicionar;
+   end
+
+   else if(psCampoIgual = sCARACTERISTICA)then
+   begin
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_LIGADO;
+     sAux := FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString;
+     if sAux = STRING_INDEFINIDO then
+       FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := GetValorAdicionar
+     else
+       FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := sAux + '; ' + GetValorAdicionar;
+   end
+
+   else if(psCampoIgual = sREGIAO_LOCALIDADE)then
+   begin
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_LIGADO;
+     sAux := FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString;
+     if sAux = STRING_INDEFINIDO then
+       FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := GetValorAdicionar
+     else
+       FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := sAux + '; ' + GetValorAdicionar;
+   end;
+
+   FcdsDados.Post;
+ end;
+
+
+ procedure InserirDataSetDados;
+ begin
+   FcdsDados.Append;
+   FcdsDados.FieldByName('CODIGO').AsInteger := FzQueryAgenciamento.FieldByName(psCampoCodigo).AsInteger;
+
+   if(psCampoIgual = sTIPO_IMOVEL)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := GetValorAdicionar;
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := STRING_INDEFINIDO;
+   end
+   else if(psCampoIgual = sSITUACAO_DESEJAVEL)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := GetValorAdicionar;
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := STRING_INDEFINIDO;
+   end
+   else if(psCampoIgual = sCONDICAO_PAGAMENTO)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := GetValorAdicionar;
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := STRING_INDEFINIDO;
+   end
+   else if(psCampoIgual = sVALOR_IMOVEL)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := GetValorAdicionar;
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := STRING_INDEFINIDO;
+   end
+   else if(psCampoIgual = sCARACTERISTICA)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := GetValorAdicionar;
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := STRING_INDEFINIDO;
+   end
+   else if(psCampoIgual = sREGIAO_LOCALIDADE)then
+   begin
+     FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_TIPO_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_SITUACAO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CONDICAO_PAGAMENTO').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_VALOR').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_VALOR').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger := VLR_DESLIGADO;
+     FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString := STRING_INDEFINIDO;
+     FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger := VLR_LIGADO;
+     FcdsDados.FieldByName('VALOR_REGIAO_LOCALIDADE').AsString := GetValorAdicionar;
+   end;
+
+   FcdsDados.Post;
+ end;
+
+begin
+  FzQueryAgenciamento.First;
+  while not(FzQueryAgenciamento.Eof)do
+  begin
+    FcdsDados.First;
+    //localizar se agenciamento já foi inserido no dataSet de dados iguais
+    if FcdsDados.Locate('CODIGO',FzQueryAgenciamento.FieldByName(psCampoCodigo).AsInteger,[]) then
+      EditarDataSetDados
+    else
+      InserirDataSetDados;
+
+    FzQueryAgenciamento.Next;
+  end;
+end;
+
+procedure TAgenciamentosParaImovelInteresse.ChamarFuncoesBuscarAgenciamentos;
+begin
+  CriarDataSetDadosAgenciamentosSatisfazem;
+  AgenciamentosTipoImovel;
+  AgenciamentosSituacao;
+  AgenciamentosCondicaoPagamento;
+  AgenciamentosValor;
+  AgenciamentosCaracteristicasImovel;
+  AgenciamentosLocalidade;
+  OrganizarAgenciamentosPeso;
+end;
+
+//adiciona condições para o SQL retornar apenas agenciamentos ativos
+procedure TAgenciamentosParaImovelInteresse.AddCondicaoAgenciamentosAtivos(
+ const psAliasAgenciamento:string = 'a'; const psAliasImovel:string = 'i');
+begin
+  FzQueryAgenciamento.SQL.Add('WHERE ' +psAliasAgenciamento+ '.ativo = :ativo');
+  FzQueryAgenciamento.SQL.Add('AND ' +psAliasImovel+ '.status = :status');
+  FzQueryAgenciamento.ParamByName('ativo').AsString := VLR_SIM;
+  FzQueryAgenciamento.ParamByName('status').AsInteger := IMOVEL_STATUS_ABERTO;
+end;
+
+//busca pelos agenciamentos com o tipo de imóvel igual ao do imóvel de interesse
+procedure TAgenciamentosParaImovelInteresse.AgenciamentosTipoImovel;
+begin
+  FzQueryAgenciamento.Close;
+  FzQueryAgenciamento.SQL.Clear;
+  FzQueryAgenciamento.SQL.Add('SELECT a.codigo,t.nome ');
+  FzQueryAgenciamento.SQL.Add('FROM agenciamentos a ');
+  FzQueryAgenciamento.SQL.Add('JOIN imovel i ON a.cod_fk_imovel = i.codigo ');
+  FzQueryAgenciamento.SQL.Add('JOIN tipo_imovel t ON i.cod_fk_tipo_imovel = t.codigo ');
+  AddCondicaoAgenciamentosAtivos;
+  FzQueryAgenciamento.SQL.Add('AND t.codigo = :codTipoImovel');
+  FzQueryAgenciamento.ParamByName('codTipoImovel').AsInteger := FzQueryImovelInteresse.FieldByName('COD_FK_TIPO_IMOVEL').AsInteger;
+  FzQueryAgenciamento.Open;
+  if(FzQueryAgenciamento.RecordCount > NUMERO_INDEFINIDO)then
+    AdicionarAgenciamentoEncontrado('CODIGO',sTIPO_IMOVEL,'NOME');
+end;
+
+//busca pelos agenciamentos com a situação igual ao do imóvel de interesse
+procedure TAgenciamentosParaImovelInteresse.AgenciamentosSituacao;
+begin
+  FzQueryAgenciamento.Close;
+  FzQueryAgenciamento.SQL.Clear;
+  FzQueryAgenciamento.SQL.Add('SELECT a.codigo,i.situacao_desejavel ');
+  FzQueryAgenciamento.SQL.Add('FROM agenciamentos a ');
+  FzQueryAgenciamento.SQL.Add('JOIN imovel i ON a.cod_fk_imovel = i.codigo ');
+  AddCondicaoAgenciamentosAtivos;
+  FzQueryAgenciamento.SQL.Add('AND i.situacao_desejavel = :situacaoDesejavel');
+  FzQueryAgenciamento.ParamByName('situacaoDesejavel').AsString := FzQueryImovelInteresse.FieldByName('IMOVEL_DESEJAVEL').AsString;
+  FzQueryAgenciamento.Open;
+  if(FzQueryAgenciamento.RecordCount > NUMERO_INDEFINIDO)then
+    AdicionarAgenciamentoEncontrado('CODIGO',sSITUACAO_DESEJAVEL,'SITUACAO_DESEJAVEL'); //campoCodigo,campoIgual,campoValor
+end;
+
+
+//busca pelos agenciamentos com condição de pagamento igual ao do imóvel de interesse
+procedure TAgenciamentosParaImovelInteresse.AgenciamentosCondicaoPagamento;
+begin
+  FzQueryAgenciamento.Close;
+  FzQueryAgenciamento.SQL.Clear;
+  FzQueryAgenciamento.SQL.Add('SELECT a.codigo,a.condicao_pagamento ');
+  FzQueryAgenciamento.SQL.Add('FROM agenciamentos a ');
+  FzQueryAgenciamento.SQL.Add('JOIN imovel i ON a.cod_fk_imovel = i.codigo ');
+  AddCondicaoAgenciamentosAtivos;
+  FzQueryAgenciamento.SQL.Add('AND a.condicao_pagamento = :condicaoPagamento');
+  FzQueryAgenciamento.ParamByName('condicaoPagamento').AsString := FzQueryImovelInteresse.FieldByName('CONDICAO_PAGAMENTO').AsString;
+  FzQueryAgenciamento.Open;
+  if(FzQueryAgenciamento.RecordCount > NUMERO_INDEFINIDO)then
+    AdicionarAgenciamentoEncontrado('CODIGO',sCONDICAO_PAGAMENTO,'CONDICAO_PAGAMENTO');
+end;
+
+//busca pelos agenciamentos com valor igual ou aproximado ao do imóvel de interesse
+procedure TAgenciamentosParaImovelInteresse.AgenciamentosValor;
+var
+  dVlrImovelInteresse: Double;
+  dVlrInicio,dVlrFinal: Double;
+
+  function GetValorInicio: Double;
+  var
+    dRetorno: Double;
+  begin
+    dRetorno := dVlrImovelInteresse - ((dVlrImovelInteresse/100)*
+     StrToFloat(dPORCENTAGEM_DIFERENCA_SELECIONAR_VALOR_IMOVEL));
+    if(dRetorno > NUMERO_INDEFINIDO)then
+      Result := dRetorno
+    else
+      Result := NUMERO_INDEFINIDO;
+  end;
+
+  function GetValorFinal: Double;
+  var
+    dRetorno: Double;
+  begin
+    dRetorno := dVlrImovelInteresse + ((dVlrImovelInteresse/100)*
+     StrToFloat(dPORCENTAGEM_DIFERENCA_SELECIONAR_VALOR_IMOVEL));
+    Result := dRetorno;
+  end;
+
+begin
+  dVlrImovelInteresse := FzQueryImovelInteresse.FieldByName('VALOR_IMOVEL').AsFloat;
+  dVlrInicio := GetValorInicio;
+  dVlrFinal := GetValorFinal;
+
+  FzQueryAgenciamento.Close;
+  FzQueryAgenciamento.SQL.Clear;
+  FzQueryAgenciamento.SQL.Add('SELECT a.codigo, a.valor_total ');
+  FzQueryAgenciamento.SQL.Add('FROM agenciamentos a ');
+  FzQueryAgenciamento.SQL.Add('JOIN imovel i ON a.cod_fk_imovel = i.codigo ');
+  AddCondicaoAgenciamentosAtivos;
+  FzQueryAgenciamento.SQL.Add('AND  a.valor_total BETWEEN :vlrIncio AND :vlrFinal');
+  FzQueryAgenciamento.ParamByName('vlrIncio').AsFloat := dVlrInicio;
+  FzQueryAgenciamento.ParamByName('vlrFinal').AsFloat := dVlrFinal;
+  FzQueryAgenciamento.Open;
+  if(FzQueryAgenciamento.RecordCount > NUMERO_INDEFINIDO)then
+    AdicionarAgenciamentoEncontrado('CODIGO',sVALOR_IMOVEL,'VALOR_TOTAL'); //campoCodigo,campoIgual,campoValor
+end;
+
+//busca pelos agenciamentos com características do imóvel igual ou parecidas ao do imóvel de interesse
+procedure TAgenciamentosParaImovelInteresse.AgenciamentosCaracteristicasImovel;
+const
+    sCHAR_SEPARADOR = ';';
+var
+  sCaracImovelInteresse: String; //característica  do imóvel de interesse
+  sCaracteristcaAtual: String; //característica atual a ser pesquisada
+  sCaracteristcaAtualFMT: String; //característica atual formatada (sem espaços em branco e caracter separador) a ser pesquisada
+  bPesquisar: Boolean; //controla loop de pesquisa
+
+  //pega característca a ser pesquisada
+  function GetCaracteristica: String;
+  var
+    i: Integer;
+    nTotCaracteres: Integer;
+    sCharAtual: String;
+    sCaracteristca: String;
+  begin
+    nTotCaracteres := length(sCaracImovelInteresse);
+
+    //varre as características buscando por uma característca
+    for i:=1 to nTotCaracteres do
+    begin
+      sCharAtual := sCaracImovelInteresse[i];
+      //if(sCharAtual <> sCHAR_SEPARADOR)then
+      sCaracteristca := sCaracteristca + sCharAtual;
+
+      if(sCharAtual = sCHAR_SEPARADOR)or(i >= nTotCaracteres)then
+        Break;
+    end;
+
+    Result := Trim(sCaracteristca);
+  end;
+
+  //formata a característica atual a ser pesquisada, retirando espaços em branco e caracter separador
+  function FormataCaracteristicaPesquisa(psCaracteristica:string):string;
+  begin
+    psCaracteristica := Trim(psCaracteristica); //StringReplace(psCaracteristica,' ',STRING_INDEFINIDO,[rfReplaceAll, rfIgnoreCase]);
+    psCaracteristica := StringReplace(psCaracteristica,sCHAR_SEPARADOR,STRING_INDEFINIDO,[rfReplaceAll, rfIgnoreCase]);
+    Result := psCaracteristica;
+  end;
+
+  //exclui característica das pendentes a serem pesquisadas
+  procedure ExcluirCaracteristcaPesquisada(psCaracExcluir:string);
+  begin
+    sCaracImovelInteresse := StringReplace(sCaracImovelInteresse,psCaracExcluir,STRING_INDEFINIDO,[rfReplaceAll, rfIgnoreCase]);
+  end;
+
+  //verifica se pode executar pesquisa
+  function GetPodePesquisar: Boolean;
+  var
+    bRetorno: Boolean;
+  begin
+    bRetorno := True;
+
+    if not(Trim(sCaracImovelInteresse)=STRING_INDEFINIDO)then
+    begin
+      if(pos('-',sCaracImovelInteresse)>0)then //sempre tem que existir um separador de grupo e sub-grupo de característica
+        bRetorno := True
+      else
+        bRetorno := False;
+    end
+    else
+      bRetorno := False;
+
+    Result := bRetorno;
+  end;
+
+begin
+  sCaracImovelInteresse := FzQueryImovelInteresse.FieldByName('CARACTERISTICAS').AsString;
+  sCaracteristcaAtual := STRING_INDEFINIDO;
+  sCaracteristcaAtualFMT := STRING_INDEFINIDO;
+
+  bPesquisar := GetPodePesquisar;
+  while bPesquisar do
+  begin
+    sCaracteristcaAtual := GetCaracteristica;
+    sCaracteristcaAtualFMT := FormataCaracteristicaPesquisa(sCaracteristcaAtual);
+
+    FzQueryAgenciamento.Close;
+    FzQueryAgenciamento.SQL.Clear;
+    FzQueryAgenciamento.SQL.Add('SELECT a.codigo, i.descricao ');
+    FzQueryAgenciamento.SQL.Add('FROM agenciamentos a ');
+    FzQueryAgenciamento.SQL.Add('JOIN imovel i ON a.cod_fk_imovel = i.codigo ');
+    AddCondicaoAgenciamentosAtivos;
+    FzQueryAgenciamento.SQL.Add('AND i.descricao LIKE ' +QuotedStr('%' +sCaracteristcaAtualFMT+ '%'));
+    FzQueryAgenciamento.Open;
+    if(FzQueryAgenciamento.RecordCount > NUMERO_INDEFINIDO)then
+      AdicionarAgenciamentoEncontrado('CODIGO',sCARACTERISTICA,'DESCRICAO',sCaracteristcaAtualFMT);
+  
+    ExcluirCaracteristcaPesquisada(sCaracteristcaAtual);
+    bPesquisar := GetPodePesquisar;
+  end;
+end;
+
+//busca pelos agenciamentos com regiões localidades que atendam ao imóvel de interesse
+procedure TAgenciamentosParaImovelInteresse.AgenciamentosLocalidade;
+var
+  sBairrosInteresse: String;
+  sCondicaoBairro: String;
+begin
+  //se há regiões de localidade de interesse
+  if(FzQueryImovInteresseRegiaoLocal.Active)and(FzQueryImovInteresseRegiaoLocal.RecordCount > NUMERO_INDEFINIDO)then
+    sBairrosInteresse := GetBairrosRegiaoLocalImovInteresse;
+
+  if(sBairrosInteresse <> STRING_INDEFINIDO)then
+  begin
+    sCondicaoBairro := 'AND b.codigo IN (' +sBairrosInteresse+ ')';
+    FzQueryAgenciamento.Close;
+    FzQueryAgenciamento.SQL.Clear;
+    FzQueryAgenciamento.SQL.Add('SELECT a.codigo, b.nome ');
+    FzQueryAgenciamento.SQL.Add('FROM agenciamentos a ');
+    FzQueryAgenciamento.SQL.Add('JOIN imovel i ON a.cod_fk_imovel = i.codigo ');
+    FzQueryAgenciamento.SQL.Add('JOIN bairro b ON i.cod_fk_bairro=b.codigo ');
+    AddCondicaoAgenciamentosAtivos;
+    FzQueryAgenciamento.SQL.Add(sCondicaoBairro);
+    FzQueryAgenciamento.Open;
+    if(FzQueryAgenciamento.RecordCount > NUMERO_INDEFINIDO)then
+      AdicionarAgenciamentoEncontrado('CODIGO',sREGIAO_LOCALIDADE,'NOME'); //campoCodigo,campoIgual,campoValor
+  end;
+end;
+
+//dá peso e ordena os agenciamentos
+procedure TAgenciamentosParaImovelInteresse.OrganizarAgenciamentosPeso;
+var
+  nPeso: Integer;
+
+  function GetPesoCaracteristica: Integer;
+  var
+    sCaracteristica: string;
+    nTamanhoCarac: Integer;
+    i: Integer;
+    sCharAtual: string;
+    nPesoRetorno: Integer;
+  begin
+    nPesoRetorno := nPESO_CARACTERISTICA_IMOVEL; //já começa com 1 peso, pois a última característica não contém o ;
+    sCaracteristica := FcdsDados.FieldByName('VALOR_CARACTERISTICAS_IMOVEL').AsString;
+    nTamanhoCarac := Length(sCaracteristica);
+    i := 1;
+    while(i <= nTamanhoCarac)do
+    begin
+      sCharAtual := sCaracteristica[i];
+      if(sCharAtual = ';')then
+        nPesoRetorno := nPesoRetorno + nPESO_CARACTERISTICA_IMOVEL;
+      inc(i);
+    end;
+    Result := nPesoRetorno;
+  end;
+
+begin
+  if(FcdsDados.Active)and(FcdsDados.RecordCount > NUMERO_INDEFINIDO)then
+  begin
+    FcdsDados.First;
+    while not(FcdsDados.Eof)do
+    begin
+      nPeso := NUMERO_INDEFINIDO;
+      if FcdsDados.FieldByName('IGUAL_TIPO_IMOVEL').AsInteger = VLR_LIGADO then
+        nPeso := nPeso + nPESO_TIPO_IMOVEL;
+      if FcdsDados.FieldByName('IGUAL_SITUACAO').AsInteger = VLR_LIGADO then
+        nPeso := nPeso + nPESO_SITUACAO;
+      if FcdsDados.FieldByName('IGUAL_CONDICAO_PAGAMENTO').AsInteger = VLR_LIGADO then
+        nPeso := nPeso + nPESO_CONDICAO_PAGAMENTO;
+      if FcdsDados.FieldByName('IGUAL_VALOR').AsInteger = VLR_LIGADO then
+        nPeso := nPeso + nPESO_VALOR;
+      if FcdsDados.FieldByName('IGUAL_CARACTERISTICAS_IMOVEL').AsInteger = VLR_LIGADO then
+        nPeso := nPeso + GetPesoCaracteristica;
+      if FcdsDados.FieldByName('IGUAL_REGIAO_LOCALIDADE').AsInteger = VLR_LIGADO then
+        nPeso := nPeso + nPESO_REGIAO_LOCALIDADE;
+
+      FcdsDados.Edit;
+      FcdsDados.FieldByName('PESO').AsInteger := nPeso;
+      FcdsDados.Post;
+
+      FcdsDados.Next;
+    end;
+  end;
+end;
+
+end.

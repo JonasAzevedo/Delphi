@@ -1,0 +1,62 @@
+Delphi e BD Firebird
+
+Desenvolvimento
+Tela login e tela inicial = 4 horas
+Backup = 1 hora
+Ativar objetos que ficam inativos aos usuários por uma senha = 1 hora
+Rotina de pesquisa = 5 horas
+possibilidade de pesquisar de qualquer ponto do sistema, pesquisa parametrizada) 
+sistema deverá ir fazendo a triagem a partir das letras digitadas
+-----
+11 horas * R$14,00
+R$154,00
+
+Criaçao de tabelas:
+1/2 hora para cada 
+Clientes
+Cidade
+Estado 
+Profissao
+Tipo de imovel
+
+3 horas * R$14,00
+R$42,00
+
+
+Cadastros
+4 horas para cada 
+Clientes
+Cidade
+Estado 
+Profissao
+Tipo de imovel
+
+20 horas * R$14,00
+R$280,00
+
+
+Agenda
+se for uma agenda com atividades e horarios, 6 horas. Uma Melhor 12 horas.
+6 horas * R$14,00
+R$84,00
+
+Relatorios
+Depende o relatorio
+1 hora
+6 horas * R414,00
+R$84,00
+
+?
+Agenciamentos 
+Vendas + comissao 
+Meios de captaçao + historico + imoveis sugeridos + descriçao do imovel + Bem Negociavel
+
+
+--------
+R$154,00
+R$42,00
+R$280,00
+R$84,00
+R$84,00
+
+total = R$644,00

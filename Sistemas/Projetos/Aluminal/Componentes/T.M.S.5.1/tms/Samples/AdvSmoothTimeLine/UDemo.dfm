@@ -1,0 +1,370 @@
+object Form63: TForm63
+  Left = 0
+  Top = 0
+  Caption = 'Demo ScrollBar and TimeLine '
+  ClientHeight = 190
+  ClientWidth = 948
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 948
+    Height = 33
+    Align = alTop
+    TabOrder = 1
+    object Label2: TLabel
+      Left = 16
+      Top = 8
+      Width = 76
+      Height = 13
+      Caption = 'Time line range:'
+    end
+    object Label1: TLabel
+      Left = 263
+      Top = 8
+      Width = 50
+      Height = 13
+      Caption = 'Indicator: '
+    end
+    object ComboBox1: TComboBox
+      Left = 98
+      Top = 5
+      Width = 145
+      Height = 21
+      Style = csDropDownList
+      ItemHeight = 13
+      ItemIndex = 0
+      TabOrder = 0
+      Text = 'Seconds'
+      OnChange = ComboBox1Change
+      Items.Strings = (
+        'Seconds'
+        'Hours'
+        'Days')
+    end
+  end
+  object AdvSmoothTimeLine1: TAdvSmoothTimeLine
+    Left = 0
+    Top = 33
+    Width = 948
+    Height = 157
+    DefaultHintFill.Color = clWhite
+    DefaultHintFill.ColorTo = clWhite
+    DefaultHintFill.ColorMirror = clNone
+    DefaultHintFill.ColorMirrorTo = clNone
+    DefaultHintFill.BackGroundPictureLeft = 0
+    DefaultHintFill.BackGroundPictureTop = 0
+    DefaultHintFill.PictureLeft = 0
+    DefaultHintFill.PictureTop = 0
+    DefaultHintFill.Opacity = 206
+    DefaultHintFill.OpacityTo = 163
+    DefaultHintFill.BorderColor = clBlack
+    DefaultHintFill.Rounding = 0
+    DefaultHintFill.ShadowOffset = 0
+    DefaultHintFill.Angle = 0
+    DefaultSectionFill.Color = 11196927
+    DefaultSectionFill.ColorTo = 7257087
+    DefaultSectionFill.ColorMirror = 4370174
+    DefaultSectionFill.ColorMirrorTo = 8053246
+    DefaultSectionFill.GradientMirrorType = gtVertical
+    DefaultSectionFill.BackGroundPictureLeft = 0
+    DefaultSectionFill.BackGroundPictureTop = 0
+    DefaultSectionFill.PictureLeft = 0
+    DefaultSectionFill.PictureTop = 0
+    DefaultSectionFill.BorderColor = 4370174
+    DefaultSectionFill.Rounding = 0
+    DefaultSectionFill.ShadowOffset = 0
+    DefaultSectionFill.Angle = 0
+    DefaultIndicator.Position = 39903.472743055560000000
+    DefaultIndicator.Color = 11196927
+    DefaultIndicator.ColorTo = 7257087
+    DefaultIndicator.Opacity = 200
+    DefaultIndicator.OpacityTo = 150
+    Range.RangeFrom = 39903.472685185190000000
+    Range.RangeTo = 39903.472800925930000000
+    Range.Divisions = 10
+    Range.SubDivisions = 10
+    RangeAppearance.DivisionFont.Charset = DEFAULT_CHARSET
+    RangeAppearance.DivisionFont.Color = clWindowText
+    RangeAppearance.DivisionFont.Height = -11
+    RangeAppearance.DivisionFont.Name = 'Tahoma'
+    RangeAppearance.DivisionFont.Style = []
+    RangeAppearance.SubDivisionFont.Charset = DEFAULT_CHARSET
+    RangeAppearance.SubDivisionFont.Color = clWindowText
+    RangeAppearance.SubDivisionFont.Height = -11
+    RangeAppearance.SubDivisionFont.Name = 'Tahoma'
+    RangeAppearance.SubDivisionFont.Style = []
+    RangeAppearance.DivisionFormat = 'hh:nn:ss:zzz'
+    RangeAppearance.SubDivisionFormat = 'hh:nn:ss'
+    RangeAppearance.ShowSubDivisionValue = False
+    Fill.Color = 15984090
+    Fill.ColorTo = 15785680
+    Fill.ColorMirror = clNone
+    Fill.ColorMirrorTo = clNone
+    Fill.BackGroundPictureLeft = 0
+    Fill.BackGroundPictureTop = 0
+    Fill.PictureLeft = 0
+    Fill.PictureTop = 0
+    Fill.BorderColor = clSilver
+    Fill.Rounding = 0
+    Fill.ShadowOffset = 0
+    Fill.Angle = 0
+    VerticalMargin = 50
+    HorizontalMargin = 50
+    TimeLineBar.Fill.Color = 16773091
+    TimeLineBar.Fill.ColorTo = 16765615
+    TimeLineBar.Fill.ColorMirror = clNone
+    TimeLineBar.Fill.ColorMirrorTo = clNone
+    TimeLineBar.Fill.BackGroundPictureLeft = 0
+    TimeLineBar.Fill.BackGroundPictureTop = 0
+    TimeLineBar.Fill.PictureLeft = 0
+    TimeLineBar.Fill.PictureTop = 0
+    TimeLineBar.Fill.BorderColor = 16765615
+    TimeLineBar.Fill.Rounding = 0
+    TimeLineBar.Fill.ShadowOffset = 0
+    TimeLineBar.Fill.Angle = 0
+    TimeLineSections = <
+      item
+        Fill.Color = 11196927
+        Fill.ColorTo = 7257087
+        Fill.ColorMirror = 4370174
+        Fill.ColorMirrorTo = 8053246
+        Fill.GradientMirrorType = gtVertical
+        Fill.BackGroundPictureLeft = 0
+        Fill.BackGroundPictureTop = 0
+        Fill.PictureLeft = 0
+        Fill.PictureTop = 0
+        Fill.BorderColor = 4370174
+        Fill.Rounding = 0
+        Fill.ShadowOffset = 0
+        Fill.Angle = 0
+        StartTime = 39903.472719907410000000
+        EndTime = 39903.472743055560000000
+        HintFill.Color = clWhite
+        HintFill.ColorTo = clWhite
+        HintFill.ColorMirror = clNone
+        HintFill.ColorMirrorTo = clNone
+        HintFill.BackGroundPictureLeft = 0
+        HintFill.BackGroundPictureTop = 0
+        HintFill.PictureLeft = 0
+        HintFill.PictureTop = 0
+        HintFill.Opacity = 229
+        HintFill.OpacityTo = 192
+        HintFill.BorderColor = clBlack
+        HintFill.Rounding = 0
+        HintFill.ShadowOffset = 0
+        HintFill.Angle = 0
+        HintFont.Charset = DEFAULT_CHARSET
+        HintFont.Color = clWindowText
+        HintFont.Height = -11
+        HintFont.Name = 'Tahoma'
+        HintFont.Style = []
+      end
+      item
+        Fill.Color = 11196927
+        Fill.ColorTo = 7257087
+        Fill.ColorMirror = 4370174
+        Fill.ColorMirrorTo = 8053246
+        Fill.GradientMirrorType = gtVertical
+        Fill.BackGroundPictureLeft = 0
+        Fill.BackGroundPictureTop = 0
+        Fill.PictureLeft = 0
+        Fill.PictureTop = 0
+        Fill.BorderColor = 4370174
+        Fill.Rounding = 0
+        Fill.ShadowOffset = 0
+        Fill.Angle = 0
+        StartTime = 39903.472719907410000000
+        EndTime = 39903.472743055560000000
+        HintFill.Color = clWhite
+        HintFill.ColorTo = clWhite
+        HintFill.ColorMirror = clNone
+        HintFill.ColorMirrorTo = clNone
+        HintFill.BackGroundPictureLeft = 0
+        HintFill.BackGroundPictureTop = 0
+        HintFill.PictureLeft = 0
+        HintFill.PictureTop = 0
+        HintFill.Opacity = 230
+        HintFill.OpacityTo = 191
+        HintFill.BorderColor = clBlack
+        HintFill.Rounding = 0
+        HintFill.ShadowOffset = 0
+        HintFill.Angle = 0
+        HintFont.Charset = DEFAULT_CHARSET
+        HintFont.Color = clWindowText
+        HintFont.Height = -11
+        HintFont.Name = 'Tahoma'
+        HintFont.Style = []
+      end>
+    TimeLineIndicators = <
+      item
+        Position = 39903.472743055560000000
+        Color = 11196927
+        ColorTo = 7257087
+        Opacity = 200
+        OpacityTo = 150
+        BorderOpacity = 200
+        PopupMenu = PopupMenu1
+      end
+      item
+        Position = 39903.472743055560000000
+        Color = 11196927
+        ColorTo = 7257087
+        Opacity = 200
+        OpacityTo = 150
+        BorderOpacity = 200
+      end
+      item
+        Position = 39903.472743055560000000
+        Color = 11196927
+        ColorTo = 7257087
+        Opacity = 200
+        OpacityTo = 150
+        BorderOpacity = 200
+      end
+      item
+        Position = 39903.472743055560000000
+        Color = 11196927
+        ColorTo = 7257087
+        Opacity = 200
+        OpacityTo = 150
+        BorderOpacity = 200
+      end
+      item
+        Position = 39903.472743055560000000
+        Color = 11196927
+        ColorTo = 7257087
+        Opacity = 200
+        OpacityTo = 150
+        BorderOpacity = 200
+      end>
+    OnIndicatorPositionChanging = AdvSmoothTimeLine1IndicatorPositionChanging
+    OnIndicatorClick = AdvSmoothTimeLine1IndicatorClick
+    ShowHint = True
+    Align = alClient
+  end
+  object AdvSmoothScrollBar1: TAdvSmoothScrollBar
+    Left = 56
+    Top = 144
+    Width = 841
+    Height = 20
+    Appearance.BackGroundFill.Color = 15984090
+    Appearance.BackGroundFill.ColorTo = 15785680
+    Appearance.BackGroundFill.ColorMirror = clNone
+    Appearance.BackGroundFill.ColorMirrorTo = clNone
+    Appearance.BackGroundFill.BackGroundPictureLeft = 0
+    Appearance.BackGroundFill.BackGroundPictureTop = 0
+    Appearance.BackGroundFill.PictureLeft = 0
+    Appearance.BackGroundFill.PictureTop = 0
+    Appearance.BackGroundFill.BorderColor = clSilver
+    Appearance.BackGroundFill.Rounding = 0
+    Appearance.BackGroundFill.ShadowOffset = 0
+    Appearance.BackGroundFill.Angle = 0
+    Appearance.ThumbFill.Color = clWhite
+    Appearance.ThumbFill.ColorMirror = clNone
+    Appearance.ThumbFill.ColorMirrorTo = clNone
+    Appearance.ThumbFill.GradientType = gtSolid
+    Appearance.ThumbFill.BackGroundPictureLeft = 0
+    Appearance.ThumbFill.BackGroundPictureTop = 0
+    Appearance.ThumbFill.PictureLeft = 0
+    Appearance.ThumbFill.PictureTop = 0
+    Appearance.ThumbFill.Opacity = 100
+    Appearance.ThumbFill.BorderColor = clWhite
+    Appearance.ThumbFill.Rounding = 0
+    Appearance.ThumbFill.ShadowOffset = 0
+    Appearance.ThumbFill.Angle = 0
+    Appearance.ScrollButtonLeft.Color = 16773091
+    Appearance.ScrollButtonLeft.ColorTo = 16765615
+    Appearance.ScrollButtonLeft.ColorMirror = clNone
+    Appearance.ScrollButtonLeft.ColorMirrorTo = clNone
+    Appearance.ScrollButtonLeft.BackGroundPictureLeft = 0
+    Appearance.ScrollButtonLeft.BackGroundPictureTop = 0
+    Appearance.ScrollButtonLeft.PictureLeft = 0
+    Appearance.ScrollButtonLeft.PictureTop = 0
+    Appearance.ScrollButtonLeft.BorderColor = 16765615
+    Appearance.ScrollButtonLeft.Rounding = 0
+    Appearance.ScrollButtonLeft.ShadowOffset = 0
+    Appearance.ScrollButtonLeft.Angle = 0
+    Appearance.ScrollButtonRight.Color = 16773091
+    Appearance.ScrollButtonRight.ColorTo = 16765615
+    Appearance.ScrollButtonRight.ColorMirror = clNone
+    Appearance.ScrollButtonRight.ColorMirrorTo = clNone
+    Appearance.ScrollButtonRight.BackGroundPictureLeft = 0
+    Appearance.ScrollButtonRight.BackGroundPictureTop = 0
+    Appearance.ScrollButtonRight.PictureLeft = 0
+    Appearance.ScrollButtonRight.PictureTop = 0
+    Appearance.ScrollButtonRight.BorderColor = 16765615
+    Appearance.ScrollButtonRight.Rounding = 0
+    Appearance.ScrollButtonRight.ShadowOffset = 0
+    Appearance.ScrollButtonRight.Angle = 0
+    Appearance.ThumbButtonLeft.Color = 16773091
+    Appearance.ThumbButtonLeft.ColorTo = 16765615
+    Appearance.ThumbButtonLeft.ColorMirror = clNone
+    Appearance.ThumbButtonLeft.ColorMirrorTo = clNone
+    Appearance.ThumbButtonLeft.BackGroundPictureLeft = 0
+    Appearance.ThumbButtonLeft.BackGroundPictureTop = 0
+    Appearance.ThumbButtonLeft.PictureLeft = 0
+    Appearance.ThumbButtonLeft.PictureTop = 0
+    Appearance.ThumbButtonLeft.BorderColor = 16765615
+    Appearance.ThumbButtonLeft.Rounding = 0
+    Appearance.ThumbButtonLeft.ShadowOffset = 0
+    Appearance.ThumbButtonLeft.Angle = 0
+    Appearance.ThumbButtonRight.Color = 16773091
+    Appearance.ThumbButtonRight.ColorTo = 16765615
+    Appearance.ThumbButtonRight.ColorMirror = clNone
+    Appearance.ThumbButtonRight.ColorMirrorTo = clNone
+    Appearance.ThumbButtonRight.BackGroundPictureLeft = 0
+    Appearance.ThumbButtonRight.BackGroundPictureTop = 0
+    Appearance.ThumbButtonRight.PictureLeft = 0
+    Appearance.ThumbButtonRight.PictureTop = 0
+    Appearance.ThumbButtonRight.BorderColor = 16765615
+    Appearance.ThumbButtonRight.Rounding = 0
+    Appearance.ThumbButtonRight.ShadowOffset = 0
+    Appearance.ThumbButtonRight.Angle = 0
+    Appearance.ThumbButtonSize = 17
+    Appearance.ScrollButtonSize = 17
+    LargeChange = 5
+    Max = 20
+    PageSize = 10
+    OnPositionChanged = AdvSmoothScrollBar1PositionChanged
+    OnPageSizeChanged = AdvSmoothScrollBar1PageSizeChanged
+    DoubleBuffered = True
+    TabOrder = 2
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 8
+    Top = 160
+    object ChangeShape1: TMenuItem
+      Caption = 'Change Shape'
+      object Circle1: TMenuItem
+        Caption = 'Circle'
+        OnClick = Circle1Click
+      end
+      object None1: TMenuItem
+        Caption = 'Diamond'
+        OnClick = None1Click
+      end
+      object N1: TMenuItem
+        Caption = 'Square'
+        OnClick = N1Click
+      end
+    end
+    object ChangeColor1: TMenuItem
+      Caption = 'Change Color'
+      OnClick = ChangeColor1Click
+    end
+  end
+  object ColorDialog1: TColorDialog
+    Left = 8
+    Top = 128
+  end
+end

@@ -1,0 +1,34 @@
+unit unVerResumoRelatorioComissoes;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, AppEvnts, Grids;
+
+type
+  TfrmVerResumoRelatorioComissoes = class(TForm)
+    strGrdComissoes: TStringGrid;
+    ApplicationEvents: TApplicationEvents;
+    StatusBar: TStatusBar;
+    procedure ApplicationEventsHint(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmVerResumoRelatorioComissoes: TfrmVerResumoRelatorioComissoes;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmVerResumoRelatorioComissoes.ApplicationEventsHint(
+  Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+end.

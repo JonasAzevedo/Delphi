@@ -1,0 +1,137 @@
+unit unObjRua;
+
+interface
+
+uses
+  unDM;
+
+  type TObjRua = class
+
+    private
+      FnCodigo: Integer;
+      FnFk_Bairro: Integer;
+      FsNome: String[100];
+      FsCEP: String[9];
+      FsExibeBairro: String;
+    public
+      procedure setCodigo(pnCodigo: Integer);
+      procedure setFkBairro(pnFkBairro: Integer);
+      procedure setNome(psNome: String);
+      procedure setCEP(psCEP: String);
+      procedure setExibeBairro();
+
+      function getCodigo(): Integer;
+      function getFkBairro(): Integer;
+      function getNome(): String;
+      function getCEP(): String;
+      function getExibeBairro(): String;
+      //verifica se existe diferença no objeto. Quando estiver editando registro
+      function verificarDiferencaCadastro(pnFkBairro:Integer; psNome:String;
+       psCEP: String): boolean;
+  end;
+
+implementation
+
+uses
+  unConstantes;
+
+{ TObjRua }
+
+{***** set's e get's *****}
+procedure TObjRua.setCodigo(pnCodigo: Integer);
+begin
+  try
+    Self.FnCodigo := pnCodigo;
+  except
+    Self.FnCodigo := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjRua.getCodigo: Integer;
+begin
+  Result := Self.FnCodigo;
+end;
+
+procedure TObjRua.setFkBairro(pnFkBairro: Integer);
+begin
+  try
+    Self.FnFk_Bairro := pnFkBairro;
+  except
+    Self.FnFk_Bairro := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjRua.getFkBairro: Integer;
+begin
+  Result := Self.FnFk_Bairro;
+end;
+
+procedure TObjRua.setNome(psNome: String);
+begin
+  try
+    Self.FsNome := psNome;
+  except
+    Self.FsNome := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjRua.getNome: String;
+begin
+  Result := Self.FsNome;
+end;
+
+procedure TObjRua.setCEP(psCEP: String);
+begin
+  try
+    Self.FsCEP := psCEP;
+  except
+    Self.FsCEP := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjRua.getCEP: String;
+begin
+  Result := Self.FsCEP;
+end;
+
+procedure TObjRua.setExibeBairro();
+begin
+  Self.FsExibeBairro := STRING_INDEFINIDO;
+
+  if(Self.FnFk_Bairro <> NUMERO_INDEFINIDO)then
+  begin
+    DM.zQryBairro.Close;
+    DM.zQryBairro.SQL.Clear;
+    DM.zQryBairro.SQL.Add('SELECT * FROM bairro WHERE codigo=:cod');
+    DM.zQryBairro.ParamByName('cod').AsInteger := Self.FnFk_Bairro;
+    DM.zQryBairro.Open;
+    if(DM.zQryBairro.RecordCount = 1)then
+      Self.FsExibeBairro := DM.zQryBairroCODIGO.AsString + ' - ' + DM.zQryBairroNOME.AsString;
+  end;
+end;
+
+function TObjRua.getExibeBairro(): String;
+begin
+  Result := Self.FsExibeBairro;
+end;
+
+{***** procedimentos diversos *****}
+//verifica se existe diferença no objeto. Quando estiver editando registro
+function TObjRua.verificarDiferencaCadastro(pnFkBairro:Integer; psNome:String;
+ psCEP: String): boolean;
+var
+  retorno: Boolean;
+begin
+  retorno := False;
+
+  if (pnFkBairro <> Self.getFkBairro) then
+    retorno := True;
+  if (psNome <> Self.getNome) then
+    retorno := True;
+  if (psCEP <> Self.getCEP) then
+    retorno := True;
+
+  Result := retorno;
+end;
+
+end.

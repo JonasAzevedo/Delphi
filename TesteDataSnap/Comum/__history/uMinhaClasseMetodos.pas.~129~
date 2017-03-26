@@ -1,0 +1,135 @@
+unit uMinhaClasseMetodos;
+
+interface
+
+uses
+  System.JSON, uMinhaClasse, System.SysUtils, REST.JsonReflect, System.Classes, REST.Json.Types;
+
+type
+{$METHODINFO ON}
+  TMinhaClasseMetodos = class(TPersistent)
+  public
+    function RetornarNome(const psNome: string): string;
+    function RetornarMinhaClasseJsonObject: TJSONObject;
+    function RetornarListaClasse: TJSONArray;
+    function ListarClasses(const poListaClasse: TJSONArray): string;
+
+    function updateInserirRegistroJsonObject(const poMinhaClasse: TJSONObject): string;
+
+    procedure TesteJsonUnMarshal;
+  end;
+{$METHODINFO OFF}
+
+implementation
+
+{ TMinhaClasse }
+
+function TMinhaClasseMetodos.updateInserirRegistroJsonObject(const poMinhaClasse: TJSONObject): string;
+var
+  oUnMarshal: TJSONUnMarshal;
+  oMinhaClasse: TMinhaClasse;
+begin
+  oUnMarshal := TJSONUnMarshal.Create;
+  try
+    try
+      oMinhaClasse := TMinhaClasse(oUnMarshal.CreateObject(TMinhaClasse, poMinhaClasse));
+      Result := oMinhaClasse.Nome;
+      Result := oMinhaClasse.MinhaClasse2.Nome;
+    except
+      on E: Exception do
+        raise Exception.Create(E.Message);
+    end;
+  finally
+    FreeAndNil(oUnMarshal);
+    FreeAndNil(oMinhaClasse);
+  end;
+end;
+
+function TMinhaClasseMetodos.ListarClasses(const poListaClasse: TJSONArray): string;
+var
+  iIdx: SmallInt;
+  oMinhaClasse: TMinhaClasse;
+  oUnMarshal: TJSONUnMarshal;
+begin
+  oUnMarshal := TJSONUnMarshal.Create;
+  for iIdx := 0 to poListaClasse.Size -1 do
+  begin
+    oMinhaClasse: TMinhaClasse;
+  end;
+
+end;
+
+function TMinhaClasseMetodos.RetornarListaClasse: TJSONArray;
+var
+  oMinhaClasse: TMinhaClasse;
+  oMarshal: TJSONMarshal;
+  iIdx: Byte;
+begin
+  Result := TJSONArray.Create;
+  oMarshal := TJSONMarshal.Create(TJSONConverter.Create);
+  for iIdx := 0 to 10 do
+  begin
+    oMinhaClasse := TMinhaClasse.Create('TMinhaClasse - ' + IntToStr(iIdx), Trunc(Now), Frac(now));
+    Result.AddElement(oMarshal.Marshal(oMinhaClasse));
+  end;
+end;
+
+function TMinhaClasseMetodos.RetornarMinhaClasseJsonObject: TJSONObject;
+var
+  oMinhaClasse: TMinhaClasse;
+  oMarshal: TJSONMarshal;
+begin
+  oMinhaClasse := TMinhaClasse.Create('RetornarMinhaClasseJsonObject', Date, Time);
+  oMarshal := TJSONMarshal.Create;
+  try
+    Result := TJSONObject(oMarshal.Marshal(oMinhaClasse));
+  finally
+    FreeAndNil(oMinhaClasse);
+    FreeAndNil(oMarshal);
+  end;
+end;
+
+function TMinhaClasseMetodos.RetornarNome(const psNome: string): string;
+begin
+  Result := psNome;
+end;
+
+procedure TMinhaClasseMetodos.TesteJsonUnMarshal;
+var
+  oMinhaClasse: TMinhaClasse;
+  oMarshal: TJSONMarshal;
+  oUnMarshal: TJSONUnMarshal;
+  oJSONValue: TJSONValue;
+  oObjetoMinhaClasse: TObject;
+begin
+  oMinhaClasse := TMinhaClasse.Create('TestejsonUnMarshal', Date, Time);
+  oMarshal := TJSONMarshal.Create;
+  try
+    oJSONValue := oMarshal.Marshal(oMinhaClasse);
+  finally
+    FreeAndNil(oMinhaClasse);
+    FreeAndNil(oMarshal);
+  end;
+
+  oUnMarshal := TJSONUnMarshal.Create;
+  try
+    oObjetoMinhaClasse := oUnMarshal.CreateObject(TMinhaClasse, TJSONObject(oJSONValue));
+    oMinhaClasse := TMinhaClasse(oObjetoMinhaClasse);
+    if oMinhaClasse.Nome = '' then
+      oMinhaClasse.Nome := 'Teste';
+
+//    if oMinhaClasse.MinhaClasse2.Nome = '' then
+//      oMinhaClasse.Nome := 'Teste';
+
+    if oMinhaClasse.Data = 0 then
+      oMinhaClasse.Data := Trunc(Now);
+
+    if oMinhaClasse.Hora = 0 then
+      oMinhaClasse.Hora := Frac(now);
+  finally
+    FreeAndNil(oUnMarshal);
+    FreeAndNil(oMinhaClasse);
+  end;
+end;
+
+end.

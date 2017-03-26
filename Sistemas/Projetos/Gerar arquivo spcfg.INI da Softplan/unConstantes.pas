@@ -1,0 +1,105 @@
+unit unConstantes;
+
+interface
+
+const
+  STRING_INDEFINIDO = '';
+  NUMERO_NULO = 0;
+  NUMERO_SEM_SELECAO = -1;
+
+  sARQUIVO_INI_CONFIGURACOES_DADOS_DISPONIVEIS = 'ConfDados.ini';
+  sCARACTER_SEPARADOR_ITENS_ARQUIVO_INI = ';';
+
+  //tipo das mensagens
+  nCAMPO_OBRIGATORIO = 1;
+
+  //abas do PageControl do frmPrincipal
+  nTBSHEET_SERVIDOR = 1;
+  nTBSHEET_FLUXOTRABALHO = 2;
+  nTBSHEET_SERVIDORES_APLICACAO = 3;
+  nTBSHEET_FLUXO = 4;
+  nTBSHEET_CLIENTE = 5;
+  nTBSHEET_DATABASE = 6;
+  nTBSHEET_LOG = 7;
+  nTBSHEET_GERAL = 8;
+  nTBSHEET_SP_UPDATE = 9;
+  nTBSHEET_SP_MONITOR = 10;
+
+  //opções do arquivo INI
+  //servidor
+  sOPCOES_SERVIDOR = '[Servidor]';
+  sGUID_SERVIDOR = 'GUIDServidor';
+  sNOME_SERVIDOR = 'nomeServidor';
+  sUSUARIO_CONEXAO_PRO = 'UsuarioConexaoPro';
+  sSENHA_CONEXAO_PRO = 'SenhaConexaoPro';
+  sUSUARIO_CONEXAO_SGC = 'UsuarioConexaoSGC';
+  sSENHA_CONEXAO_SGC = 'SenhaConexaoSGC';
+  sNOME_COMPUTADOR = 'nomeComputador';
+  sTIPO_CONEXAO = 'TipoConexao';
+  sPORTA = 'Porta';
+  sNOME_EXECUTAVEL_SERVIDOR = 'NomeExecutavelServidor';
+  sTIMEOUT_REQUISICAO_CLIENTE = 'TimeoutRequisicaoCliente';
+  sPODE_BALANCEAR = 'PODEBALANCEAR';
+  sDESABILITA_RECALCULA_TOTAL = 'DesabilitaRecalculaTotal';
+  sUSUARIO_CONEXAO_EST = 'UsuarioConexaoEst';
+  sSENHA_CONEXAO_EST = 'SenhaConexaoEst';
+  //fluxo de trabalho
+  sOPCOES_FLUXO_TRABALHO = '[FluxoTrabalho]';
+  sUSUARIO_PARA_LOGAR_EVENTOS_FLUXO = 'UsuarioParaLogarEventosFluxo';
+  //servidores de aplicação
+  sOPCOES_SERVIDORES_APLICACAO = '; Servidores de aplicação ;';
+  sENDERECO_IP = 'enderecoIP';
+  sNOME_COMPUTADOR_SERV_APLICACAO = 'NomeComputador';
+  //fluxo
+  sOPCOES_FLUXO = '[FLUXO]';
+  sCONSULTAR_TOTAL_FILA = 'ConsultarTotalFila';
+  //cliente
+  sOPCOES_CLIENTE = '[Cliente]';
+  sTIPO_SISTEMA = 'TipoSistema';
+  sNOME = 'Nome';
+  sLOGIN_AUTOMATICO = 'LoginAutomatico';
+  sDEPURANDO_DRAW = 'DepurandoDraw';
+  sRESOLUCAO = 'Resolucao';
+  sMOSTRA_BOTOES_DE_TESTE = 'MOSTRABOTOESDETESTE';
+  //database
+  sOPCOES_DATABASE = '[Database]';
+  sESQUEMA_DATABASE = 'Esquema';
+  sNUMERO_MAXIMO_CONEXOES = 'NumeroMaximoConexoes';
+  sNUMERO_MINIMO_CONEXOES = 'NumeroMinimoConexoes';
+  sTEMPO_DESCONEXAO_CONEXAO_INATIVA = 'TempoDesconexaoConexaoInativa';
+  sTEMPO_ATUALIZACAO_LOG_CONEXOES = 'TempoAtualizacaoLogConexoes';
+  sTIPO_ACESSO_BD = 'TipoAcessoBD';
+  //log
+  sOPCOES_LOG = '[Log]';
+  sTEMPO_RELEITURA_INI = 'TempoReleituraIni';
+  sREGISTRA_LOG_METODO = 'RegistraLogMetodo';
+  sTAMANHO_MAXIMO_LOG_METODO = 'TamanhoMaximoLogMetodo';
+  sQUANTIDADE_ARQUIVOS_LOG_METODO = 'QuantidadeArquivosLogMetodo';
+  sREGISTRA_LOG_SQL = 'RegistraLogSQL';
+  //geral
+  sOPCOES_GERAL = '[GERAL]';
+  sSIGLA_CLIENTE = 'SIGLACLIENTE';
+  sNOME_CLIENTE = 'NOMECLIENTE';
+  sLOGO_CLIENTE = 'LOGOCLIENTE';
+  //spUpdate
+  sOPCOES_SP_UPDATE = '[spUpdate]';
+  sPODE_ATUALIZAR = 'PodeAtualizar';
+  sALIAS = 'Alias';
+  sUSUARIO = 'Usuario';
+  sSENHA = 'Senha';
+  sESQUEMA_SP_UPDATE = 'Esquema';
+  sCD_SISTEMA = 'cdSistema';
+  //spMonitor
+  sOPCOES_MONITOR = '[spMonitor]';
+  sTIMER_LOG = 'TimerLog';
+  sTIMER_USUARIOS = 'TimerUsuarios';
+  sRELEITURA_AUMATICA_LOG = 'ReleituraAutomaticaLog';
+  sAVALA_TRAVAMENTO_AUTOMATICO = 'AvaliaTravamentoAutomatico';
+  sPOSICIONA_ULTIMO_LOG_AUTOMATICO = 'PosicionaUltimoLogAutomatico';
+  sATUALIZACAO_AUTOMATICA_USUARIOS = 'AtualizacaoAutomaticaUsuarios';
+  sCARREGA_LOG_MAIS_RECENTE = 'CarregaLogMaisRecente';
+  sDIRETORIO_LOG = 'DiretorioLog';
+
+implementation
+
+end.

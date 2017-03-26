@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="/"/>
+    <Version Value="6"/>
+    <General>
+      <MainUnit Value="0"/>
+      <IconPath Value="./"/>
+      <TargetFileExt Value=".exe"/>
+      <UseXPManifest Value="True"/>
+      <ActiveEditorIndexAtStart Value="3"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="3">
+      <Item1>
+        <PackageName Value="TurboPowerIPro"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="ACBr_LCL"/>
+        <MinVersion Minor="8" Release="6" Valid="True"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+    </RequiredPackages>
+    <Units Count="24">
+      <Unit0>
+        <Filename Value="ecfteste.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ECFTeste"/>
+        <CursorPos X="10" Y="2"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="30"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="ecfteste1.pas"/>
+        <ComponentName Value="Form1"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="ecfteste1.lrs"/>
+        <UnitName Value="ECFTeste1"/>
+        <CursorPos X="8" Y="1124"/>
+        <TopLine Value="1083"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="30"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="ecfteste1.lfm"/>
+        <CursorPos X="8" Y="20"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="configuraserial.pas"/>
+        <ComponentName Value="frConfiguraSerial"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="configuraserial.lrs"/>
+        <UnitName Value="ConfiguraSerial"/>
+        <CursorPos X="36" Y="51"/>
+        <TopLine Value="24"/>
+        <UsageCount Value="30"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="configuraserial.lfm"/>
+        <CursorPos X="4" Y="225"/>
+        <TopLine Value="199"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="efetuapagamento.pas"/>
+        <ComponentName Value="frPagamento"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="efetuapagamento.lrs"/>
+        <UnitName Value="EfetuaPagamento"/>
+        <CursorPos X="11" Y="8"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="30"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="efetuapagamento.lfm"/>
+        <CursorPos X="4" Y="194"/>
+        <TopLine Value="168"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="relatorio.pas"/>
+        <ComponentName Value="frRelatorio"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="relatorio.lrs"/>
+        <UnitName Value="Relatorio"/>
+        <CursorPos X="25" Y="31"/>
+        <TopLine Value="8"/>
+        <UsageCount Value="30"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="relatorio.lfm"/>
+        <CursorPos X="4" Y="208"/>
+        <TopLine Value="182"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="sobre.pas"/>
+        <ComponentName Value="frmSobre"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="sobre.lrs"/>
+        <UnitName Value="Sobre"/>
+        <CursorPos X="1" Y="121"/>
+        <TopLine Value="100"/>
+        <UsageCount Value="30"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="sobre.lfm"/>
+        <CursorPos X="34" Y="10"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="vendeitem.pas"/>
+        <ComponentName Value="frVendeItem"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="vendeitem.lrs"/>
+        <UnitName Value="VendeItem"/>
+        <CursorPos X="30" Y="15"/>
+        <TopLine Value="8"/>
+        <UsageCount Value="30"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="vendeitem.lfm"/>
+        <CursorPos X="4" Y="222"/>
+        <TopLine Value="196"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../../../../lazarus/components/ACBr/source/Pascal/ACBrECF.pas"/>
+        <UnitName Value="ACBrECF"/>
+        <CursorPos X="16" Y="13"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="../../../../lazarus/components/richview/rvscroll.pas"/>
+        <UnitName Value="RVScroll"/>
+        <CursorPos X="64" Y="32"/>
+        <TopLine Value="19"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../../../../lazarus/components/richview/rvlazintf.pas"/>
+        <UnitName Value="RVLazIntf"/>
+        <CursorPos X="33" Y="23"/>
+        <TopLine Value="10"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="../../../../lazarus/lcl/lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <CursorPos X="12" Y="691"/>
+        <TopLine Value="676"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="../../../synaser.pas"/>
+        <UnitName Value="synaser"/>
+        <CursorPos X="46" Y="2065"/>
+        <TopLine Value="2058"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="ecfteste1.lrs"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="ecfteste.rc"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="10" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="24"/>
+        <SyntaxHighlighter Value="None"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\..\..\..\..\lazarus\components\turbopower_ipro\turbopoweripro.pas"/>
+        <UnitName Value="TurboPowerIPro"/>
+        <CursorPos X="28" Y="9"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../../../ACBrUtil.pas"/>
+        <UnitName Value="ACBrUtil"/>
+        <CursorPos X="36" Y="1348"/>
+        <TopLine Value="1347"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../../../ACBrRFD.pas"/>
+        <UnitName Value="ACBrRFD"/>
+        <CursorPos X="19" Y="57"/>
+        <TopLine Value="37"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="/usr/share/fpcsrc/rtl/linux/system.pp"/>
+        <UnitName Value="System"/>
+        <CursorPos X="2" Y="38"/>
+        <TopLine Value="13"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit23>
+    </Units>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="5"/>
+    <CodeGeneration>
+      <Generate Value="Faster"/>
+    </CodeGeneration>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="1">
+      <Item1>
+        <Name Value="ESynaSerError"/>
+      </Item1>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

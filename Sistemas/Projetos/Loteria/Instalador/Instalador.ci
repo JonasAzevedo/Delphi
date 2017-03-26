@@ -1,0 +1,95 @@
+<*project
+      version = 4 civer = "Free v4.14.3" winver = "2.6/5.1.2600" > 
+   <output> E:\=ORGANIZAÇÃO DE ARQUIVOS=\Programação\Delphi\Meus Softwares em Delphi\Outros\Loteria\Instalador</>
+   <exename> KAYA</>
+   <digitsign> </>
+   <appname> KAYA</>
+   <password> </>
+   <addlang> </>
+   <icon> Default</>
+   <selfextr> 1</>
+   <voltype> nolimit</>
+   <volsize> </>
+   <volpattern> disk%i.pak</>
+   <load> </>
+   <loadtime> 1000</>
+   <checktype> admin</>
+   <chkname> </>
+   <chkmsg> </>
+   <dlgfont> Verdana,8</>
+   <lang> Portuguese_br</>
+   <theme> Color</>
+   <iface> </>
+   <leftlogo> </>
+   <logo> </>
+   <vb> </>
+   <dao> </>
+   <background> 0</>
+   <dlgwelcome> 1</>
+   <dlgreadme> </>
+   <dlglic> </>
+   <dlgcustpath> C:\Loteria\</>
+   <dlgenfpath> 1</>
+   <dlgsavepath> </>
+   <dlgautoprog> 1</>
+   <dlgfinish> 1</>
+   <comptype> defnorm</>
+   <solid> </>
+   <srcfolder> </>
+   <ifexist> overnewer</>
+   <runafter> </>
+   <runconfirm> 0</>
+   <uninclude> 1</>
+   <unicon> Uninstall</>
+   <unshortcut> 1</>
+   <unrun> </>
+   <silent> 0</>
+   <unfeed> </>
+   <unautoclose> 0</>
+   <unfinish> 0</>
+   <bl> </>
+   <blurl> </>
+   <bghead> </>
+   <bgfoot> </> 
+   <bgback> </>
+   <files listview >
+      <_><src>C:\Loteria\BD</><dest>inst</><custom></><ifexist>overnewer</><recurs>0</></>
+<_><src>E:\=ORGANIZAÇÃO DE ARQUIVOS=\Programação\Delphi\Meus Softwares em Delphi\Outros\Loteria\Fontes\KAYA.exe</><dest>inst</><custom></><ifexist>overnewer</><recurs>0</></>
+<_><src>E:\=ORGANIZAÇÃO DE ARQUIVOS=\Programação\Delphi\Meus Softwares em Delphi\Outros\Loteria\Outros\Firebird-2.1.1.17910-0_Win32.exe</><dest>inst</><custom></><ifexist>overnewer</><recurs>0</></>
+<_><src>E:\=ORGANIZAÇÃO DE ARQUIVOS=\Programação\Delphi\Meus Softwares em Delphi\Outros\Loteria\Outros\dbexpint.dll</><dest>inst</><custom></><ifexist>overnewer</><recurs>0</></>
+<_><src>E:\=ORGANIZAÇÃO DE ARQUIVOS=\Programação\Delphi\Meus Softwares em Delphi\Outros\Loteria\Outros\FBCLIENT.DLL</><dest>inst</><custom></><ifexist>overnewer</><recurs>0</></>
+<_><src>E:\=ORGANIZAÇÃO DE ARQUIVOS=\Programação\Delphi\Meus Softwares em Delphi\Outros\Loteria\Outros\midas.dll</><dest>inst</><custom></><ifexist>overnewer</><recurs>0</></>
+
+   </files>
+   <runx listview >
+      <_><type>app</><path>inst</><file>Firebird-2.1.1.17910-0_Win32.exe</><cmdline></><wait>0</><workdir>inst</><custdir></><when>end</></>
+
+   </runx>
+   <registry listview >
+      
+   </registry>
+   <shcut listview >
+      <_><shpath>desk</><shname>Loteria</><tarpath>inst</><tarname>KAYA.exe</><cmdline></><workpath>def</><workcust></><icon></></>
+<_><shpath>prog</><shname>Loteria</><tarpath>inst</><tarname>KAYA.exe</><cmdline></><workpath>def</><workcust></><icon></></>
+
+   </shcut>
+   <ini listview >
+      
+   </ini>
+   <copy listview >
+      
+   </copy>
+   <activex listview >
+      
+   </activex>
+   <font listview >
+      
+   </font>
+   <ext listview >
+      
+   </ext>
+   <mreg listview >
+      
+   </mreg>
+   <macros> </>
+</project>

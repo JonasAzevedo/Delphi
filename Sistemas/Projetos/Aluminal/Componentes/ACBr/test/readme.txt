@@ -1,0 +1,1 @@
+Neste diretório serão colocados os arquivos de teste automatizados assim que forem implementados

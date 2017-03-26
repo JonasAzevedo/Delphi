@@ -1,0 +1,77 @@
+unit unPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    mmTeclasPressionadas: TMemo;
+    Timer1: TTimer;
+    Memo1: TMemo;
+  private
+    procedure WMPaint(var msg: TWMPaint); message WM_PAINT;
+    procedure WMChar(var msg: TWMChar); message WM_CHAR;
+    procedure WMMouseMove(var msg: TWMMouseMove); message WM_MOUSEMOVE;
+    procedure WMKeyUp(var msg: TWMKeyUp); message WM_KEYUP;
+    procedure WMKeyDown(var msg: TWMKeyDown); message WM_KEYDOWN;
+
+    procedure WMPaintDt(var msg: DWORD); message WM_PAINT;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+{ TForm1 }
+
+procedure TForm1.WMPaint(var msg: TWMPaint);
+begin
+  MessageBeep(0);
+  inherited;
+end;
+
+procedure TForm1.WMChar(var msg: TWMChar);
+var
+  a: Char;
+begin
+  a := 'q';
+  mmTeclasPressionadas.Text := mmTeclasPressionadas.Text + a;
+
+  inherited;
+end;
+
+procedure TForm1.WMMouseMove(var msg: TWMMouseMove);
+begin
+  mmTeclasPressionadas.lines.Add('mouse_move');
+
+  inherited;
+end;
+
+procedure TForm1.WMKeyUp(var msg: TWMKeyUp); 
+begin
+  Memo1.lines.Add('key_up');
+
+  inherited;
+end;
+
+procedure TForm1.WMKeyDown(var msg: TWMKeyDown);
+begin
+  Memo1.lines.Add('key_down');
+
+  inherited;
+end;
+
+procedure TForm1.WMPaintDt(var msg: DWORD);
+begin
+  Memo1.Lines.Add(IntToStr(msg));
+end;
+
+end.

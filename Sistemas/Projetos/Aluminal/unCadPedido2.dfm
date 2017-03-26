@@ -1,0 +1,339 @@
+inherited frmCadPedido2: TfrmCadPedido2
+  Left = 231
+  Top = 96
+  Width = 878
+  Height = 574
+  Constraints.MinHeight = 0
+  Constraints.MinWidth = 0
+  OldCreateOrder = True
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pgCtrlPedido: TAdvPageControl
+    Width = 862
+    Height = 536
+    ActivePage = tbCliente
+    inherited tbCliente: TAdvTabSheet
+      inherited grpBxEndereco: TGroupBox
+        Top = 203
+        Width = 854
+        Height = 209
+        inherited lblEnderecoCEP: TLabel
+          Left = 170
+          Top = 92
+        end
+        inherited lblEnderecoComplemento: TLabel
+          Top = 116
+        end
+        inherited lbllblEnderecoCidade: TLabel
+          Left = 117
+        end
+        inherited lblEnderecoNumero: TLabel
+          Left = 10
+          Top = 92
+        end
+        inherited edEnderecoBairro: TPlsEdit
+          Width = 798
+          Anchors = [akLeft, akTop, akRight]
+        end
+        inherited edEnderecoRua: TPlsEdit
+          Width = 798
+          Anchors = [akLeft, akTop, akRight]
+        end
+        inherited medEnderecoCEP: TPlsMaskEdit
+          Left = 200
+          Top = 86
+        end
+        inherited mmEnderecoComplemento: TPlsMemo
+          Left = 10
+          Top = 131
+          Width = 836
+          Height = 62
+          Anchors = [akLeft, akTop, akRight]
+        end
+        inherited edEnderecoCidade: TPlsEdit
+          Left = 158
+          Width = 688
+          Anchors = [akLeft, akTop, akRight]
+        end
+        inherited edEnderecoNumero: TPlsEdit
+          Left = 48
+          Top = 86
+        end
+      end
+      inherited sbCliente: TStatusBar
+        Top = 489
+        Width = 854
+        Panels = <
+          item
+            Width = 400
+          end
+          item
+            Width = 300
+          end
+          item
+            Width = 50
+          end>
+      end
+      inherited pnlDadosCliente: TPanel
+        Width = 854
+        Height = 154
+        inherited lblCodigo: TLabel
+          Left = 2
+          Top = 16
+        end
+        inherited lblNome: TLabel
+          Left = 2
+          Top = 40
+        end
+        inherited lblCPF: TLabel
+          Left = 2
+          Top = 64
+        end
+        inherited lblDataNascimento: TLabel
+          Left = 438
+          Top = 88
+        end
+        inherited lblEmail: TLabel
+          Left = 2
+          Top = 112
+        end
+        inherited lblTelefone1: TLabel
+          Left = 2
+          Top = 136
+        end
+        inherited lblTelefone2: TLabel
+          Left = 186
+          Top = 136
+        end
+        inherited lblCNPJ: TLabel
+          Left = 461
+          Top = 64
+        end
+        inherited lblIdentidade: TLabel
+          Left = 186
+          Top = 64
+        end
+        inherited lblProfissao: TLabel
+          Left = 186
+          Top = 88
+        end
+        inherited lblData: TLabel
+          Top = 16
+        end
+        inherited lblSexo: TLabel
+          Left = 2
+          Top = 88
+        end
+        inherited edEmail: TPlsEdit
+          Left = 50
+          Top = 104
+          Width = 804
+          Anchors = [akLeft, akTop, akRight]
+        end
+        inherited medTelefone1: TPlsMaskEdit
+          Left = 50
+          Top = 128
+        end
+        inherited medTelefone2: TPlsMaskEdit
+          Left = 246
+          Top = 128
+          Width = 128
+        end
+        inherited edProfissao: TPlsEdit
+          Left = 246
+          Top = 80
+          Width = 188
+        end
+        inherited medCNPJ: TPlsMaskEdit
+          Left = 501
+          Top = 56
+        end
+        inherited edIdentidade: TPlsEdit
+          Left = 246
+          Top = 56
+          Width = 180
+        end
+        inherited medDataNascimento: TPlsMaskEdit
+          Left = 543
+          Top = 80
+        end
+        inherited medCPF: TPlsMaskEdit
+          Left = 50
+          Top = 56
+          Width = 117
+        end
+        inherited edNome: TPlsEdit
+          Left = 50
+          Top = 32
+          Width = 804
+        end
+        inherited edCodigo: TPlsEdit
+          Left = 50
+          Top = 8
+        end
+        inherited edData: TPlsEdit
+          Top = 8
+        end
+        inherited cbBxSexo: TPlsComboBox
+          Left = 50
+          Top = 80
+        end
+      end
+      inherited tlBotoesCliente: TToolBar
+        Width = 854
+      end
+      inherited pnlSeparaDadosEndereco: TPanel
+        Top = 195
+        Width = 854
+        Height = 8
+      end
+    end
+    inherited tbPedido: TAdvTabSheet
+      inherited sbPedido: TStatusBar
+        Top = 489
+        Width = 854
+        Panels = <
+          item
+            Width = 400
+          end
+          item
+            Width = 300
+          end
+          item
+            Width = 50
+          end>
+      end
+      inherited pnlTopo: TPanel
+        Width = 854
+        inherited lblValorTotalPedido: TLabel
+          Left = 654
+        end
+        inherited lblTotalPedidosCliente: TLabel
+          Left = 360
+        end
+        inherited edValorTotalPedido: TPlsEdit
+          Left = 744
+          Width = 102
+        end
+      end
+      inherited grpBxEnderecoEntrega: TGroupBox
+        Top = 276
+        Width = 854
+        Height = 131
+        inherited lblEnderecoBairroEntrega: TLabel
+          Left = 448
+        end
+        inherited lblEnderecoCEPEntrega: TLabel
+          Left = 717
+        end
+        inherited lblEnderecoComplementoEntrega: TLabel
+          Top = 68
+        end
+        inherited lblEnderecoNumeroEntrega: TLabel
+          Left = 463
+        end
+        inherited edEnderecoBairroEntrega: TPlsEdit
+          Left = 483
+          Width = 364
+        end
+        inherited edEnderecoRuaEntrega: TPlsEdit
+          Width = 392
+        end
+        inherited medEnderecoCEPEntrega: TPlsMaskEdit
+          Left = 750
+          Width = 97
+        end
+        inherited mmEnderecoComplementoEntrega: TPlsMemo
+          Top = 83
+          Width = 837
+          Height = 39
+        end
+        inherited edEnderecoCidadeEntrega: TPlsEdit
+          Width = 283
+        end
+        inherited edEnderecoNumeroEntrega: TPlsEdit
+          Left = 481
+        end
+      end
+      inherited grpBxItensPedido: TGroupBox
+        Width = 854
+        Height = 194
+        inherited grItensPedido: TDBGrid
+          Width = 814
+          Height = 177
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'quantidade'
+              Title.Caption = 'Qtde'
+              Width = 36
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'descricao'
+              Title.Caption = 'Descri'#231#227'o'
+              Width = 364
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'valor_unitario'
+              Title.Caption = 'Vlr Unit'#225'rio'
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'valor_total'
+              ReadOnly = True
+              Title.Caption = 'Vlr Total'
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'complemento'
+              Title.Caption = 'Complemento'
+              Width = 234
+              Visible = True
+            end>
+        end
+        inherited pnlLateralDireita: TPanel
+          Left = 816
+          Height = 177
+        end
+      end
+      inherited grpBxOutros: TGroupBox
+        Top = 407
+        Width = 854
+        inherited mmDescricaoPedido: TPlsMemo
+          Width = 837
+        end
+      end
+      inherited tlBtnBotoesPedido: TToolBar
+        Width = 854
+      end
+    end
+  end
+  inherited imgBotoes: TImageList
+    Left = 348
+    Top = 32
+  end
+  inherited ApplicationEvents: TApplicationEvents
+    Left = 320
+    Top = 32
+  end
+  inherited cdsItensPedidoUnidadeComboBox: TClientDataSet
+    Left = 456
+    Top = 66
+  end
+  inherited cdsItensPedido: TClientDataSet
+    Left = 456
+    Top = 40
+  end
+  inherited dsItensPedido: TDataSource
+    Left = 488
+    Top = 40
+  end
+end

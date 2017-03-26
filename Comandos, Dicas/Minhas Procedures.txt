@@ -1,0 +1,212 @@
+  private
+    (*VARIÁVEIS DE CONTROLE*)
+    Transacao: TTransactionDesc;//transações - deve-se adicionar a uses DBXpress
+    opcaoSalvar: Integer; //modo de salvamento. 1=novo; 2=editção
+
+
+    (*PROCEDURES DE CONTROLE*)
+    procedure limpar();//limpar componentes
+    procedure visibilidade(opc: Integer);//quais componentes exibir/ocultar
+    procedure iniciaTransacao();//dispara uma transação
+    procedure carrega();//carrega dados da tabela Paciente para os componentes de apresentação
+    procedure mostraTodosPacientes();//exibe todos os pacientes
+  public
+   (*VARIÁVEIS DE CONTROLE*)
+    operacao: String; //recebe valor para saber em que modo inicia a tela
+
+
+
+(*PROCEDURES DE CONTROLE*)
+
+(*limpar componentes*)
+procedure TfrmPaciente.limpar();
+begin
+  edCodigo.Clear;
+  edNome.Clear;
+  edPai.Clear;
+  edMae.Clear;
+  cbxEstadoCivil.ItemIndex := -1;
+  cbxSexo.ItemIndex := -1;
+  cbxCor.ItemIndex := -1;
+  medDataNascimento.Clear;
+  edProfissao.Clear;
+  medTelefone.Clear;
+  edNaturalidade.Clear;
+  edEndereco.Clear;
+  edBairro.Clear;
+  edMunicipio.Clear;
+  edEstado.Clear;
+  edResponsavel.Clear;
+  rdBtnCodigo.Checked := false;
+  rdBtnNome.Checked := false;
+  edPesquisa.Clear;
+end;
+
+(*dispara uma transação*)
+procedure TfrmPaciente.iniciaTransacao();
+begin
+  transacao.TransactionID := 1;
+  transacao.IsolationLevel := xilREPEATABLEREAD;
+end;
+
+
+(*quais componentes exibir/ocultar*)
+procedure TfrmPaciente.visibilidade(opc: Integer);
+begin
+  case opc of
+    {novo}
+    1: begin
+       grpBxDadosPaciente.Enabled := true;
+       DBGrdPaciente.Enabled := false;
+       pnlPesquisa.Enabled := false;
+       tlBtnNovo.Enabled := false;
+       tlBtnEditar.Enabled := false;
+       tlBtnSalvar.Enabled := true;
+       tlBtnExcluir.Enabled := false;
+       tlBtnCancelar.Enabled := true;
+       end;
+
+    {editar}
+    2: begin
+       grpBxDadosPaciente.Enabled := true;
+       DBGrdPaciente.Enabled := false;
+       pnlPesquisa.Enabled := false;
+       tlBtnNovo.Enabled := false;
+       tlBtnEditar.Enabled := false;
+       tlBtnSalvar.Enabled := true;
+       tlBtnExcluir.Enabled := false;
+       tlBtnCancelar.Enabled := true;
+       end;
+
+    {salvar}
+    3: begin
+       grpBxDadosPaciente.Enabled := false;
+       DBGrdPaciente.Enabled := true;
+       pnlPesquisa.Enabled := true;
+       tlBtnNovo.Enabled := true;
+       if (DM.cdsPaciente.RecordCount > 0) then
+         begin
+         tlBtnEditar.Enabled := true;
+         tlBtnExcluir.Enabled := true;
+         end
+       else
+         begin
+         tlBtnEditar.Enabled := false;
+         tlBtnExcluir.Enabled := false;
+         end;
+       tlBtnSalvar.Enabled := false;
+       tlBtnCancelar.Enabled := false;
+       end;
+
+    {excluir}
+    4: begin
+       grpBxDadosPaciente.Enabled := false;
+       pnlPesquisa.Enabled := true;
+       tlBtnNovo.Enabled := true;
+       if (DM.cdsPaciente.RecordCount > 0) then
+         begin
+         DBGrdPaciente.Enabled := true;
+         tlBtnEditar.Enabled := true;
+         tlBtnExcluir.Enabled := true;
+         end
+       else
+         begin
+         DBGrdPaciente.Enabled := false;
+         tlBtnEditar.Enabled := false;
+         tlBtnExcluir.Enabled := false;
+         end;
+       tlBtnSalvar.Enabled := false;
+       tlBtnCancelar.Enabled := false;
+       end;
+
+    {cancelar}
+    5: begin
+       grpBxDadosPaciente.Enabled := false;
+       pnlPesquisa.Enabled := true;
+       tlBtnNovo.Enabled := true;
+       tlBtnSalvar.Enabled := false;
+       tlBtnCancelar.Enabled := false;
+
+       if (DM.cdsPaciente.RecordCount > 0) then
+         begin
+         DBGrdPaciente.Enabled := true;
+         tlBtnEditar.Enabled := true;
+         tlBtnExcluir.Enabled := true;
+         end
+       else
+         begin
+         DBGrdPaciente.Enabled := false;
+         tlBtnEditar.Enabled := false;
+         tlBtnExcluir.Enabled := false;
+         end;
+       end;
+
+  end;//case
+
+end;
+
+
+(*carrega dados da tabela Paciente para os componentes de apresentação*)
+procedure TfrmPaciente.carrega();
+var
+  s: String;
+begin
+  edCodigo.Text := DM.cdsPacienteCODIGO.AsString;
+  edNome.Text := DM.cdsPacienteNOME.AsString;
+  edPai.Text := DM.cdsPacientePAI.AsString;
+  edMae.Text := DM.cdsPacienteMAE.AsString;
+
+  s := DM.cdsPacienteESTADO_CIVIL.AsString;
+  if (s = 'Amasiado(a)')then
+    cbxEstadoCivil.ItemIndex := 0
+  else if (s = 'Casado(a)')then
+    cbxEstadoCivil.ItemIndex := 1
+  else if (s = 'Separado(a)')then
+    cbxEstadoCivil.ItemIndex := 2
+  else if (s = 'Solteiro(a)')then
+    cbxEstadoCivil.ItemIndex := 3
+  else if (s = 'União Estável')then
+    cbxEstadoCivil.ItemIndex := 4
+  else if (s = 'Viúvo(a)')then
+    cbxEstadoCivil.ItemIndex := 5;
+
+  s := DM.cdsPacienteSEXO.AsString;
+  if (s ='Feminino')then
+    cbxSexo.ItemIndex := 0
+  else if (s = 'Masculino')then
+    cbxSexo.ItemIndex := 1;
+
+  s := DM.cdsPacienteCOR.AsString;
+  if (s = 'Amarela')then
+    cbxCor.ItemIndex := 0
+  else if (s = 'Branca')then
+    cbxCor.ItemIndex := 1
+  else if (s = 'Parda')then
+    cbxCor.ItemIndex := 2
+  else if (s = 'Preta')then
+    cbxCor.ItemIndex := 3;
+
+  medDataNascimento.Text := DM.cdsPacienteDATA_NASCIMENTO.AsString;
+  edProfissao.Text := DM.cdsPacientePROFISSAO.AsString;
+  medTelefone.Text := DM.cdsPacienteTELEFONE.AsString;
+  edNaturalidade.Text := DM.cdsPacienteNATURALIDADE.AsString;
+  edEndereco.Text := DM.cdsPacienteENDERECO.AsString;
+  edBairro.Text := DM.cdsPacienteBAIRRO.AsString;
+  edMunicipio.Text := DM.cdsPacienteMUNICIPIO.AsString;
+  edEstado.Text := DM.cdsPacienteESTADO.AsString;
+  edResponsavel.Text := DM.cdsPacienteRESPONSAVEL.AsString;
+
+end;
+
+
+(*exibe todos os pacientes*)
+procedure TfrmPaciente.mostraTodosPacientes();
+begin
+  DM.qryPaciente.Close;
+  DM.qryPaciente.SQL.Clear;
+  DM.qryPaciente.SQL.Add('SELECT * From Paciente ORDER BY Codigo');
+  DM.qryPaciente.Prepared := true;
+  DM.qryPaciente.Open;
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)

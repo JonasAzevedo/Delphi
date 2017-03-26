@@ -1,0 +1,25 @@
+unit unPesquisandoDescricaoProdutos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, unPesquisandoRegistro, DB, DBClient, StdCtrls, plsEdit,
+  ExtCtrls, Grids, DBGrids;
+
+type
+  TfrmPesquisandoRegistro1 = class(TfrmPesquisandoRegistro)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPesquisandoRegistro1: TfrmPesquisandoRegistro1;
+
+implementation
+
+{$R *.dfm}
+
+end.

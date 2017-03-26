@@ -1,0 +1,50 @@
+****************************************************
+ GlyFX Database
+
+ PerthWeb Pty Ltd (c) 2001
+ All Rights Reserved
+****************************************************
+
+License Agreement
+
+BEFORE PROCEEDING WITH THE INSTALLATION AND/OR USE OF THIS SOFTWARE, CAREFULLY READ THE FOLLOWING TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT AND LIMITED WARRANTY.
+
+BY INSTALLING OR USING THIS SOFTWARE YOU INDICATE YOUR ACCEPTANCE OF THIS AGREEMENT. IF YOU DO NOT ACCEPT OR AGREE WITH THESE TERMS, YOU MAY NOT INSTALL OR USE THIS SOFTWARE, AND MUST RETURN ALL ORIGINALS AND COPIES TO PERTHWEB.
+
+PerthWeb Pty Ltd reserves the right as the sole creator and distributor of the image library. You may not distribute derivative works based on the image library at any time. You are permitted to create derivative images based on this library for use strictly within your own company.
+
+The images contained within this library may only be used as compiled resources within your applications. They may not be used for any other purpose without prior written permission from PerthWeb Pty Ltd.
+
+
+LICENSE 
+
+This software, including documentation and/or additional materials (the "Software") is owned by PerthWeb Pty Ltd. This Agreement does not provide you with title or ownership of Product, but only a right of limited use as outlined in this license agreement. PerthWeb Pty Ltd hereby grant you a non-exclusive, royalty free license to use the Software as set forth below: 
+
+* Integrate the image library with your applications, subject to the redistribution terms below. 
+
+* Modify or adapt the image library in whole or in part for the development of your own Applications only, not for resale or any other purpose.
+
+
+REDISTRIBUTION RIGHTS 
+
+You are granted a non-exclusive, royalty-free right to reproduce and redistribute executable files created using the Software (the "Executable Code") in conjunction with software products that you develop and/or market (the "Applications"). 
+
+
+RESTRICTIONS 
+
+You may NOT: distribute this library, or any image from the library, distribute modified versions of the image library, in whole  or in part, rent or lease the Software, sell any portion of the Software on its own, without integrating it into your Applications as compiled resources, or claim that you created any part of this library.
+
+
+SELECTION AND USE 
+
+You assume full responsibility for the selection of the Software to achieve your intended results and for the installation, use and results obtained from the Software. 
+
+LIMITED WARRANTY 
+
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PRODUCT IS WITH YOU. SHOULD THE PRODUCT PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING OR ERROR CORRECTION. PERTHWEB PTY LTD DOES NOT WARRANT THAT THE FUNCTIONS CONTAINED IN THE SOFTWARE WILL MEET YOUR REQUIREMENTS OR THAT THE OPERATION OF THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR FREE. 
+
+No oral or written information given by our authors shall create a warranty. 
+
+LIMITATION OF REMEDIES AND LIABILITY. 
+
+IN NO EVENT SHALL PERTHWEB PTY LTD, OR ANY OTHER PARTY WHO MAY HAVE DISTRIBUTED THE SOFTWARE AS PERMITTED ABOVE, BE LIABLE FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER PRODUCTS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 

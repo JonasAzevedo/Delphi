@@ -1,0 +1,100 @@
+http://usuarios.lycos.es/isma
+
+=========
+TEXPORTQR
+=========
+
+Propiedades:
+
+   * Report : TQuickRep  -> Informe de QuickReport a exportar.
+   * Preview: TQRPreview -> Componente QRPreview que se desea exportar, se debe especificar
+                            si la exportación se hace desde una venta de preliminar.
+
+Métodos:
+
+   * ExportQR -> Prepara y exporta el informe sin previsualizarlo. Genera un cuadro de diálogo
+                 para guardar el fichero y lo exporta.
+                 Es necesario haber asignado antes a la propiedad Report un report.
+                 
+   * ExportQRFromPreview -> Exporta el informe que se esta previsualizando en un QRPreview que
+                            previamente se ha especificado en la propiedad Preview. Genera
+                            un cuadro de diálogo para indicar el nombre del fichero y lo
+                            exporta.
+			    Se debe llamar siempre que se quiera permitir exportar desde una
+                            ventana de preview.
+
+   * ExportQRPDF (string, boolean) -> Exporta el informe que se haya asociado en Report a PDF 
+                                      con alta o baja compresión según el 2º parámetro y con el
+                                      nombre de fichero indicado en el primer parámetro.
+                                      Debe haberse hecho una llamada a Prepare del report para
+                                      que lo exporte correctamete.
+
+   * ExportQRJPG (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             JPG con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+
+   * ExportQRBMP (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             BMP con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+                                                       
+   * ExportQRWMF (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             WMF con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+
+   * ExportQREMF (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             EMF con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+
+------------------------------------------------------------------------------------------------
+
+=========
+TEXPORTFR
+=========
+
+Propiedades:
+   * Report : TfrReport  -> Informe de FastReport a exportar.
+
+Métodos:
+
+   * ExportFR -> Prepara y exporta el informe sin previsualizarlo. Genera un cuadro de diálogo
+                 para guardar el fichero y lo exporta.
+                 Es necesario haber asignado antes a la propiedad Report un report.
+                 
+
+   * ExportFRPDF (string, boolean) -> Exporta el informe que se haya asociado en Report a PDF 
+                                      con alta o baja compresión según el 2º parámetro y con el
+                                      nombre de fichero indicado en el primer parámetro.
+                                      Debe haberse hecho una llamada a Prepare del report para
+                                      que lo exporte correctamete.
+
+   * ExportFRJPG (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             JPG con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+
+   * ExportFRBMP (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             BMP con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+                                                       
+   * ExportFRWMF (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             WMF con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.
+
+   * ExportFREMF (string) -> Exporta el informe que se hay asociado en Report a varios ficheros
+                             EMF con nombre el indicado en el parámetro y xxxxx que indican
+                             la página.
+                             Debe haberse hecho una llamada a Prepare del report para que lo
+                             exporte correctamente.

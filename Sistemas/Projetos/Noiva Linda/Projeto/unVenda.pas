@@ -1,0 +1,569 @@
+unit unVenda;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, DB, DBClient, Provider, SqlExpr, AppEvnts, ImgList,
+  ExtCtrls, Grids, DBGrids, ComCtrls, StdCtrls, Buttons, Mask, ToolWin, DBXpress, SQLTimSt;
+
+type
+  TfrmVenda = class(TForm)
+    ToolBar: TToolBar;
+    tlBtnNovo: TToolButton;
+    tlBtnCancelar: TToolButton;
+    ToolButton1: TToolButton;
+    tlBtnFinalizar: TToolButton;
+    grpBxDadosVenda: TGroupBox;
+    lblCodigo: TLabel;
+    lblObservacao: TLabel;
+    lblNome: TLabel;
+    lblCidade: TLabel;
+    lblInfValorTotal: TLabel;
+    lblValorTotal: TLabel;
+    edCodigo: TEdit;
+    edCliente: TEdit;
+    mmObservacao: TMemo;
+    mEdDataVenda: TMaskEdit;
+    btBtnAbreCliente: TBitBtn;
+    StatusBar: TStatusBar;
+    grpBxItensVenda: TGroupBox;
+    dbGrdItensVenda: TDBGrid;
+    pnlBotoesItensLocacao: TPanel;
+    btBtnInserirItem: TBitBtn;
+    btBtnExcluirItem: TBitBtn;
+    imgLista: TImageList;
+    ApplicationEvents: TApplicationEvents;
+    qryItens: TSQLQuery;
+    dspItens: TDataSetProvider;
+    cdsItens: TClientDataSet;
+    dsItens: TDataSource;
+    qryValorTotal: TSQLQuery;
+    qryValorTotalTotal: TFMTBCDField;
+    dspValorTotal: TDataSetProvider;
+    cdsValorTotal: TClientDataSet;
+    cdsValorTotalTotal: TFMTBCDField;
+    dsValorTotal: TDataSource;
+    qryItensCODIGO: TIntegerField;
+    qryItenscodProduto: TIntegerField;
+    qryItensProduto: TStringField;
+    qryItensQUANTIDADE: TIntegerField;
+    qryItensVALOR_UNITARIO: TFMTBCDField;
+    qryItensVALOR_TOTAL: TFMTBCDField;
+    cdsItensCODIGO: TIntegerField;
+    cdsItenscodProduto: TIntegerField;
+    cdsItensProduto: TStringField;
+    cdsItensQUANTIDADE: TIntegerField;
+    cdsItensVALOR_UNITARIO: TFMTBCDField;
+    cdsItensVALOR_TOTAL: TFMTBCDField;
+    Label1: TLabel;
+    edFuncionario: TEdit;
+    btBtnAbreFuncionario: TBitBtn;
+    btBtnConfirmar: TBitBtn;
+    procedure ApplicationEventsHint(Sender: TObject);
+    procedure edCodigoEnter(Sender: TObject);
+    procedure edCodigoExit(Sender: TObject);
+    procedure edClienteExit(Sender: TObject);
+    procedure edClienteEnter(Sender: TObject);
+    procedure mEdDataVendaEnter(Sender: TObject);
+    procedure mmObservacaoEnter(Sender: TObject);
+    procedure mmObservacaoExit(Sender: TObject);
+    procedure mEdDataVendaExit(Sender: TObject);
+    procedure tlBtnNovoClick(Sender: TObject);
+    procedure btBtnAbreClienteClick(Sender: TObject);
+    procedure tlBtnCancelarClick(Sender: TObject);
+    procedure tlBtnFinalizarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure btBtnInserirItemClick(Sender: TObject);
+    procedure btBtnExcluirItemClick(Sender: TObject);
+    procedure edFuncionarioEnter(Sender: TObject);
+    procedure edFuncionarioExit(Sender: TObject);
+    procedure btBtnAbreFuncionarioClick(Sender: TObject);
+    procedure btBtnConfirmarClick(Sender: TObject);
+  private
+    (*VARIÁVEIS DE CONTROLE*)
+    transacao: TTransactionDesc;//transações - deve-se adicionar a uses DBXpress
+    fechar: boolean; //se pode ou não fechar tela - casos de novo/editar, em que não pode fechar
+    valorTotal: Real; //valor total da venda
+
+    (*PROCEDURES DE CONTROLE*)
+    procedure limpar();//limpar componentes
+    function verificaSalva(): boolean; //verifica se os campos obrigatórios foram inseridos antes de salvar
+    procedure visibilidade(opc: Integer);//quais componentes exibir/ocultar
+    procedure iniciaTransacao();//dispara uma transação
+
+    (*PROCEDURES ESPECÍFICAS*)
+    procedure pegaItens(); //pega itens da venda atual
+  public
+    codCliente: Integer; //controle do cliente
+    codFuncionario: Integer; //controle do funcionário
+
+    operacao: String; //recebe valor para saber em que modo inicia a tela
+  end;
+
+var
+  frmVenda: TfrmVenda;
+
+implementation
+
+uses unSelecionaCliente, unDM, unValorPago, unSelecionaProduto,
+  unSelecionaFuncionario, unPrincipal;
+
+{$R *.dfm}
+
+(*PROCEDURES ESPECÍFICAS*)
+
+//pega itens da venda atual
+procedure TfrmVenda.pegaItens();
+begin
+  //itens da venda
+  qryItens.Close;
+  qryItens.SQL.Clear;
+  qryItens.SQL.Add('SELECT i.codigo,p.codigo AS "codProduto", p.nome AS "Produto", i.quantidade,i.valor_unitario,i.valor_total ');
+  qryItens.SQL.Add('FROM produto p, item_venda i ');
+  qryItens.SQL.Add('WHERE i.cod_produto=p.codigo AND i.cod_venda=:codVen');
+  qryItens.ParamByName('codVen').AsInteger := StrToInt(edCodigo.Text);
+  qryItens.Prepared := true;
+  qryItens.Open;
+  cdsItens.Open;
+  cdsItens.Refresh;
+  if (cdsItens.RecordCount=0) then
+    btBtnExcluirItem.Enabled := false
+  else
+    btBtnExcluirItem.Enabled := true;
+
+  //valor total da locação
+  qryValorTotal.Close;
+  qryValorTotal.SQL.Clear;
+  qryValorTotal.SQL.Add('SELECT SUM (i.valor_total) AS "Total" ');
+  qryValorTotal.SQL.Add('FROM produto p, item_venda i ');
+  qryValorTotal.SQL.Add('WHERE i.cod_produto=p.codigo AND i.cod_venda=:codVen');
+  qryValorTotal.ParamByName('codVen').AsInteger := StrToInt(edCodigo.Text);
+  qryValorTotal.Prepared := true;
+  qryValorTotal.Open;
+  cdsValorTotal.Open;
+  cdsValorTotal.Refresh;
+
+  lblValorTotal.Caption := FormatFloat('#0.00',cdsValorTotalTotal.AsFloat);
+end;
+(*FIM PROCEDURES ESPECÍFICAS*)
+
+
+(*PROCEDURES DE CONTROLE*)
+
+{dispara uma transação}
+procedure TfrmVenda.iniciaTransacao();
+begin
+  transacao.TransactionID := 1;
+  transacao.IsolationLevel := xilREPEATABLEREAD;
+end;
+
+{limpar componentes}
+procedure TfrmVenda.limpar();
+begin
+  codCliente := 0;
+  codFuncionario := 0;
+  valorTotal := 0;
+
+  edCodigo.Clear;
+  edFuncionario.Clear;
+  edCliente.Clear;
+  mEdDataVenda.Clear;
+  mmObservacao.Clear;
+  lblValorTotal.Caption :=  '0,00';
+
+  qryItens.Close;
+  cdsItens.Close;
+end;
+
+{verifica se os campos obrigatórios foram inseridos antes de salvar}
+function TfrmVenda.verificaSalva(): boolean;
+var
+  campos: String;
+  retorno: boolean;
+begin
+
+  campos := '';
+  retorno := true;
+
+  if (codCliente = 0)then
+    campos := 'Cliente';
+
+  if (mEdDataVenda.Text = '  /  /       :  ') then
+    begin
+    if (campos = '') then
+      campos := 'Data da Venda'
+    else
+      campos := campos + ', Data da Venda';
+    end;
+
+  if (campos <> '') then
+    begin
+    MessageDlg('Verifique os seguintes campos: ' + campos, mtInformation,[mbOK],0);
+    retorno := false;
+    end;
+
+  Result := retorno;
+end;
+
+{quais componentes exibir/ocultar}
+ procedure TfrmVenda.visibilidade(opc: Integer);
+begin
+
+  {
+  1 = novo
+  21 = salvar
+  41 = cancelar
+  }
+
+  case opc of
+    {novo}
+    1:  begin
+        grpBxDadosVenda.Enabled := true;
+        grpBxItensVenda.Enabled := false;
+        tlBtnNovo.Enabled := false;
+        btBtnConfirmar.Enabled := true;
+        tlBtnCancelar.Enabled := true;
+        tlBtnFinalizar.Enabled := false;
+        mEdDataVenda.Text := DateTimeToStr(Now);
+        btBtnAbreFuncionario.SetFocus;
+        end;
+
+    {salvar}
+    21: begin
+        grpBxDadosVenda.Enabled := false;
+        grpBxItensVenda.Enabled := true;
+        tlBtnNovo.Enabled := false;
+        btBtnConfirmar.Enabled := false;
+        tlBtnCancelar.Enabled := true;
+        tlBtnFinalizar.Enabled := true;
+        end;
+
+    {cancelar}
+    41: begin
+        grpBxDadosVenda.Enabled := false;
+        grpBxItensVenda.Enabled := false;
+        tlBtnNovo.Enabled := true;
+        btBtnConfirmar.Enabled := false;
+        tlBtnCancelar.Enabled := false;
+        tlBtnFinalizar.Enabled := false;
+        end;
+  end;//case
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+procedure TfrmVenda.ApplicationEventsHint(Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+procedure TfrmVenda.edCodigoEnter(Sender: TObject);
+begin
+  edCodigo.Color := clMoneyGreen;
+end;
+
+procedure TfrmVenda.edCodigoExit(Sender: TObject);
+begin
+  edCodigo.Color := clWindow;
+end;
+
+procedure TfrmVenda.edClienteExit(Sender: TObject);
+begin
+  edCliente.Color := clWindow;
+end;
+
+procedure TfrmVenda.edClienteEnter(Sender: TObject);
+begin
+  edCliente.Color := clMoneyGreen;
+end;
+
+procedure TfrmVenda.mEdDataVendaEnter(Sender: TObject);
+begin
+  mEdDataVenda.Color := clMoneyGreen;
+end;
+
+procedure TfrmVenda.mmObservacaoEnter(Sender: TObject);
+begin
+  mmObservacao.Color := clMoneyGreen;
+end;
+
+procedure TfrmVenda.mmObservacaoExit(Sender: TObject);
+begin
+  mmObservacao.Color := clWindow;
+end;
+
+procedure TfrmVenda.mEdDataVendaExit(Sender: TObject);
+begin
+  mEdDataVenda.Color := clWindow;
+end;
+
+procedure TfrmVenda.tlBtnNovoClick(Sender: TObject);
+begin
+  {preparando}
+  limpar();
+  fechar := false;
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Novo';
+  visibilidade(1);
+  //usuário
+  edFuncionario.Text := frmPrincipal.nomeUsuario;
+  Self.codFuncionario := frmPrincipal.codUsuario;  
+end;
+
+procedure TfrmVenda.btBtnAbreClienteClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaCliente,frmSelecionaCliente);
+  frmSelecionaCliente.tela := 'venda';
+  frmSelecionaCliente.ShowModal;
+  frmSelecionaCliente.Free;
+end;
+
+procedure TfrmVenda.tlBtnCancelarClick(Sender: TObject);
+begin
+  if (edCodigo.Text <> '') then
+    begin
+    try
+      iniciaTransacao();
+      DM.SQLConnection.StartTransaction(transacao);
+
+      //alterando status do produto
+      DM.qryItemVenda.Close;
+      DM.qryItemVenda.SQL.Clear;
+      DM.qryItemVenda.SQL.Add('SELECT * FROM Item_Venda WHERE cod_venda=:codVen');
+      DM.qryItemVenda.ParamByName('codVen').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryItemVenda.Prepared := true;
+      DM.qryItemVenda.Open;
+      DM.cdsItemVenda.Open;
+      DM.cdsItemVenda.Refresh;
+      DM.cdsItemVenda.First;
+      if (DM.cdsItemVenda.RecordCount <> 0) then
+        begin
+        while(not(DM.cdsItemVenda.Eof)) do
+          begin
+          DM.qryProduto.Close;
+          DM.qryProduto.SQL.Clear;
+          DM.qryProduto.SQL.Add('UPDATE PRODUTO SET status=0 WHERE codigo=:cod');
+          DM.qryProduto.ParamByName('cod').AsInteger := DM.cdsItemVendaCOD_PRODUTO.AsInteger;
+          DM.qryProduto.Prepared := true;
+          DM.qryProduto.ExecSQL();
+          DM.cdsItemVenda.Next;
+          end;
+        end;
+
+      //deletando itens da venda
+      DM.qryItemVenda.Close;
+      DM.qryItemVenda.SQL.Clear;
+      DM.qryItemVenda.SQL.Add('DELETE FROM Item_Venda WHERE cod_venda=:codVen');
+      DM.qryItemVenda.ParamByName('codVen').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryItemVenda.Prepared := true;
+      DM.qryItemVenda.ExecSQL();
+
+      //deletando venda
+      DM.qryVenda.Close;
+      DM.qryVenda.SQL.Clear;
+      DM.qryVenda.SQL.Add('DELETE FROM Venda WHERE codigo=:cod ');
+      DM.qryVenda.ParamByName('cod').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryVenda.Prepared := true;
+      DM.qryVenda.ExecSQL();
+
+      DM.SQLConnection.Commit(transacao);
+      MessageDlg('Venda cancelada com sucesso!',mtInformation,[mbOk],0);
+      limpar();
+      StatusBar.Panels[1].Text := '';
+      fechar := true;
+      visibilidade(41);
+    except
+      MessageDlg('Venda não pode ser cancelada!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+      DM.SQLConnection.Rollback(transacao);
+    end;
+    end
+  else
+    begin
+    limpar();
+    StatusBar.Panels[1].Text := '';
+    fechar := true;
+    visibilidade(41);
+    end;
+end;
+
+procedure TfrmVenda.tlBtnFinalizarClick(Sender: TObject);
+begin
+  pegaItens();
+  if(cdsItens.RecordCount=0)then
+    MessageDlg('Não há nenhum item na Venda!',mtInformation,[mbOK],0)
+  else
+    begin
+    Application.CreateForm(TfrmValorPago,frmValorPago);
+
+    frmValorPago.tela := 'venda';
+    //código venda
+    frmValorPago.codOperacao := StrToInt(edCodigo.Text);
+    frmValorPago.codCliente := Self.codCliente;
+    frmValorPago.codFuncionario := Self.codFuncionario;
+    frmValorPago.lblFuncionario.Caption := edFuncionario.Text;
+    frmValorPago.lblInfOperacao.Caption := 'VENDA:';
+    frmValorPago.lblOperacao.Caption := edCodigo.Text;
+    //valor total venda
+    frmValorPago.edValorTotal.Text := lblValorTotal.Caption;
+    frmValorPago.vlrTotal := StrToFloat(lblValorTotal.Caption);
+
+    frmValorPago.ShowModal;
+    frmValorPago.Free;
+    fechar := true;
+    visibilidade(41);
+    Self.Close;
+    end;
+end;
+
+procedure TfrmVenda.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if ((fechar = false)or(tlBtnFinalizar.Enabled=true)) then
+    begin
+    MessageDlg('Finalize ou cancele a venda!',mtInformation,[mbOK],0);
+    Action := caNone;
+    end
+
+  else
+  operacao := '';
+end;
+
+procedure TfrmVenda.FormShow(Sender: TObject);
+begin
+  limpar();
+
+  StatusBar.Panels[1].Text := '';
+  fechar := true;
+  visibilidade(41);
+
+  if (operacao = 'novo') then
+    tlBtnNovoClick(Sender);
+end;
+
+procedure TfrmVenda.btBtnInserirItemClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaProduto,frmSelecionaProduto);
+  frmSelecionaProduto.tela := 'venda';
+  frmSelecionaProduto.codOperacao := StrToInt(edCodigo.Text);
+ // frmSelecionaProduto.datIni := StrToDateTime(mEdDataInicio.Text);
+//  frmSelecionaProduto.datFin := StrToDateTime(mEdDataFinal.Text);
+  frmSelecionaProduto.ShowModal;
+  frmSelecionaProduto.Free;
+
+  pegaItens();
+end;
+
+procedure TfrmVenda.btBtnExcluirItemClick(Sender: TObject);
+var
+  produto: String;
+begin
+  produto := cdsItensProduto.AsString;
+
+  if(cdsItens.RecordCount <> 0)then
+    begin
+    if (MessageDlg('Deseja deletar o Produto '+produto+' da venda atual?',mtConfirmation,[mbYes,mbNo],0)=mrYes) then
+      begin
+      try
+        iniciaTransacao();
+        DM.SQLConnection.StartTransaction(transacao);
+
+        DM.qryProduto.Close;
+        DM.qryProduto.SQL.Clear;
+        DM.qryProduto.SQL.Add('UPDATE Produto SET status=0 WHERE codigo=:cod');
+        DM.qryProduto.ParamByName('cod').AsInteger := cdsItenscodProduto.AsInteger;
+        DM.qryProduto.Prepared := true;
+        DM.qryProduto.ExecSQL();
+
+        DM.qryItemVenda.Close;
+        DM.qryItemVenda.SQL.Clear;
+        DM.qryItemVenda.SQL.Add('DELETE FROM Item_Venda i WHERE i.codigo=:cod');
+        DM.qryItemVenda.ParamByName('cod').AsInteger := cdsItensCODIGO.AsInteger;
+        DM.qryItemVenda.Prepared := true;
+        DM.qryItemVenda.ExecSQL();
+
+        DM.SQLConnection.Commit(transacao);
+        MessageDlg('Produto '+produto+' deletado com sucesso!',mtInformation,[mbOK],0);
+      except
+        DM.SQLConnection.Rollback(transacao);
+        MessageDlg('Produto '+produto+' não pode ser deletado!',mtError,[mbOK],0);
+      end;
+      end;
+    end
+  else
+    MessageDlg('Não há produtos na venda para serem deletados!',mtInformation,[mbOK],0);
+  pegaItens();
+end;
+
+procedure TfrmVenda.edFuncionarioEnter(Sender: TObject);
+begin
+  edFuncionario.Color := clMoneyGreen;
+end;
+
+procedure TfrmVenda.edFuncionarioExit(Sender: TObject);
+begin
+  edFuncionario.Color := clWindow;
+end;
+
+procedure TfrmVenda.btBtnAbreFuncionarioClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaFuncionario,frmSelecionaFuncionario);
+  frmSelecionaFuncionario.tela := 'venda';
+  frmSelecionaFuncionario.ShowModal;
+  frmSelecionaFuncionario.Free;
+end;
+
+procedure TfrmVenda.btBtnConfirmarClick(Sender: TObject);
+begin
+  if (verificaSalva = true) then
+    begin
+    try
+    iniciaTransacao();
+    DM.SQLConnection.StartTransaction(transacao);
+
+    DM.qryVenda.Close;
+    DM.qryVenda.SQL.Clear;
+    //sem funcionário
+    if (Self.codFuncionario=0) then
+      begin
+      DM.qryVenda.SQL.Add('INSERT INTO Venda (cod_cliente,data_venda,observacoes) ');
+      DM.qryVenda.SQL.Add('VALUES (:codCli,:datVen,:obs)');
+      end
+    else
+    //com funcionário
+      begin
+      DM.qryVenda.SQL.Add('INSERT INTO Venda (cod_funcionario,cod_cliente,data_venda,observacoes) ');
+      DM.qryVenda.SQL.Add('VALUES (:codFun,:codCli,:datVen,:obs)');
+      DM.qryVenda.ParamByName('codFun').AsInteger := Self.codFuncionario;
+      end;
+
+    DM.qryVenda.ParamByName('codCli').AsInteger := codCliente;
+    DM.qryVenda.ParamByName('datVen').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataVenda.Text);
+    DM.qryVenda.ParamByName('obs').AsString := mmObservacao.Text;
+
+    DM.qryVenda.Prepared := true;
+    DM.qryVenda.ExecSQL();
+
+    DM.SQLConnection.Commit(transacao);
+    MessageDlg('Venda salva com sucesso!',mtInformation,[mbOk],0);
+
+    //pegando úlitma venda
+    DM.qryVenda.Close;
+    DM.qryVenda.SQL.Clear;
+    DM.qryVenda.SQL.Add('SELECT * FROM venda v ORDER BY v.codigo');
+    DM.qryVenda.Prepared := true;
+    DM.qryVenda.Open;
+    DM.cdsVenda.Open;
+    DM.cdsVenda.Refresh;
+    DM.cdsVenda.Last;
+    edCodigo.Text := DM.cdsVendaCODIGO.AsString;
+    except
+      MessageDlg('Venda não pode ser salva!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+      DM.SQLConnection.Rollback(transacao);
+    end;
+
+    StatusBar.Panels[1].Text := 'OPERAÇÃO = Salvar';
+    visibilidade(21);
+    end;
+end;
+
+end.

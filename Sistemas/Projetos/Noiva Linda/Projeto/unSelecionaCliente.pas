@@ -1,0 +1,302 @@
+unit unSelecionaCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, AppEvnts, ComCtrls, ExtCtrls, StdCtrls, Buttons, Grids,
+  DBGrids;
+
+type
+  TfrmSelecionaCliente = class(TForm)
+    grpBxClientes: TGroupBox;
+    DBGridClientes: TDBGrid;
+    btBtnNovoCliente: TBitBtn;
+    grpBxPesquisa: TGroupBox;
+    rdBtnCodigo: TRadioButton;
+    rdBtnNome: TRadioButton;
+    edPesquisa: TEdit;
+    btBtnPesquisar: TBitBtn;
+    pnlDivisao: TPanel;
+    StatusBar: TStatusBar;
+    btBtnSelecionarCliente: TBitBtn;
+    ApplicationEvents: TApplicationEvents;
+    PopupMenu: TPopupMenu;
+    ppMnMostrarTodosClientes: TMenuItem;
+    procedure FormShow(Sender: TObject);
+    procedure rdBtnCodigoClick(Sender: TObject);
+    procedure rdBtnNomeClick(Sender: TObject);
+    procedure edPesquisaChange(Sender: TObject);
+    procedure edPesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure btBtnPesquisarClick(Sender: TObject);
+    procedure ppMnMostrarTodosClientesClick(Sender: TObject);
+    procedure DBGridClientesCellClick(Column: TColumn);
+    procedure DBGridClientesExit(Sender: TObject);
+    procedure DBGridClientesDblClick(Sender: TObject);
+    procedure ApplicationEventsHint(Sender: TObject);
+    procedure edPesquisaEnter(Sender: TObject);
+    procedure edPesquisaExit(Sender: TObject);
+    procedure edPesquisaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure btBtnNovoClienteClick(Sender: TObject);
+  private
+
+  public
+    tela:String;//tela que chamou esta
+
+    procedure mostraTodosClientes();//exibe todos os Clientes
+  end;
+
+var
+  frmSelecionaCliente: TfrmSelecionaCliente;
+
+implementation
+
+uses unDM, unLocacao, unCliente, unRetornoLocacao,
+  unSelecionaRelatorioOperacoes, unReserva, unVenda, unContaReceber,
+  unSelecionaRelatorioLocacoes, unSelecionaRelatorioReservas,
+  unSelecionaRelatorioVendas;
+
+{$R *.dfm}
+
+(*PROCEDURES DE CONTROLE*)
+
+{exibe todos os Clientes}
+procedure TfrmSelecionaCliente.mostraTodosClientes();
+begin
+  DM.qryCliente.Close;
+  DM.qryCliente.SQL.Clear;
+  DM.qryCliente.SQL.Add('SELECT * From Cliente c ORDER BY c.codigo');
+  DM.qryCliente.Prepared := true;
+  DM.qryCliente.Open;
+
+  DM.cdsCliente.Open;
+  DM.cdsCliente.Refresh;
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+
+procedure TfrmSelecionaCliente.FormShow(Sender: TObject);
+begin
+  mostraTodosClientes();
+  StatusBar.Panels[1].Text := '';
+  if (Self.tela='relatorioLocacao') then
+    btBtnNovoCliente.Visible := false
+  else
+    btBtnNovoCliente.Visible := true;
+end;
+
+procedure TfrmSelecionaCliente.rdBtnCodigoClick(Sender: TObject);
+begin
+  edPesquisa.Enabled := true;
+  edPesquisa.Clear;
+  edPesquisa.SetFocus;
+  btBtnPesquisar.Enabled := false;
+  StatusBar.Panels[1].Text := 'Pesquisar';   
+end;
+
+procedure TfrmSelecionaCliente.rdBtnNomeClick(Sender: TObject);
+begin
+
+  edPesquisa.Enabled := true;
+  edPesquisa.Clear;
+  edPesquisa.SetFocus;
+  btBtnPesquisar.Enabled := false;
+  StatusBar.Panels[1].Text := 'Pesquisar';
+end;
+
+procedure TfrmSelecionaCliente.edPesquisaChange(Sender: TObject);
+begin
+  if (edPesquisa.Text = '')then
+    btBtnPesquisar.Enabled := false;
+
+  if(edPesquisa.Text <> '')then
+    begin
+    if((rdBtnCodigo.Checked = true)or(rdBtnNome.Checked = true))then
+      btBtnPesquisar.Enabled := true
+    else
+      btBtnPesquisar.Enabled := false;
+    end;
+end;
+
+procedure TfrmSelecionaCliente.edPesquisaKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (rdBtnCodigo.Checked = true) then
+    begin
+    if not (Key in['0'..'9',Chr(8)])then
+      Key:= #0;
+    end;
+end;
+
+procedure TfrmSelecionaCliente.btBtnPesquisarClick(Sender: TObject);
+begin
+ {código}
+  if (rdBtnCodigo.Checked = true) then
+    begin
+    DM.qryCliente.Close;
+    DM.qryCliente.SQL.Clear;
+    DM.qryCliente.SQL.Add('SELECT * FROM Cliente c WHERE c.codigo = :cod');
+    DM.qryCliente.ParamByName('cod').AsInteger := StrToInt(edPesquisa.Text);
+    DM.qryCliente.Prepared := true;
+    DM.qryCliente.Open;
+
+    DM.cdsCliente.Open;
+    DM.cdsCliente.Refresh;
+
+    if(DM.cdsCliente.RecordCount = 0)then
+      begin
+      MessageDlg('Nenhum Cliente encontrado com o código ' + edPesquisa.Text + '!', mtError,[mbOk],0);
+      edPesquisa.Clear;
+      mostraTodosClientes();
+      end;
+
+    DM.cdsCliente.Open;
+    DM.cdsCliente.Refresh;
+    DM.cdsCliente.Last;
+    end;
+
+  {nome}
+  if (rdBtnNome.Checked = true) then
+    begin
+    DM.qryCliente.Close;
+    DM.qryCliente.SQL.Clear;
+    DM.qryCliente.SQL.Add('SELECT * FROM Cliente c WHERE c.nome LIKE  ' + QuotedStr('%' + edPesquisa.Text + '%'));
+    DM.qryCliente.Prepared := true;
+    DM.qryCliente.Open;
+
+    DM.cdsCliente.Open;
+    DM.cdsCliente.Refresh;
+
+    if(DM.cdsCliente.RecordCount = 0)then
+      begin
+      MessageDlg('Nenhum Cliente encontrado com os caracteres ' + edPesquisa.Text + '!', mtError,[mbOk],0);
+      edPesquisa.Clear;
+      mostraTodosClientes();
+      end;
+
+    DM.cdsCliente.Open;
+    DM.cdsCliente.Refresh;
+    DM.cdsCliente.Last;
+    end;
+
+  StatusBar.Panels[1].Text := '';
+end;
+
+procedure TfrmSelecionaCliente.ppMnMostrarTodosClientesClick(
+  Sender: TObject);
+begin
+  mostraTodosClientes();
+end;
+
+procedure TfrmSelecionaCliente.DBGridClientesCellClick(Column: TColumn);
+begin
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Navegação';
+end;
+
+procedure TfrmSelecionaCliente.DBGridClientesExit(Sender: TObject);
+begin
+  StatusBar.Panels[1].Text := '';
+end;
+
+procedure TfrmSelecionaCliente.DBGridClientesDblClick(Sender: TObject);
+begin
+  if (tela = 'locacao') then
+    begin
+    frmLocacao.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmLocacao.edCliente.Text := DM.cdsClienteNOME.AsString;
+    if(DM.cdsClienteSEXO.AsString='MASCULINO')then
+      frmLocacao.rdGrpSexo.ItemIndex :=0
+    else if(DM.cdsClienteSEXO.AsString='FEMININO')then
+      frmLocacao.rdGrpSexo.ItemIndex :=1;
+    end
+
+  else if (tela = 'reserva') then
+    begin
+    frmReserva.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmReserva.edCliente.Text := DM.cdsClienteNOME.AsString;
+    if(DM.cdsClienteSEXO.AsString='MASCULINO')then
+      frmReserva.rdGrpSexo.ItemIndex :=0
+    else if(DM.cdsClienteSEXO.AsString='FEMININO')then
+      frmReserva.rdGrpSexo.ItemIndex :=1;
+    end
+
+  else if (tela = 'venda') then
+    begin
+    frmVenda.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmVenda.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end
+
+  else if (tela = 'retornoLocacao') then
+    begin
+    frmRetornoLocacao.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmRetornoLocacao.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end
+
+  else if (tela='relatorio') then
+    begin
+    frmSelecionaRelatorioOperacoes.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmSelecionaRelatorioOperacoes.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end
+
+  else if (tela='contaReceber') then
+    begin
+    frmContaReceber.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmContaReceber.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end
+
+  else if (tela='relatorioLocacao') then
+    begin
+    frmSelecionaRelatorioLocacoes.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmSelecionaRelatorioLocacoes.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end
+
+  else if (tela='relatorioReserva') then
+    begin
+    frmSelecionaRelatorioReservas.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmSelecionaRelatorioReservas.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end
+
+  else if (tela='relatorioVenda') then
+    begin                   
+    frmSelecionaRelatorioVendas.codCliente := DM.cdsClienteCODIGO.AsInteger;
+    frmSelecionaRelatorioVendas.edCliente.Text := DM.cdsClienteNOME.AsString;
+    end;
+
+  Self.Close;
+end;
+
+procedure TfrmSelecionaCliente.ApplicationEventsHint(Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+procedure TfrmSelecionaCliente.edPesquisaEnter(Sender: TObject);
+begin
+  edPesquisa.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaCliente.edPesquisaExit(Sender: TObject);
+begin
+  edPesquisa.Color := clWindow;
+end;
+
+procedure TfrmSelecionaCliente.edPesquisaKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key=13) then
+    btBtnPesquisarClick(Sender);
+end;
+
+procedure TfrmSelecionaCliente.btBtnNovoClienteClick(Sender: TObject);
+begin
+  StatusBar.Panels[1].Text := 'Cadastro de um Novo Cliente';
+
+  Application.CreateForm(TfrmCliente,frmCliente);
+  frmCliente.operacao := 'novo';
+  frmCliente.ShowModal;
+  frmCliente.Free;
+end;
+
+end.

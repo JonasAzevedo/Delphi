@@ -1,0 +1,680 @@
+unit unReserva;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, DB, DBClient, Provider, SqlExpr, AppEvnts, ImgList,
+  ExtCtrls, Grids, DBGrids, ComCtrls, StdCtrls, Buttons, Mask, ToolWin, DBXpress, SQLTimSt;
+
+type
+  TfrmReserva = class(TForm)
+    ToolBar: TToolBar;
+    tlBtnNovo: TToolButton;
+    tlBtnSalvar: TToolButton;
+    tlBtnCancelar: TToolButton;
+    ToolButton1: TToolButton;
+    tlBtnFinalizar: TToolButton;
+    grpBxDadosReserva: TGroupBox;
+    lblCodigo: TLabel;
+    lblObservacao: TLabel;
+    lblNome: TLabel;
+    lblUF: TLabel;
+    lblCidade: TLabel;
+    lblInfValorTotal: TLabel;
+    lblValorTotal: TLabel;
+    edCodigo: TEdit;
+    edCliente: TEdit;
+    mmObservacao: TMemo;
+    mEdDataInicio: TMaskEdit;
+    mEdDataFinal: TMaskEdit;
+    btBtnAbreCliente: TBitBtn;
+    rdGrpSexo: TRadioGroup;
+    StatusBar: TStatusBar;
+    grpBxItensReserva: TGroupBox;
+    dbGrdItensLocacao: TDBGrid;
+    pnlBotoesItensLocacao: TPanel;
+    btBtnInserirItem: TBitBtn;
+    btBtnExcluirItem: TBitBtn;
+    imgLista: TImageList;
+    ApplicationEvents: TApplicationEvents;
+    qryItens: TSQLQuery;
+    dspItens: TDataSetProvider;
+    cdsItens: TClientDataSet;
+    dsItens: TDataSource;
+    qryValorTotal: TSQLQuery;
+    qryValorTotalTotal: TFMTBCDField;
+    dspValorTotal: TDataSetProvider;
+    cdsValorTotal: TClientDataSet;
+    cdsValorTotalTotal: TFMTBCDField;
+    dsValorTotal: TDataSource;
+    qryItensCODIGO: TIntegerField;
+    qryItenscodProduto: TIntegerField;
+    qryItensProduto: TStringField;
+    qryItensQUANTIDADE: TIntegerField;
+    qryItensVALOR_UNITARIO: TFMTBCDField;
+    qryItensVALOR_TOTAL: TFMTBCDField;
+    cdsItensCODIGO: TIntegerField;
+    cdsItenscodProduto: TIntegerField;
+    cdsItensProduto: TStringField;
+    cdsItensQUANTIDADE: TIntegerField;
+    cdsItensVALOR_UNITARIO: TFMTBCDField;
+    cdsItensVALOR_TOTAL: TFMTBCDField;
+    qryTmpReserva: TSQLQuery;
+    dspTmpReserva: TDataSetProvider;
+    cdsTmpReserva: TClientDataSet;
+    cdsTmpReservaCODIGO: TIntegerField;
+    Label1: TLabel;
+    edFuncionario: TEdit;
+    btBtnAbreFuncionario: TBitBtn;
+    procedure ApplicationEventsHint(Sender: TObject);
+    procedure edCodigoEnter(Sender: TObject);
+    procedure edCodigoExit(Sender: TObject);
+    procedure edClienteEnter(Sender: TObject);
+    procedure edClienteExit(Sender: TObject);
+    procedure btBtnAbreClienteClick(Sender: TObject);
+    procedure mEdDataInicioEnter(Sender: TObject);
+    procedure mEdDataInicioExit(Sender: TObject);
+    procedure mEdDataFinalExit(Sender: TObject);
+    procedure mEdDataFinalEnter(Sender: TObject);
+    procedure mmObservacaoEnter(Sender: TObject);
+    procedure mmObservacaoExit(Sender: TObject);
+    procedure btBtnInserirItemClick(Sender: TObject);
+    procedure btBtnExcluirItemClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure tlBtnNovoClick(Sender: TObject);
+    procedure tlBtnSalvarClick(Sender: TObject);
+    procedure tlBtnCancelarClick(Sender: TObject);
+    procedure tlBtnFinalizarClick(Sender: TObject);
+    procedure edFuncionarioEnter(Sender: TObject);
+    procedure edFuncionarioExit(Sender: TObject);
+    procedure btBtnAbreFuncionarioClick(Sender: TObject);
+  private
+    (*VARIÁVEIS DE CONTROLE*)
+    transacao: TTransactionDesc;//transações - deve-se adicionar a uses DBXpress
+    fechar: boolean; //se pode ou não fechar tela - casos de novo/editar, em que não pode fechar
+    valorTotal: Real; //valor total da reserva
+
+    (*PROCEDURES DE CONTROLE*)
+    procedure limpar();//limpar componentes
+    function verificaSalva(): boolean; //verifica se os campos obrigatórios foram inseridos antes de salvar
+    procedure visibilidade(opc: Integer);//quais componentes exibir/ocultar
+    procedure iniciaTransacao();//dispara uma transação
+
+    (*PROCEDURES ESPECÍFICAS*)
+    procedure pegaItens(); //pega itens da reserva atual
+  public
+    codCliente: Integer; //controle do cliente
+    codFuncionario: Integer; //controle do funcionário
+
+    operacao: String; //recebe valor para saber em que modo inicia a tela
+  end;
+
+var
+  frmReserva: TfrmReserva;
+
+implementation
+
+uses unSelecionaCliente, unSelecionaProduto, unDM, unValorPago,
+  unSelecionaFuncionario, unPrincipal;
+
+{$R *.dfm}
+
+(*PROCEDURES ESPECÍFICAS*)
+
+//pega itens da reserva atual
+procedure TfrmReserva.pegaItens();
+begin
+  //itens da locação
+  qryItens.Close;
+  qryItens.SQL.Clear;
+  qryItens.SQL.Add('SELECT i.codigo,p.codigo AS "codProduto",p.nome AS "Produto", i.quantidade,i.valor_unitario,i.valor_total ');
+  qryItens.SQL.Add('FROM produto p, item_reserva i');
+  qryItens.SQL.Add('WHERE i.cod_produto=p.codigo AND i.cod_reserva=:codRes');
+  qryItens.ParamByName('codRes').AsInteger := StrToInt(edCodigo.Text);
+  qryItens.Prepared := true;
+  qryItens.Open;
+  cdsItens.Open;
+  cdsItens.Refresh;
+  if (cdsItens.RecordCount=0) then
+    btBtnExcluirItem.Enabled := false
+  else
+    btBtnExcluirItem.Enabled := true;
+
+  //valor total da locação
+  qryValorTotal.Close;
+  qryValorTotal.SQL.Clear;
+  qryValorTotal.SQL.Add('SELECT SUM (i.valor_total) AS "Total" ');
+  qryValorTotal.SQL.Add('FROM produto p, item_reserva i ');
+  qryValorTotal.SQL.Add('WHERE i.cod_produto=p.codigo AND i.cod_reserva=:codRes');
+  qryValorTotal.ParamByName('codRes').AsInteger := StrToInt(edCodigo.Text);
+  qryValorTotal.Prepared := true;
+  qryValorTotal.Open;
+  cdsValorTotal.Open;
+  cdsValorTotal.Refresh;
+
+  lblValorTotal.Caption := FormatFloat('#0.00',cdsValorTotalTotal.AsFloat);
+end;
+(*FIM PROCEDURES ESPECÍFICAS*)
+
+
+(*PROCEDURES DE CONTROLE*)
+
+{dispara uma transação}
+procedure TfrmReserva.iniciaTransacao();
+begin
+  transacao.TransactionID := 1;
+  transacao.IsolationLevel := xilREPEATABLEREAD;
+end;
+
+{limpar componentes}
+procedure TfrmReserva.limpar();
+begin
+  codCliente := 0;
+  codFuncionario := 0;
+  valorTotal := 0;
+
+  edCodigo.Clear;
+  edFuncionario.Clear;
+  edCliente.Clear;
+  rdGrpSexo.ItemIndex := -1;
+  mEdDataInicio.Clear;
+  mEdDataFinal.Clear;
+  mmObservacao.Clear;
+  lblValorTotal.Caption :=  '0,00';
+
+  qryItens.Close;
+  cdsItens.Close;
+end;
+
+{verifica se os campos obrigatórios foram inseridos antes de salvar}
+function TfrmReserva.verificaSalva(): boolean;
+var
+  campos: String;
+  retorno: boolean;
+  dtIni,dtFin: TDateTime;
+begin
+
+  campos := '';
+  retorno := true;
+
+  dtIni := StrToDateTime(mEdDataInicio.Text);
+  dtFin := StrToDateTime(mEdDataFinal.Text);
+
+  //Data de Início já passou
+  if (dtIni < Now) then
+    begin
+    MessageDlg('A Data de Início já passou!',mtInformation,[mbOK],0);
+    retorno := false;
+    mEdDataInicio.SetFocus;
+    end;
+
+  //Data Final menor que a Data de Início
+  if (retorno=true)then
+    begin
+    if (dtFin <= dtIni) then
+      begin
+      MessageDlg('A Data Final deve ser maior que a Data de Início!',mtInformation,[mbOK],0);
+      retorno := false;
+      mEdDataFinal.SetFocus;
+      end;
+    end;
+
+  //verificando campos
+  if (retorno=true)then
+    begin
+    if (codCliente = 0)then
+      campos := 'Cliente';
+
+    if (rdGrpSexo.ItemIndex=-1) then
+      begin
+      if (campos = '') then
+        campos := 'Sexo'
+      else
+        campos := campos + ', Sexo';
+      end;
+
+
+    if (mEdDataInicio.Text = '  /  /       :  ') then
+      begin
+      if (campos = '') then
+        campos := 'Data de Início'
+      else
+        campos := campos + ', Data de Início';
+      end;
+
+    if (mEdDataFinal.Text = '  /  /       :  ') then
+      begin
+      if (campos = '') then
+        campos := 'Data Final'
+      else
+        campos := campos + ', Data Final';
+      end;
+
+    if (campos <> '') then
+      begin
+      MessageDlg('Verifique os seguintes campos: ' + campos, mtInformation,[mbOK],0);
+      retorno := false;
+      end;
+    end;
+
+  Result := retorno;
+end;
+
+{quais componentes exibir/ocultar}
+ procedure TfrmReserva.visibilidade(opc: Integer);
+begin
+
+  {
+  1 = novo
+  21 = salvar
+  41 = cancelar
+  }
+
+  case opc of
+    {novo}
+    1:  begin
+        grpBxDadosReserva.Enabled := true;
+        grpBxItensReserva.Enabled := false;
+        tlBtnNovo.Enabled := false;
+        tlBtnSalvar.Enabled := true;
+        tlBtnCancelar.Enabled := true;
+        tlBtnFinalizar.Enabled := false;
+        rdGrpSexo.ItemIndex := 0;
+        mEdDataInicio.Text := DateTimeToStr(Now+1);
+        mEdDataFinal.Text := DateTimeToStr(Now+3);
+        btBtnAbreFuncionario.SetFocus;
+        end;
+
+    {salvar}
+    21: begin
+        grpBxDadosReserva.Enabled := false;
+        grpBxItensReserva.Enabled := true;
+        tlBtnNovo.Enabled := false;
+        tlBtnSalvar.Enabled := false;
+        tlBtnCancelar.Enabled := true;
+        tlBtnFinalizar.Enabled := true;
+        end;
+
+    {cancelar}
+    41: begin
+        grpBxDadosReserva.Enabled := false;
+        grpBxItensReserva.Enabled := false;
+        tlBtnNovo.Enabled := true;
+        tlBtnSalvar.Enabled := false;
+        tlBtnCancelar.Enabled := false;
+        tlBtnFinalizar.Enabled := false;
+        end;
+  end;//case
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+
+procedure TfrmReserva.ApplicationEventsHint(Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+procedure TfrmReserva.edCodigoEnter(Sender: TObject);
+begin
+  edCodigo.Color := clMoneyGreen;
+end;
+
+procedure TfrmReserva.edCodigoExit(Sender: TObject);
+begin
+  edCodigo.Color := clWindow;
+end;
+
+procedure TfrmReserva.edClienteEnter(Sender: TObject);
+begin
+  edCliente.Color := clMoneyGreen;
+end;
+
+procedure TfrmReserva.edClienteExit(Sender: TObject);
+begin
+  edCliente.Color := clWindow;
+end;
+
+procedure TfrmReserva.btBtnAbreClienteClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaCliente,frmSelecionaCliente);
+  frmSelecionaCliente.tela := 'reserva';
+  frmSelecionaCliente.ShowModal;
+  frmSelecionaCliente.Free;
+end;
+
+procedure TfrmReserva.mEdDataInicioEnter(Sender: TObject);
+begin
+  mEdDataInicio.Color := clMoneyGreen;
+end;
+
+procedure TfrmReserva.mEdDataInicioExit(Sender: TObject);
+begin
+  mEdDataInicio.Color := clWindow;
+  mEdDataFinal.Text := DateTimeToStr(StrToDateTime(mEdDataInicio.Text)+2);
+end;
+
+procedure TfrmReserva.mEdDataFinalExit(Sender: TObject);
+begin
+  mEdDataFinal.Color := clWindow;
+end;
+
+procedure TfrmReserva.mEdDataFinalEnter(Sender: TObject);
+begin
+  mEdDataFinal.Color := clMoneyGreen;
+end;
+
+procedure TfrmReserva.mmObservacaoEnter(Sender: TObject);
+begin
+  mmObservacao.Color := clMoneyGreen;
+end;
+
+procedure TfrmReserva.mmObservacaoExit(Sender: TObject);
+begin
+  mmObservacao.Color := clWindow;
+end;
+
+procedure TfrmReserva.btBtnInserirItemClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaProduto,frmSelecionaProduto);
+  frmSelecionaProduto.tela := 'reserva';
+  frmSelecionaProduto.codOperacao := StrToInt(edCodigo.Text);
+  frmSelecionaProduto.datIni := StrToDateTime(mEdDataInicio.Text);
+  frmSelecionaProduto.datFin := StrToDateTime(mEdDataFinal.Text);
+  frmSelecionaProduto.ShowModal;
+  frmSelecionaProduto.Free;
+
+  pegaItens();
+end;
+
+procedure TfrmReserva.btBtnExcluirItemClick(Sender: TObject);
+var
+  produto: String;
+begin
+  produto := cdsItensProduto.AsString;
+
+  if(cdsItens.RecordCount <> 0)then
+    begin
+    if (MessageDlg('Deseja deletar o Produto '+produto+' da locação atual?',mtConfirmation,[mbYes,mbNo],0)=mrYes) then
+      begin
+      try
+        iniciaTransacao();
+        DM.SQLConnection.StartTransaction(transacao);
+
+        DM.qryItemReserva.Close;
+        DM.qryItemReserva.SQL.Clear;
+        DM.qryItemReserva.SQL.Add('SELECT i.* ');
+        DM.qryItemReserva.SQL.Add('FROM Item_Reserva i,Reserva r ');
+        DM.qryItemReserva.SQL.Add('WHERE i.codigo=:codIte ');
+        DM.qryItemReserva.SQL.Add('AND i.cod_reserva=r.codigo ');
+        DM.qryItemReserva.SQL.Add('AND r.codigo<>:codRes');
+        DM.qryItemReserva.ParamByName('codIte').AsInteger := cdsItenscodProduto.AsInteger;
+        DM.qryItemReserva.ParamByName('codRes').AsInteger := StrToInt(edCodigo.Text);
+        DM.qryItemLocacao.Prepared := true;
+        DM.qryItemReserva.Open;
+        DM.cdsItemReserva.Open;
+        DM.cdsItemReserva.Refresh;
+        if (DM.cdsItemReserva.RecordCount = 0)then
+          begin
+          DM.qryProduto.Close;
+          DM.qryProduto.SQL.Clear;
+          DM.qryProduto.SQL.Add('UPDATE Produto SET status=0 WHERE codigo=:cod');
+          DM.qryProduto.ParamByName('cod').AsInteger := cdsItenscodProduto.AsInteger;
+          DM.qryProduto.Prepared := true;
+          DM.qryProduto.ExecSQL();
+          end;
+
+        DM.qryItemReserva.Close;
+        DM.qryItemReserva.SQL.Clear;
+        DM.qryItemReserva.SQL.Add('DELETE FROM Item_Reserva r WHERE r.codigo=:cod');
+        DM.qryItemReserva.ParamByName('cod').AsInteger := cdsItensCODIGO.AsInteger;
+        DM.qryItemLocacao.Prepared := true;
+        DM.qryItemReserva.ExecSQL();
+
+        DM.SQLConnection.Commit(transacao);
+        MessageDlg('Produto '+produto+' deletado com sucesso!',mtInformation,[mbOK],0);
+      except
+        DM.SQLConnection.Rollback(transacao);
+        MessageDlg('Produto '+produto+' não pode ser deletado!',mtError,[mbOK],0);
+      end;
+      end;
+    end
+  else
+    MessageDlg('Não há produtos na locação para serem deletados!',mtInformation,[mbOK],0);
+  pegaItens();
+end;
+
+procedure TfrmReserva.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if ((fechar = false)or(tlBtnFinalizar.Enabled=true)) then
+    begin
+    MessageDlg('Finalize ou cancele a locação!',mtInformation,[mbOK],0);
+    Action := caNone;
+    end
+
+  else
+  operacao := '';
+end;
+
+procedure TfrmReserva.FormShow(Sender: TObject);
+begin
+  limpar();
+
+  StatusBar.Panels[1].Text := '';
+  fechar := true;
+  visibilidade(41);
+
+  if (operacao = 'novo') then
+    tlBtnNovoClick(Sender);
+end;
+
+procedure TfrmReserva.tlBtnNovoClick(Sender: TObject);
+begin
+  {preparando}
+  limpar();
+  fechar := false;
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Novo';
+  visibilidade(1);
+  //usuário
+  edFuncionario.Text := frmPrincipal.nomeUsuario;
+  Self.codFuncionario := frmPrincipal.codUsuario;
+end;
+
+procedure TfrmReserva.tlBtnSalvarClick(Sender: TObject);
+begin
+  if (verificaSalva = true) then
+    begin
+    try
+    iniciaTransacao();
+    DM.SQLConnection.StartTransaction(transacao);
+
+    DM.qryReserva.Close;
+    DM.qryReserva.SQL.Clear;
+
+    //sem funcionário
+    if (Self.codFuncionario=0)then
+      begin
+      DM.qryReserva.SQL.Add('INSERT INTO Reserva (data_reserva,cod_cliente,sexo,data_inicio,data_final,observacoes,status) ');
+      DM.qryReserva.SQL.Add('VALUES (:datRes,:codCli,:sex,:datIni,:datFin,:obs,:sta)');
+      end
+    else
+      begin
+      DM.qryReserva.SQL.Add('INSERT INTO Reserva (cod_funcionario,data_reserva,cod_cliente,sexo,data_inicio,data_final,observacoes,status) ');
+      DM.qryReserva.SQL.Add('VALUES (:codFun,:datRes,:codCli,:sex,:datIni,:datFin,:obs,:sta)');
+      DM.qryReserva.ParamByName('codFun').AsInteger := Self.codFuncionario;
+      end;
+
+    DM.qryReserva.ParamByName('datRes').AsSQLTimeStamp := DateTimeToSQLTimeStamp(Now);
+    DM.qryReserva.ParamByName('codCli').AsInteger := codCliente;
+    case rdGrpSexo.ItemIndex of
+      0: DM.qryReserva.ParamByName('sex').AsString := 'Masculino';
+      1:  DM.qryReserva.ParamByName('sex').AsString := 'Feminino';
+    end;
+    DM.qryReserva.ParamByName('datIni').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataInicio.Text);
+    DM.qryReserva.ParamByName('datFin').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataFinal.Text);
+    DM.qryReserva.ParamByName('obs').AsString := mmObservacao.Text;
+    DM.qryReserva.ParamByName('sta').AsInteger := 0; //aberta
+
+    DM.qryReserva.Prepared := true;
+    DM.qryReserva.ExecSQL();
+
+    DM.SQLConnection.Commit(transacao);
+    MessageDlg('Reserva salva com sucesso!',mtInformation,[mbOk],0);
+
+    //pegando úlitma reserva
+    DM.qryReserva.Close;
+    DM.qryReserva.SQL.Clear;
+    DM.qryReserva.SQL.Add('SELECT * FROM Reserva r ORDER BY r.codigo');
+    DM.qryReserva.Prepared := true;
+    DM.qryReserva.Open;
+    DM.cdsReserva.Open;
+    DM.cdsReserva.Refresh;
+    DM.cdsReserva.Last;
+    edCodigo.Text := DM.cdsReservaCODIGO.AsString;
+    except
+      MessageDlg('Reserva não pode ser salva!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+      DM.SQLConnection.Rollback(transacao);
+    end;
+
+    StatusBar.Panels[1].Text := 'OPERAÇÃO = Salvar';
+    visibilidade(21);
+    end;
+end;
+
+procedure TfrmReserva.tlBtnCancelarClick(Sender: TObject);
+begin
+  if (edCodigo.Text <> '') then
+    begin
+    try
+      iniciaTransacao();
+      DM.SQLConnection.StartTransaction(transacao);
+
+      //alterando status do produto
+      DM.qryItemReserva.Close;
+      DM.qryItemReserva.SQL.Clear;
+      DM.qryItemReserva.SQL.Add('SELECT * FROM Item_Reserva WHERE cod_reserva=:codRes');
+      DM.qryItemReserva.ParamByName('codRes').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryItemReserva.Prepared := true;
+      DM.qryItemReserva.Open;
+      DM.cdsItemReserva.Open;
+      DM.cdsItemReserva.Refresh;
+      DM.cdsItemReserva.First;
+      if (DM.cdsItemReserva.RecordCount <> 0) then
+        begin
+        while(not(DM.cdsItemReserva.Eof)) do
+          begin
+          //vendo se não existe mais reservas para este produto
+          qryTmpReserva.Close;
+          qryTmpReserva.SQL.Clear;
+          qryTmpReserva.SQL.Add('SELECT i.codigo FROM Item_Reserva i, reserva r ');
+          qryTmpReserva.SQL.Add('WHERE i.cod_produto=:codProd ');
+          qryTmpReserva.ParamByName('codProd').AsInteger := DM.cdsItemReservaCOD_PRODUTO.AsInteger;
+          qryTmpReserva.SQL.Add('AND i.cod_reserva=r.codigo AND r.status=0');
+          qryTmpReserva.Prepared := true;
+          qryTmpReserva.Open;
+          cdsTmpReserva.Open;
+          cdsTmpReserva.Refresh;
+          if(cdsTmpReserva.RecordCount=1)then
+            begin
+            DM.qryProduto.Close;
+            DM.qryProduto.SQL.Clear;
+            DM.qryProduto.SQL.Add('UPDATE PRODUTO SET status=0 WHERE codigo=:cod');
+            DM.qryProduto.ParamByName('cod').AsInteger := DM.cdsItemReservaCOD_PRODUTO.AsInteger;
+            DM.qryProduto.Prepared := true;
+            DM.qryProduto.ExecSQL();
+            end;
+          DM.cdsItemReserva.Next;
+          end;
+        end;
+
+      //deletando itens da reserva
+      DM.qryItemReserva.Close;
+      DM.qryItemReserva.SQL.Clear;
+      DM.qryItemReserva.SQL.Add('DELETE FROM Item_Reserva WHERE cod_reserva=:codRes');
+      DM.qryItemReserva.ParamByName('codRes').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryItemReserva.Prepared := true;
+      DM.qryItemReserva.ExecSQL();
+
+      //deletando reserva
+      DM.qryReserva.Close;
+      DM.qryReserva.SQL.Clear;
+      DM.qryReserva.SQL.Add('DELETE FROM Reserva WHERE codigo=:cod ');
+      DM.qryReserva.ParamByName('cod').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryReserva.Prepared := true;
+      DM.qryReserva.ExecSQL();
+
+      DM.SQLConnection.Commit(transacao);
+      MessageDlg('Reserva cancelada com sucesso!',mtInformation,[mbOk],0);
+      limpar();
+      StatusBar.Panels[1].Text := '';
+      fechar := true;
+      visibilidade(41);
+    except
+      MessageDlg('Reserva não pode ser cancelada!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+      DM.SQLConnection.Rollback(transacao);
+    end;
+    end
+  else
+    begin
+    limpar();
+    StatusBar.Panels[1].Text := '';
+    fechar := true;
+    visibilidade(41);
+    end;
+end;
+
+procedure TfrmReserva.tlBtnFinalizarClick(Sender: TObject);
+begin
+  pegaItens();
+  if(cdsItens.RecordCount=0)then
+    MessageDlg('Não há nenhum item na Reserva!',mtInformation,[mbOK],0)
+  else
+    begin
+    //salvando valores
+    try
+      iniciaTransacao();
+      DM.SQLConnection.StartTransaction(transacao);
+
+      DM.qryReserva.Close;
+      DM.qryReserva.SQL.Clear;
+      DM.qryReserva.SQL.Add('UPDATE Reserva SET valor_total=:valTot,valor_pago=:valPag,pago=:pag WHERE codigo=:cod');
+      DM.qryReserva.ParamByName('valTot').AsFloat := StrToFloat(lblValorTotal.Caption);
+      DM.qryReserva.ParamByName('valPag').AsFloat := 0;
+      DM.qryReserva.ParamByName('pag').AsInteger := 0;
+      DM.qryReserva.ParamByName('cod').AsInteger := StrToInt(edCodigo.Text);
+      DM.qryReserva.Prepared := true;
+      DM.qryReserva.ExecSQL();
+
+      DM.SQLConnection.Commit(transacao);
+      MessageDlg('Reserva salva com sucesso!',mtInformation,[mbOK],0);
+      fechar := true;
+      visibilidade(41);
+      Self.Close;
+    except
+      DM.SQLConnection.Rollback(transacao);
+      MessageDlg('Reserva não pode ser salva!',mtInformation,[mbOK],0);
+    end;
+    end;
+end;
+
+procedure TfrmReserva.edFuncionarioEnter(Sender: TObject);
+begin
+  edFuncionario.Color := clMoneyGreen;
+end;
+
+procedure TfrmReserva.edFuncionarioExit(Sender: TObject);
+begin
+  edFuncionario.Color := clWindow;
+end;
+
+procedure TfrmReserva.btBtnAbreFuncionarioClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaFuncionario,frmSelecionaFuncionario);
+  frmSelecionaFuncionario.tela := 'reserva';
+  frmSelecionaFuncionario.ShowModal;
+  frmSelecionaFuncionario.Free;
+end;
+
+end.

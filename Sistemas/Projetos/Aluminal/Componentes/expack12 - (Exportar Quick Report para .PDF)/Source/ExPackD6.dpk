@@ -1,0 +1,58 @@
+package ExPack;
+
+{$R *.res}
+{$R 'ExportPack.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'ExportPack 1.0 (QR/FR to PDF, JPG, BMP, WMF, EMF)'}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  vcljpg,
+  qrpt60,
+  FR6;
+
+contains
+  ExportPack in 'ExportPack.pas',
+  Adler in 'Adler.pas',
+  Crc in 'Crc.pas',
+  dzlib in 'dzlib.pas',
+  gzIO in 'gzio.pas',
+  InfBlock in 'infblock.pas',
+  InfCodes in 'infcodes.pas',
+  InfFast in 'inffast.pas',
+  InfTrees in 'inftrees.pas',
+  infutil in 'infutil.pas',
+  Prgrs in 'Prgrs.pas' {FPrgrs},
+  strutil in 'strutil.pas',
+  tnpdf in 'Tnpdf.pas',
+  trees in 'Trees.pas',
+  zCompres in 'zcompres.pas',
+  zDeflate in 'Zdeflate.pas',
+  zInflate in 'Zinflate.pas',
+  Zlib in 'Zlib.pas',
+  zUnCompr in 'zuncompr.pas',
+  ZUtil in 'Zutil.pas';
+
+end.

@@ -1,0 +1,6 @@
+STATUS DO PRODUTO:
+
+0 = disponível
+1 = alugado
+2 = reservado
+3 = vendido

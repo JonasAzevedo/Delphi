@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-br" xml:lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/standard/styles.php" />
+<link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/cdtc/styles.php" />
+
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/standard/styles_ie6.css" />
+<![endif]-->
+
+
+    <meta name="keywords" content="moodle, CSS9: Lição 3 - Fontes, Textos e Links " />
+    <title>CSS9: Lição 3 - Fontes, Textos e Links</title>
+    <link rel="shortcut icon" href="http://comunidade.cdtc.org.br/theme/cdtc/favicon.ico" />
+    <!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(http://comunidade.cdtc.org.br/lib/csshover.htc);} /*]]>*/</style>-->
+
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/javascript-static.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/javascript-mod.php"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/overlib/overlib.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/overlib/overlib_cssstyle.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/cookies.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/ufo.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/dropdown.js"></script>  
+
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+setTimeout('fix_column_widths()', 20);
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function openpopup(url,name,options,fullscreen) {
+  fullurl = "http://comunidade.cdtc.org.br" + url;
+  windowobj = window.open(fullurl,name,options);
+  if (fullscreen) {
+     windowobj.moveTo(0,0);
+     windowobj.resizeTo(screen.availWidth,screen.availHeight);
+  }
+  windowobj.focus();
+  return false;
+}
+
+function uncheckall() {
+  void(d=document);
+  void(el=d.getElementsByTagName('INPUT'));
+  for(i=0;i<el.length;i++) {
+    void(el[i].checked=0);
+  }
+}
+
+function checkall() {
+  void(d=document);
+  void(el=d.getElementsByTagName('INPUT'));
+  for(i=0;i<el.length;i++) {
+    void(el[i].checked=1);
+  }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrReturnElements = new Array();
+	var arrRegExpClassNames = new Array();
+	if(typeof oClassNames == "object"){
+		for(var i=0; i<oClassNames.length; i++){
+			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+		}
+	}
+	else{
+		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+	}
+	var oElement;
+	var bMatchesAll;
+	for(var j=0; j<arrElements.length; j++){
+		oElement = arrElements[j];
+		bMatchesAll = true;
+		for(var k=0; k<arrRegExpClassNames.length; k++){
+			if(!arrRegExpClassNames[k].test(oElement.className)){
+				bMatchesAll = false;
+				break;
+			}
+		}
+		if(bMatchesAll){
+			arrReturnElements.push(oElement);
+		}
+	}
+	return (arrReturnElements)
+}
+//]]>
+</script>
+</head>
+
+<body  class="mod-lesson course-626 dir-ltr lang-pt_br_utf8" id="mod-lesson-view">
+
+<div id="page">
+
+<!-- First, let's wrap the sides -->
+	<div id="wrapper-t">
+		<div id="wrapper-l">
+			<div id="wrapper-r">
+				<div id="wrapper-b">
+				
+				<!-- Now, let's cap the corners -->
+				
+					<div id="wrapper-tl">
+						<div id="wrapper-tr">
+							<div id="wrapper-bl">
+								<div id="wrapper-br">
+
+    <div id="header" class=" clearfix">    <div id="header-t">
+    	<div id="header-r">
+    		<div id="header-l">
+    			<div id="header-m" class="clearfix">
+		        	<a href="http://www.presidencia.gov.br" class="global_logo_topo_presidencia"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/presidencia.gif" alt="Presidência da República Federativa do Brasil"></a>
+					<a href="http://www.brasil.gov.br" class="global_logo_topo_brasil" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/brasil1.gif" alt="Brasil, um país de todos"></a>
+				<span> 
+				<label for="pr" style="display:none">pr</label>
+				<select id="pr" name="sltVoce" class="pr" title="Páginas do Governo Federal" tabIndex=2 size=1 onchange="try{if (this.value!='') window.open(this.value);}catch(e){}">
+					<option value="#" selected="">Destaques do Governo   </option>
+					<option value="http://www.brasil.gov.br">Portal de Serviços do Governo</option>
+					<option value="http://www.radiobras.gov.br/">Portal da Agência de Notícias</option>
+					<option value="http://www.brasil.gov.br/noticias/em_questao">Em Questão</option>
+					<option value="http://www.fomezero.gov.br/">Programa Fome Zero</option>
+				</select>
+				</span>
+		        	<div id="program_select">
+<!--						<form> -->
+<!--						   <select onchange="">-->
+<!--							  <option>Destaques do Governo</option>-->
+<!--							  <option value="http://www.brasil.gov.br">Portal do Governo Federal</option>-->
+<!--							  <option value="http://www.e.gov.br">Portal de Serviços do Governo</option>-->
+
+<!--							  <option value="http://www.radiobras.gov.br">Portal da Agência de Notícias</option>-->
+<!--							  <option value="http://www.previdenciasocial.gov.br/reforma">Reforma da Previdência</option>-->
+<!--						   </select>-->
+<!--						</form>-->
+<!--		        	</div>-->
+<!--    		    <div class="headermenu"><div class="navigation">
+<ul><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php" onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17844" /><button type="submit" title="Atividade anterior"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;Atividade anterior</span></button></fieldset></form></li><li><form action="http://comunidade.cdtc.org.br/course/jumpto.php" method="get"  id="navmenupopup" class="popupform"><div><select id="navmenupopup_jump" name="jump" onchange="self.location=document.getElementById('navmenupopup').jump.options[document.getElementById('navmenupopup').jump.selectedIndex].value;">
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17828" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Guia do aluno</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17829" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Perfil do tutor</option>
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17832" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Ambientação do Moodle</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17833" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Plano de Ensino -  Técnicos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17835" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de notícias</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17836" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de dúvidas gerais</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17837" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Glossário - Wikipédia</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17839" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Sobre o CDTC</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17840" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Licença de Documentação Livre GNU</option>
+   <optgroup label="Semana 1">   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17842" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 1 - Conhecendo o CSS</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17844" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 2 - Cores e Fundos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17846" selected="selected" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Seguir para...</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17848" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 4 - Indentificando elementos e caixas</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17850" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 5 - Posicionamento e Elementos Flutuantes</option>
+   <option value="http://comunidade.cdtc.org.br/mod/quiz/view.php?id=17852" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/quiz/icon.gif);">Avaliação de aprendizagem</option>
+    </optgroup></select><input type="hidden" name="sesskey" value="zvyyoVzfIO" /><div id="noscriptnavmenupopup" style="display: inline;"><input type="submit" value="Vai" /></div><script type="text/javascript">
+//<![CDATA[
+document.getElementById("noscriptnavmenupopup").style.display = "none";
+//]]>
+</script></div></form></li><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php"  onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17848" /><button type="submit" title="Próxima atividade"><span class="accesshide " >Próxima atividade&nbsp;</span><span class="arrow ">&#x25BA;</span></button></fieldset></form></li></ul>
+</div></div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>	<div id=header_bar>
+		 <div><a href="http://comunidade.cdtc.org.br/"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/logos/logo.png" alt="Moodle" title="Moodle" style="float: left;" /></a></div>
+	 	 <div id="banner_t"><script type="text/javascript" language="JavaScript1.2" src="advanced/status.js"></script>
+<a href="http://comunidade.cdtc.org.br/theme/cdtc/advanced/catchadd.php?id=" target="" ><img src="" alt="" width="" height="" border="0"></a>
+<!--
+/*********************************************************
+			This Free Script was downloaded at			
+			Free-php-Scripts.net (HelpPHP.net)			
+	This script is produced under the LGPL license		
+		Which is included with your download.			
+	Not like you are going to read it, but it mostly	
+	States that you are free to do whatever you want	
+				With this script!						
+*********************************************************/
+-->
+</div>
+	 	 <div id="headermenu"><div class="navigation">
+<ul><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php" onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17844" /><button type="submit" title="Atividade anterior"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;Atividade anterior</span></button></fieldset></form></li><li><form action="http://comunidade.cdtc.org.br/course/jumpto.php" method="get"  id="navmenupopup" class="popupform"><div><select id="navmenupopup_jump" name="jump" onchange="self.location=document.getElementById('navmenupopup').jump.options[document.getElementById('navmenupopup').jump.selectedIndex].value;">
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17828" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Guia do aluno</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17829" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Perfil do tutor</option>
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17832" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Ambientação do Moodle</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17833" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Plano de Ensino -  Técnicos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17835" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de notícias</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17836" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de dúvidas gerais</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17837" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Glossário - Wikipédia</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17839" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Sobre o CDTC</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17840" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Licença de Documentação Livre GNU</option>
+   <optgroup label="Semana 1">   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17842" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 1 - Conhecendo o CSS</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17844" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 2 - Cores e Fundos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17846" selected="selected" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Seguir para...</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17848" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 4 - Indentificando elementos e caixas</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17850" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 5 - Posicionamento e Elementos Flutuantes</option>
+   <option value="http://comunidade.cdtc.org.br/mod/quiz/view.php?id=17852" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/quiz/icon.gif);">Avaliação de aprendizagem</option>
+    </optgroup></select><input type="hidden" name="sesskey" value="zvyyoVzfIO" /><div id="noscriptnavmenupopup" style="display: inline;"><input type="submit" value="Vai" /></div><script type="text/javascript">
+//<![CDATA[
+document.getElementById("noscriptnavmenupopup").style.display = "none";
+//]]>
+</script></div></form></li><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php"  onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17848" /><button type="submit" title="Próxima atividade"><span class="accesshide " >Próxima atividade&nbsp;</span><span class="arrow ">&#x25BA;</span></button></fieldset></form></li></ul>
+</div>			 <div id="icons_bar"> <a href="http://comunidade.cdtc.org.br/"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/icons/home.png" alt="Home" title="Home" align="top" /></a><a href="http://www.iti.gov.br/twiki/bin/view/Swlivre/PerguntasFrequentes"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/icons/woot.png" alt="Perguntas Frequentes" title="Perguntas Frequentes" align="top" /></a>
+<a href="mailto:gestor@cdtc.org.br"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/icons/outlook.png" alt="Fale Conosco" title="Fale Conosco" align="top" /></a>
+<img src="http://comunidade.cdtc.org.br/theme/cdtc/images/blank.gif" width="2" height="1" />
+			<div id="links-cdtc"><a href="http://irc.cdtc.org.br" title="ChatWeb">ChatWeb</a> | <a href="http://conferencia.cdtc.org.br/" title="Conferência">Conferência</a> | <a href="http://downloads.cdtc.org.br" title="Downloads">Downloads</a> | <a href="http://mapa.cdtc.org.br/" title="Mapa">Mapa</a> | <a href="http://radio.cdtc.org.br/" title="Rádio">Rádio</a></div>    				
+			
+			</div>
+		</div>
+	</div>
+    <div class="navbar clearfix">
+        <div class="breadcrumb"><h2 class="accesshide " >Você está aqui</h2> <ul>
+<li class="first"><a onclick="this.target='_top'" href="http://comunidade.cdtc.org.br/">COM</a></li><li class="first"> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a onclick="this.target='_top'" href="http://comunidade.cdtc.org.br/course/view.php?id=626">CSS9</a></li><li class="first"> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a onclick="this.target='_top'" href="http://comunidade.cdtc.org.br/mod/lesson/index.php?id=626">Lições</a></li><li class="first"> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> Lição 3 - Fontes, Textos e Links</li></ul></div>
+        <div class="navbutton">&nbsp;</div>
+    </div>
+    <!-- END OF HEADER -->
+    <div id="content"><h2   class="main">Lição 3 - Fontes, Textos e Links</h2><!-- Start view start -->
+<table id="layout-table" cellpadding="0" cellspacing="0">
+    <tr>
+        <!-- First Column -->
+                <!-- Start main column -->
+        <td id="middle-column" align="center">
+
+            
+<!-- End view start --><h2   class="main">Trabalhando com Links</h2><div class="box generalbox generalboxcontent boxaligncenter"><div class="contents"><p><h3 class="docSection1Title" style="font-weight: bold; font-family: arial,helvetica,sans-serif; text-align: left;"><font size="3"><font size="5">Trabalhando com Links</font><br /></font></h3><div style="text-align: justify;"></div><p style="font-family: arial,helvetica,sans-serif; text-align: justify;" class="docText"><font size="3">Os elementos dos links são padrão para todos os navegadores:<a name="ch10index01"></a><a name="ch10index02"></a></font></p><div style="text-align: justify;"></div><ul style="font-family: arial,helvetica,sans-serif; text-align: justify;"><li><p class="docText"><font size="3">link - mostra como o link irá aparecer antes de ser clicado;</font></p></li><li><p class="docText"><font size="3">visited - mostra como o link irá aparecer depois de ser clicado;<a name="ch10index04"></a></font></p></li><li><p class="docText"><font size="3">hover - mostra como o link irá aparecer quando o mouse passar por cima dele;<a name="ch10index05"></a></font></p></li><li><p class="docText"><font size="3">active - mostra como o link irá aparecer quando você clicar nele.<a name="ch10index06"></a></font></p></li></ul><div style="text-align: justify;"><font size="3"><a style="font-family: arial,helvetica,sans-serif;" name="ch10note01"></a></font></div><div style="font-family: arial,helvetica,sans-serif; text-align: justify;" class="docNote"><p class="docText"><font size="3">NOTA:<br />Ainda há outro atributo, o focus. Ele é utilizado sempre que um elemento for capaz de receber a entrada de teclado, como por exemplo como a de um formulário. Não é normalmente utilizado com links, mas é bom você estar ciente.</font></p><p class="docText"><font size="3">Para aplicarmos essa propriedade usamos as pseudo classes. Essas são classes dinâmicas que tem a capacidade de interagir com o documento.<a name="ch10index07"></a></font></p></div><p style="font-family: arial,helvetica,sans-serif; text-align: justify;" class="docText"><font size="3"><a name="ch10index18"></a><a name="ch10index19"></a></font></p><div style="text-align: justify;"><font size="3"><a style="font-family: arial,helvetica,sans-serif;" name="ch10list01"></a></font></div><p style="text-align: justify; font-family: arial,helvetica,sans-serif;"><font size="3">Exemplo:</font><br /><span style="font-weight: bold; font-style: italic;">a {color: orange;}a:link {color: orange;}</span><br style="font-weight: bold; font-style: italic;" /><font size="3" style="font-weight: bold; font-style: italic;">a:visited {color: yellow;}<br />a:hover {color: fuchsia;}<br />a:active {color: red;}</font></p><div style="text-align: justify;"></div><p style="font-family: arial,helvetica,sans-serif; text-align: justify;"></p><div style="text-align: justify;"><font size="3"><span style="font-family: arial,helvetica,sans-serif;"> NOTA:</span></font><font size="3"><br /><span style="font-family: arial,helvetica,sans-serif;">Para que o efeito dos links apareça de forma correta é necessário seguir essa ordem: link, visited, hover, active. Caso não siga essa ordem você pode causar algumas incoerências no seu documento. Lembre-se da ordem LVHA, ou </span><b style="font-family: arial,helvetica,sans-serif;">L</b><span style="font-family: arial,helvetica,sans-serif;">o</span><b style="font-family: arial,helvetica,sans-serif;">V</b><span style="font-family: arial,helvetica,sans-serif;">e/</span><b style="font-family: arial,helvetica,sans-serif;">HA</b><span style="font-family: arial,helvetica,sans-serif;">te.</span></font></div><div style="text-align: justify;"></div><h2 style="font-family: arial,helvetica,sans-serif;"><font size="4">Multiplos Estilos em Links usando Classes</font></h2><div style="text-align: justify;"></div><span style="font-family: arial,helvetica,sans-serif;">Uma outra opção fantástica do CSS é a capacidade de se usar mais de um estilo para os links e até mesmo outras propriedades. Isso irá ajudar quando você tiver áreas diferentes em seu documento que precisam ser feitas com uma estilização única.</span><p style="font-family: arial,helvetica,sans-serif; text-align: justify;" class="docText"><font size="3">Veja como fazer no exemplo abaixo:</font></p><div style="text-align: justify;"><font size="3"><a style="font-family: arial,helvetica,sans-serif;" name="ch10list04"></a><a style="font-family: arial,helvetica,sans-serif;" name="ch10index82"></a></font><pre style="font-family: arial,helvetica,sans-serif;"><font size="3"><span style="font-weight: bold; font-style: italic;">/* default link styles, appropriate for content area */</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a {color: orange; text-decoration: none;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a:link {color: orange;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a:visited {color: yellow;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a:hover {color: fuchsia;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a:active {color: red;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">/* classed link styles, appropriate for navigation area */</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a.nav {color: white; text-decoration: none;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a.nav:link {color: white;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a.nav:visited {color: yellow;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a.nav:hover {color: orange;}</span><br style="font-weight: bold; font-style: italic;" /><span style="font-weight: bold; font-style: italic;">a.nav:active {color: fuschia;}</span><br style="font-weight: bold; font-style: italic;" /></font></pre><font size="3"><span style="font-family: arial,helvetica,sans-serif;">Você irá aplicar a classe class=&quot;nav&quot; ao link que você deseja atribuir outro parâmetro:</span></font><pre style="font-family: arial,helvetica,sans-serif;"><font size="3"><span style="font-style: italic; font-weight: bold;">&lt;a class=&quot;nav&quot; href=&quot;http://www.cdtc.org.br/&quot;&gt;ITI - CDTC&lt;/a&gt;</span></font></pre><font size="3"><span style="font-family: arial,helvetica,sans-serif;">Você pode fazer quantas classes quiser para seu documento, portanto use sua imaginação!</span></font><br style="font-family: arial,helvetica,sans-serif;" /></div></p></div></div><form id="pageform" method="post" action="http://comunidade.cdtc.org.br/mod/lesson/view.php">
+<div><input type="hidden" name="id" value="17846" />
+<input type="hidden" name="pageid" value="16844" />
+<div class="lessonbutton standardbutton"  style="text-align:center">
+<input type="submit" value="Continuar"  style="text-align:center"  /></div>
+</div></form>
+<!-- Start view end -->
+        </td>
+            </tr>
+</table>
+<!-- End view end --></div><div id="footer">
+<div id="footer-b" class="clearfix">
+	<div id="footer-l">
+		<div id="footer-r">
+			<div id="footer-m">
+	
+				<div id="footer-logo">
+					<a href="http://www.unb.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/unb.png" title="Universidade de Brasília"></a>
+					<a href="http://www.iti.gov.org" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/iti.png" title="ITI"></a>
+					<a href="http://www.nead.org.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/td.png" title="NEAD"></a>
+					<a href="http://www.casabrasil.gov.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/casa_brasil.png" title="Casa Brasil"></a>
+					<a href="http://www.embrapa.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/embrapa.png" title="Embrapa"></a>
+					<a href="http://moodle.org" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/moodle.png" title="Moodle 1.9.3+ (Build: 20081126)"></a>
+				</div>
+				<div id="footer-loggedinas">
+					<div class="logininfo">Você acessou como <a  href="http://comunidade.cdtc.org.br/user/view.php?id=4651&amp;course=626">jonas azevedo</a>  (<a  href="http://comunidade.cdtc.org.br/login/logout.php?sesskey=zvyyoVzfIO">Sair</a>)</div>				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>							
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

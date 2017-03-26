@@ -1,0 +1,25 @@
+program Servidor;
+{$APPTYPE GUI}
+
+{$R *.dres}
+
+uses
+  Vcl.Forms,
+  Web.WebReq,
+  IdHTTPWebBrokerBridge,
+  ufrmServidor in 'ufrmServidor.pas' {frmServidor},
+  ufrmSM in 'ufrmSM.pas' {frmSM: TDataModule},
+  ufrmSC in 'ufrmSC.pas' {frmSC: TDataModule},
+  ufrmWM in 'ufrmWM.pas' {WebModule1: TWebModule},
+  uMinhaClasseMetodos in '..\Comum\uMinhaClasseMetodos.pas',
+  uMinhaClasse in '..\Comum\uMinhaClasse.pas';
+
+{$R *.res}
+
+begin
+  if WebRequestHandler <> nil then
+    WebRequestHandler.WebModuleClass := WebModuleClass;
+  Application.Initialize;
+  Application.CreateForm(TfrmServidor, frmServidor);
+  Application.Run;
+end.

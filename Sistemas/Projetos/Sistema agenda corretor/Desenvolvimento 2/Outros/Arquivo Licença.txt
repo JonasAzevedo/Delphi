@@ -1,0 +1,8 @@
+Software desenvolvido para gestão de Corretor Imobiliário.
+
+Desenvolvido por Jonas S. Azevedo.
+Contato: jonassazevedo@hotmail.com
+
+
+Versão 1.7.3.6
+Desenvolvido em: 03/05/2011

@@ -1,0 +1,34 @@
+[GeneralSettings]
+AppendMapFileToBinary=0
+HandleExceptions=0
+CheckForFrozenMainThread=0
+FreezeTimeout=60000
+ShowExceptionBox=1
+SynchronizeExceptionHandlers=1
+AutomaticallyMailBugReport=0
+AutomaticallySaveBugReport=0
+AutomaticallyRestartApplication=0
+MailAddress=
+MailSubject=bug report
+BugReportFile=bugreport.txt
+VersionVariable=
+[ExceptionBox]
+TitleBar=%appname%
+ExceptionMessage=An error occurred in the application.
+FrozenMessage=The application seems to be frozen.
+ShowButtonMailBugReport=1
+ShowButtonSaveBugReport=0
+ShowButtonShowBugReport=1
+ShowButtonContinueApplication=1
+ShowButtonRestartApplication=1
+ShowButtonCloseApplication=1
+MailBugReportText=mail bug report
+SaveBugReportText=save bug report
+ShowBugReportText=show bug report
+ContinueApplicationText=continue application
+RestartApplicationText=restart application
+CloseApplicationText=close application
+FocusedButton=0
+AutomaticallyShowBugReport=0
+[UnitInitOrder]
+UnitInitOrder=ShareMem, MemCheck, HPMM, MultiMM

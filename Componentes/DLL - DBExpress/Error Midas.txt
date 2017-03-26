@@ -1,0 +1,9 @@
+- Error loading MIDAS.DLL
+
+Para resolver este problema basta registrar o arquivo MIDAS.DLL no windows. Siga os passos abaixo
+
+- Clique no Menu Iniciar do Windows
+- Clique no Menu Executar
+- Digite o comando que esta entre parênteses ( regsvr32 c:\pgia\midas.dll ) e clique no botão OK
+- Após isto uma mensagem dizendo que obteve êxito deve aparecer.
+- Reinicie a máquina

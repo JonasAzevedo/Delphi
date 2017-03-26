@@ -1,0 +1,767 @@
+inherited frmExibeDadosImoveisInteresse: TfrmExibeDadosImoveisInteresse
+  Left = 135
+  Top = 154
+  Caption = 'EXIBIR DADOS DO IM'#211'VEL DE INTERESSE'
+  ClientHeight = 504
+  ClientWidth = 785
+  OldCreateOrder = True
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlBotoes: TPanel
+    Top = 463
+    Width = 785
+  end
+  inherited pnlDados: TPanel
+    Width = 785
+    Height = 463
+    object lblAgenciamento: TLabel
+      Left = 2
+      Top = 6
+      Width = 147
+      Height = 16
+      Caption = 'IM'#211'VEL DE INTERESSE'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsUnderline]
+      ParentFont = False
+    end
+    object pnlDadosImovelInteresse: TPanel
+      Left = 0
+      Top = 0
+      Width = 785
+      Height = 463
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 0
+      object lblObservacao: TLabel
+        Left = 96
+        Top = 317
+        Width = 676
+        Height = 40
+        AutoSize = False
+        Caption = 'lblObservacao'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        WordWrap = True
+      end
+      object lblNomeObservacao: TLabel
+        Left = 5
+        Top = 318
+        Width = 71
+        Height = 14
+        Caption = 'Observa'#231#227'o: '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblCondicaoPagamento: TLabel
+        Left = 357
+        Top = 185
+        Width = 320
+        Height = 13
+        AutoSize = False
+        Caption = 'lblCondicaoPagamento'
+      end
+      object pbpNomeCondicaoPagamento: TLabel
+        Left = 235
+        Top = 185
+        Width = 119
+        Height = 14
+        Caption = 'Condi'#231#227'o Pagamento:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNomeValorImovel: TLabel
+        Left = 5
+        Top = 185
+        Width = 72
+        Height = 14
+        Caption = 'Valor Im'#243'vel:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblValorImovel: TLabel
+        Left = 96
+        Top = 185
+        Width = 136
+        Height = 13
+        AutoSize = False
+        Caption = 'lblValorImovel'
+      end
+      object lblNomePessoa: TLabel
+        Left = 286
+        Top = 65
+        Width = 491
+        Height = 13
+        AutoSize = False
+        Caption = 'lblNomePessoa'
+      end
+      object lblNomeNomePessoa: TLabel
+        Left = 186
+        Top = 65
+        Width = 98
+        Height = 14
+        Caption = 'Nome da Pessoa: '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblTipoPessoa: TLabel
+        Left = 96
+        Top = 65
+        Width = 87
+        Height = 13
+        AutoSize = False
+        Caption = 'lblTipoPessoa'
+      end
+      object lblNomeTipoPessoa: TLabel
+        Left = 5
+        Top = 65
+        Width = 90
+        Height = 14
+        Caption = 'Tipo da Pessoa: '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNomeCodigoImovelInteresse: TLabel
+        Left = 5
+        Top = 35
+        Width = 48
+        Height = 14
+        Caption = 'C'#243'digo:  '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblCodigoImovelInteresse: TLabel
+        Left = 54
+        Top = 35
+        Width = 81
+        Height = 14
+        AutoSize = False
+        Caption = 'lblCodigoImovelInteresse'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblNomeAtivo: TLabel
+        Left = 140
+        Top = 35
+        Width = 34
+        Height = 14
+        Caption = 'Ativo: '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblAtivo: TLabel
+        Left = 173
+        Top = 35
+        Width = 64
+        Height = 14
+        AutoSize = False
+        Caption = 'lblAtivo'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblNomeDataCadastro: TLabel
+        Left = 239
+        Top = 35
+        Width = 79
+        Height = 14
+        Caption = 'Data Cadastro:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblDataCadastro: TLabel
+        Left = 320
+        Top = 35
+        Width = 80
+        Height = 14
+        AutoSize = False
+        Caption = 'lblDataCadastro'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblDataCaptacao: TLabel
+        Left = 486
+        Top = 35
+        Width = 80
+        Height = 14
+        AutoSize = False
+        Caption = 'lblDataCaptacao'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblNomeDataCaptacao: TLabel
+        Left = 403
+        Top = 35
+        Width = 79
+        Height = 14
+        Caption = 'Data Capta'#231#227'o:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNomeTipoImovel: TLabel
+        Left = 5
+        Top = 95
+        Width = 87
+        Height = 14
+        Caption = 'Tipo do Im'#243'vel: '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblTipoImovel: TLabel
+        Left = 96
+        Top = 95
+        Width = 650
+        Height = 13
+        AutoSize = False
+        Caption = 'lblTipoImovel'
+      end
+      object lblFinalidadeImovel: TLabel
+        Left = 96
+        Top = 125
+        Width = 650
+        Height = 13
+        AutoSize = False
+        Caption = 'lblFinalidadeImovel'
+      end
+      object lblNomeFinalidadeImovel: TLabel
+        Left = 5
+        Top = 125
+        Width = 61
+        Height = 14
+        Caption = 'Finalidade: '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNomeDesejavel: TLabel
+        Left = 5
+        Top = 155
+        Width = 56
+        Height = 14
+        Caption = 'Desej'#225'vel:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblDesejavel: TLabel
+        Left = 96
+        Top = 155
+        Width = 650
+        Height = 13
+        AutoSize = False
+        Caption = 'lblDesejavel'
+      end
+      object lblNomeDataBaixa: TLabel
+        Left = 571
+        Top = 35
+        Width = 57
+        Height = 14
+        Caption = 'Data Baixa:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblDataBaixa: TLabel
+        Left = 633
+        Top = 35
+        Width = 80
+        Height = 14
+        AutoSize = False
+        Caption = 'lblDataBaixa'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblCaracteristicas: TLabel
+        Left = 96
+        Top = 364
+        Width = 676
+        Height = 40
+        AutoSize = False
+        Caption = 'lblCaracteristicas'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        WordWrap = True
+      end
+      object lblNomeCaracteristicas: TLabel
+        Left = 5
+        Top = 365
+        Width = 86
+        Height = 14
+        Caption = 'Caracter'#237'sticas:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblRegioesLocalidades: TLabel
+        Left = 125
+        Top = 410
+        Width = 644
+        Height = 41
+        AutoSize = False
+        Caption = 'lblRegioesLocalidades'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        WordWrap = True
+      end
+      object lblNomeRegioesLocalidades: TLabel
+        Left = 5
+        Top = 411
+        Width = 117
+        Height = 14
+        Caption = 'Regi'#245'es Localidades:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblImovelInteresse: TLabel
+        Left = 2
+        Top = 6
+        Width = 147
+        Height = 16
+        Caption = 'IM'#211'VEL DE INTERESSE'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold, fsUnderline]
+        ParentFont = False
+      end
+      object pnlPagamentoFinanciado: TPanel
+        Left = 3
+        Top = 215
+        Width = 735
+        Height = 88
+        BevelOuter = bvNone
+        TabOrder = 0
+        object lblNomePgtoFnctoCachFinanciado: TLabel
+          Left = 161
+          Top = 6
+          Width = 91
+          Height = 14
+          Caption = 'Cach Financiado:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblNomePgtoFnctoCach: TLabel
+          Left = 2
+          Top = 6
+          Width = 33
+          Height = 14
+          Caption = 'Cach: '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblNomePgtoFnctoValorBem: TLabel
+          Left = 2
+          Top = 36
+          Width = 63
+          Height = 14
+          Caption = 'Valor Bem: '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblNomePgtoFnctoDescricaoBem: TLabel
+          Left = 2
+          Top = 66
+          Width = 105
+          Height = 14
+          Caption = 'Descri'#231#227'o do Bem: '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblPgtoFnctoDescricaoBem: TLabel
+          Left = 108
+          Top = 66
+          Width = 613
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoFnctoDescricaoBem'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblPgtoFnctoValorBem: TLabel
+          Left = 108
+          Top = 36
+          Width = 110
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoFnctoValorBem'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblPgtoFnctoCach: TLabel
+          Left = 40
+          Top = 6
+          Width = 110
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoFnctoCach'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblPgtoFnctoCachFinanciado: TLabel
+          Left = 260
+          Top = 6
+          Width = 110
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoFnctoCachFinanciado'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object pnlPagamentoVista: TPanel
+        Left = 3
+        Top = 215
+        Width = 735
+        Height = 88
+        BevelOuter = bvNone
+        TabOrder = 1
+        object lblNomePgtoVista: TLabel
+          Left = 2
+          Top = 6
+          Width = 33
+          Height = 14
+          Caption = 'Cach: '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblPgtoVistaCach: TLabel
+          Left = 108
+          Top = 6
+          Width = 110
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoVistaCach'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblNomePgtoVistaValorBem: TLabel
+          Left = 2
+          Top = 36
+          Width = 63
+          Height = 14
+          Caption = 'Valor Bem: '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblPgtoVistaValorBem: TLabel
+          Left = 108
+          Top = 36
+          Width = 110
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoVistaValorBem'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblPgtoVistaDescricaoBem: TLabel
+          Left = 108
+          Top = 66
+          Width = 613
+          Height = 13
+          AutoSize = False
+          Caption = 'lblPgtoVistaDescricaoBem'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblNomePgtoVistaDescricaoBem: TLabel
+          Left = 2
+          Top = 66
+          Width = 105
+          Height = 14
+          Caption = 'Descri'#231#227'o do Bem: '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object zQryImovelInteresse: TZQuery
+    Connection = DM.ZConnection
+    SQL.Strings = (
+      'SELECT ii.codigo AS codImovInteresse,ii.ativo,'
+      '       CAST(ii.data_cadastro AS DATE) AS data_cadastro,'
+      '       ii.data_captacao,ii.data_baixa,'
+      '       ii.tipo_pessoa,'
+      '       CASE WHEN ii.tipo_pessoa ='#39'F'#205'SICA'#39' THEN pf.nome'
+      '            WHEN ii.tipo_pessoa = '#39'JUR'#205'DICA'#39' THEN pj.nome'
+      '            ELSE '#39'NENHUMA'#39' END AS NOME_TIPO_PESSOA,'
+      '       t.nome AS nomeTipoImovel,'
+      '       ii.finalidade_imovel,ii.imovel_desejavel,'
+      '       ii.valor_imovel,ii.condicao_pagamento,'
+      
+        '       ii.pgto_vista_cach,ii.pgto_vista_valor_bem,ii.pgto_vista_' +
+        'descricao_bem,'
+      
+        '       ii.pgto_fincto_cach,ii.pgto_fincto_cach_financiado,ii.pgt' +
+        'o_fincto_valor_bem,ii.pgto_fincto_descricao_bem,'
+      '       ii.observacao,ii.caracteristicas'
+      'FROM imovel_de_interesse ii'
+      'JOIN tipo_imovel t ON ii.cod_fk_tipo_imovel=t.codigo'
+      
+        'LEFT JOIN agenc_pessoa_fisica pf ON ii.cod_fk_cliente_pessoa_fis' +
+        'ica = pf.codigo'
+      
+        'LEFT JOIN agenc_pessoa_juridica pj ON ii.cod_fk_cliente_pessoa_j' +
+        'uridica = pj.codigo'
+      'WHERE 1=2')
+    Params = <>
+    Left = 714
+    Top = 8
+    object zQryImovelInteresseCODIMOVINTERESSE: TIntegerField
+      FieldName = 'CODIMOVINTERESSE'
+      Required = True
+    end
+    object zQryImovelInteresseATIVO: TStringField
+      FieldName = 'ATIVO'
+      Size = 3
+    end
+    object zQryImovelInteresseDATA_CADASTRO: TDateField
+      FieldName = 'DATA_CADASTRO'
+      ReadOnly = True
+    end
+    object zQryImovelInteresseDATA_CAPTACAO: TDateField
+      FieldName = 'DATA_CAPTACAO'
+    end
+    object zQryImovelInteresseDATA_BAIXA: TDateTimeField
+      FieldName = 'DATA_BAIXA'
+    end
+    object zQryImovelInteresseTIPO_PESSOA: TStringField
+      FieldName = 'TIPO_PESSOA'
+      Size = 8
+    end
+    object zQryImovelInteresseNOME_TIPO_PESSOA: TStringField
+      FieldName = 'NOME_TIPO_PESSOA'
+      ReadOnly = True
+      Size = 100
+    end
+    object zQryImovelInteresseNOMETIPOIMOVEL: TStringField
+      FieldName = 'NOMETIPOIMOVEL'
+      Required = True
+      Size = 60
+    end
+    object zQryImovelInteresseFINALIDADE_IMOVEL: TStringField
+      FieldName = 'FINALIDADE_IMOVEL'
+      Size = 10
+    end
+    object zQryImovelInteresseIMOVEL_DESEJAVEL: TStringField
+      FieldName = 'IMOVEL_DESEJAVEL'
+    end
+    object zQryImovelInteresseVALOR_IMOVEL: TFloatField
+      FieldName = 'VALOR_IMOVEL'
+    end
+    object zQryImovelInteresseCONDICAO_PAGAMENTO: TStringField
+      FieldName = 'CONDICAO_PAGAMENTO'
+    end
+    object zQryImovelInteressePGTO_VISTA_CACH: TFloatField
+      FieldName = 'PGTO_VISTA_CACH'
+    end
+    object zQryImovelInteressePGTO_VISTA_VALOR_BEM: TFloatField
+      FieldName = 'PGTO_VISTA_VALOR_BEM'
+    end
+    object zQryImovelInteressePGTO_VISTA_DESCRICAO_BEM: TStringField
+      FieldName = 'PGTO_VISTA_DESCRICAO_BEM'
+      Size = 500
+    end
+    object zQryImovelInteressePGTO_FINCTO_CACH: TFloatField
+      FieldName = 'PGTO_FINCTO_CACH'
+    end
+    object zQryImovelInteressePGTO_FINCTO_CACH_FINANCIADO: TFloatField
+      FieldName = 'PGTO_FINCTO_CACH_FINANCIADO'
+    end
+    object zQryImovelInteressePGTO_FINCTO_VALOR_BEM: TFloatField
+      FieldName = 'PGTO_FINCTO_VALOR_BEM'
+    end
+    object zQryImovelInteressePGTO_FINCTO_DESCRICAO_BEM: TStringField
+      FieldName = 'PGTO_FINCTO_DESCRICAO_BEM'
+      Size = 500
+    end
+    object zQryImovelInteresseOBSERVACAO: TStringField
+      FieldName = 'OBSERVACAO'
+      Size = 500
+    end
+    object zQryImovelInteresseCARACTERISTICAS: TStringField
+      FieldName = 'CARACTERISTICAS'
+      Size = 500
+    end
+  end
+  object zQryRegiaoLocalidade: TZQuery
+    Connection = DM.ZConnection
+    SQL.Strings = (
+      
+        'SELECT iirl.codigo,iirl.cod_fk_imovel_de_interesse,iirl.cod_fk_r' +
+        'egiao_localidade,'
+      '       rl.nome AS nomeRegiaoLocalidade'
+      'FROM imov_interesse_regiao_local iirl'
+      
+        'JOIN regiao_localidade rl ON iirl.cod_fk_regiao_localidade=rl.co' +
+        'digo'
+      'WHERE iirl.cod_fk_imovel_de_interesse=1'
+      'AND 1=2')
+    Params = <>
+    Left = 742
+    Top = 8
+    object zQryRegiaoLocalidadeCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object zQryRegiaoLocalidadeCOD_FK_IMOVEL_DE_INTERESSE: TIntegerField
+      FieldName = 'COD_FK_IMOVEL_DE_INTERESSE'
+      Required = True
+    end
+    object zQryRegiaoLocalidadeCOD_FK_REGIAO_LOCALIDADE: TIntegerField
+      FieldName = 'COD_FK_REGIAO_LOCALIDADE'
+      Required = True
+    end
+    object zQryRegiaoLocalidadeNOMEREGIAOLOCALIDADE: TStringField
+      FieldName = 'NOMEREGIAOLOCALIDADE'
+      Required = True
+      Size = 50
+    end
+  end
+end

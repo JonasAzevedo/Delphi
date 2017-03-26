@@ -1,0 +1,411 @@
+unit unRetornoLocacao;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, AppEvnts, FMTBcd, Grids, DBGrids, DB, DBClient,
+  Provider, SqlExpr, StdCtrls, Buttons, ExtCtrls, Mask, DBXpress, SQLTimSt,
+  Menus;
+
+type
+  TfrmRetornoLocacao = class(TForm)
+    ApplicationEvents: TApplicationEvents;
+    StatusBar: TStatusBar;
+    grpBxLocacoesPendentes: TGroupBox;
+    qryLocacoes: TSQLQuery;
+    dspLocacoes: TDataSetProvider;
+    cdsLocacoes: TClientDataSet;
+    dsLocacoes: TDataSource;
+    qryLocacoesCODIGO: TIntegerField;
+    qryLocacoesNOME: TStringField;
+    qryLocacoesDATA_INICIO: TSQLTimeStampField;
+    qryLocacoesDATA_FINAL: TSQLTimeStampField;
+    qryLocacoesOBSERVACOES: TStringField;
+    qryLocacoesVALOR_TOTAL: TFMTBCDField;
+    qryLocacoesVALOR_PAGO: TFMTBCDField;
+    qryLocacoesPAGO: TIntegerField;
+    cdsLocacoesCODIGO: TIntegerField;
+    cdsLocacoesNOME: TStringField;
+    cdsLocacoesDATA_INICIO: TSQLTimeStampField;
+    cdsLocacoesDATA_FINAL: TSQLTimeStampField;
+    cdsLocacoesOBSERVACOES: TStringField;
+    cdsLocacoesVALOR_TOTAL: TFMTBCDField;
+    cdsLocacoesVALOR_PAGO: TFMTBCDField;
+    cdsLocacoesPAGO: TIntegerField;
+    dbGrdLocacoes: TDBGrid;
+    BitBtn1: TBitBtn;
+    qryItensLocacao: TSQLQuery;
+    dspItensLocacao: TDataSetProvider;
+    cdsItensLocacao: TClientDataSet;
+    dsItensLocacao: TDataSource;
+    qryItensLocacaoCODIGO: TIntegerField;
+    qryItensLocacaoCOD_LOCACAO: TIntegerField;
+    qryItensLocacaoCOD_PRODUTO: TIntegerField;
+    qryItensLocacaoQUANTIDADE: TIntegerField;
+    qryItensLocacaoVALOR_UNITARIO: TFMTBCDField;
+    qryItensLocacaoVALOR_TOTAL: TFMTBCDField;
+    qryItensLocacaoDATA_DEVOLUCAO: TSQLTimeStampField;
+    cdsItensLocacaoCODIGO: TIntegerField;
+    cdsItensLocacaoCOD_LOCACAO: TIntegerField;
+    cdsItensLocacaoCOD_PRODUTO: TIntegerField;
+    cdsItensLocacaoQUANTIDADE: TIntegerField;
+    cdsItensLocacaoVALOR_UNITARIO: TFMTBCDField;
+    cdsItensLocacaoVALOR_TOTAL: TFMTBCDField;
+    cdsItensLocacaoDATA_DEVOLUCAO: TSQLTimeStampField;
+    qryItensLocacaoNOME: TStringField;
+    cdsItensLocacaoNOME: TStringField;
+    Panel1: TPanel;
+    grpBxPesquisar: TGroupBox;
+    dbGrdItensLocacao: TDBGrid;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    edCliente: TEdit;
+    mEdDataFinal1: TMaskEdit;
+    mEdDataFinal2: TMaskEdit;
+    mEdDataInicio2: TMaskEdit;
+    mEdDataInicio1: TMaskEdit;
+    Label4: TLabel;
+    Label5: TLabel;
+    btBtnSelecionarCliente: TBitBtn;
+    btBtnPesquisar: TBitBtn;
+    rdBtnDevolverTodos: TRadioButton;
+    rdBtnDevolverSelecionar: TRadioButton;
+    btBtnNovo: TBitBtn;
+    PopupMenu: TPopupMenu;
+    mnMostrarTodasLocacoes: TMenuItem;
+    procedure ApplicationEventsHint(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure dbGrdLocacoesCellClick(Column: TColumn);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure btBtnSelecionarClienteClick(Sender: TObject);
+    procedure btBtnPesquisarClick(Sender: TObject);
+    procedure btBtnNovoClick(Sender: TObject);
+    procedure mnMostrarTodasLocacoesClick(Sender: TObject);
+    procedure mEdDataInicio1Enter(Sender: TObject);
+    procedure mEdDataInicio2Enter(Sender: TObject);
+    procedure mEdDataFinal1Enter(Sender: TObject);
+    procedure mEdDataFinal2Enter(Sender: TObject);
+    procedure mEdDataFinal2Exit(Sender: TObject);
+    procedure mEdDataFinal1Exit(Sender: TObject);
+    procedure mEdDataInicio1Exit(Sender: TObject);
+    procedure mEdDataInicio2Exit(Sender: TObject);
+  private
+    (*VARIÁVEIS DE CONTROLE*)
+    transacao: TTransactionDesc;//transações - deve-se adicionar a uses DBXpress
+
+    (*PROCEDURES DE CONTROLE*)
+    procedure limpar();//limpa componentes de apresentação
+    procedure iniciaTransacao();//dispara uma transação
+    procedure mostraTodsLocacoes();//exibe todas as Locações abertas
+    procedure pegaItensLocacao();//pega itens da locação
+  public
+    codCliente: Integer; //controle do cliente
+
+  end;
+
+var
+  frmRetornoLocacao: TfrmRetornoLocacao;
+
+implementation
+
+uses unDM, unSelecionaCliente, unPagarRestante;
+
+{$R *.dfm}
+
+(*PROCEDURES DE CONTROLE*)
+
+//limpa componentes de apresentação
+procedure TfrmRetornoLocacao.limpar();
+begin
+  Self.codCliente := 0;
+  edCliente.Clear;
+  mEdDataInicio1.Clear;
+  mEdDataInicio2.Clear;
+  mEdDataFinal1.Clear;
+  mEdDataFinal2.Clear;
+end;
+
+//exibe todas as Locações abertas
+procedure TfrmRetornoLocacao.mostraTodsLocacoes();
+begin
+  qryLocacoes.Close;
+  qryLocacoes.SQL.Clear;
+  qryLocacoes.SQL.Add('SELECT l.codigo,c.nome,l.data_inicio,l.data_final,l.observacoes,l.valor_total,l.valor_pago,l.pago ');
+  qryLocacoes.SQL.Add('FROM locacao l,cliente c ');
+  qryLocacoes.SQL.Add('WHERE l.status=0 AND l.cod_cliente=c.codigo');
+  qryLocacoes.Prepared := true;
+  qryLocacoes.Open;
+  cdsLocacoes.Open;
+  cdsLocacoes.Refresh;
+  cdsLocacoes.First;
+
+  pegaItensLocacao();
+end;
+
+//pega itens da locação
+procedure TfrmRetornoLocacao.pegaItensLocacao();
+begin
+  qryItensLocacao.Close;
+  qryItensLocacao.SQL.Clear;
+  qryItensLocacao.SQL.Add('SELECT i.*,p.nome ');
+  qryItensLocacao.SQL.Add('FROM Item_Locacao i, locacao l,produto p ');
+  qryItensLocacao.SQL.Add('WHERE i.cod_locacao=l.codigo AND i.data_devolucao IS NULL AND i.cod_produto=p.codigo AND l.codigo=:codLoc');
+  qryItensLocacao.ParamByName('codLoc').AsInteger := cdsLocacoesCODIGO.AsInteger;
+  qryItensLocacao.Prepared := true;
+  qryItensLocacao.Open;
+  cdsItensLocacao.Open;
+  cdsItensLocacao.Refresh;
+end;
+
+{dispara uma transação}
+procedure TfrmRetornoLocacao.iniciaTransacao();
+begin
+  transacao.TransactionID := 1;
+  transacao.IsolationLevel := xilREPEATABLEREAD;
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+procedure TfrmRetornoLocacao.ApplicationEventsHint(Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+procedure TfrmRetornoLocacao.FormShow(Sender: TObject);
+begin
+  limpar();
+  mostraTodsLocacoes();
+end;
+
+procedure TfrmRetornoLocacao.dbGrdLocacoesCellClick(Column: TColumn);
+begin
+  pegaItensLocacao();
+end;
+
+procedure TfrmRetornoLocacao.BitBtn1Click(Sender: TObject);
+begin
+  if(rdBtnDevolverTodos.Checked=true)then
+    begin
+      try
+      iniciaTransacao();
+      DM.SQLConnection.StartTransaction(transacao);
+
+      cdsItensLocacao.First;
+      while(not(cdsItensLocacao.Eof))do
+        begin
+        //devolvendo item da locação
+        DM.qryItemLocacao.Close;
+        DM.qryItemLocacao.SQL.Clear;
+        DM.qryItemLocacao.SQL.Add('UPDATE Item_Locacao SET data_devolucao=:dat WHERE codigo=:cod');
+        DM.qryItemLocacao.ParamByName('dat').AsSQLTimeStamp := DateTimeToSQLTimeStamp(Now);
+        DM.qryItemLocacao.ParamByName('cod').AsInteger := cdsItensLocacaoCODIGO.AsInteger;
+        DM.qryItemLocacao.Prepared := true;
+        DM.qryItemLocacao.ExecSQL();
+
+        //liberando produto
+        DM.qryProduto.Close;
+        DM.qryProduto.SQL.Clear;
+        DM.qryProduto.SQL.Add('UPDATE Produto SET status=:sta WHERE codigo=:cod');
+        DM.qryProduto.ParamByName('sta').AsInteger := 0;
+        DM.qryProduto.ParamByName('cod').AsInteger := cdsItensLocacaoCOD_PRODUTO.AsInteger;
+        DM.qryProduto.Prepared := true;
+        DM.qryProduto.ExecSQL();
+
+        cdsItensLocacao.Next;
+        end;
+
+      //caso a locação não foi toda paga
+      if (cdsLocacoesVALOR_TOTAL.AsFloat <> cdsLocacoesVALOR_PAGO.AsFloat) then
+        begin
+        Application.CreateForm(TfrmPagarRestante,frmPagarRestante);
+        frmPagarRestante.lblLocacao.Caption := cdsLocacoesCODIGO.AsString;
+        frmPagarRestante.lblValorTotal.Caption := FormatFloat('#0.00',cdsLocacoesVALOR_TOTAL.AsFloat);
+        frmPagarRestante.lblValorPago.Caption := FormatFloat('#0.00',cdsLocacoesVALOR_PAGO.AsFloat);
+        frmPagarRestante.edValorPago.Text := FormatFloat('#0.00',cdsLocacoesVALOR_TOTAL.AsFloat-cdsLocacoesVALOR_PAGO.AsFloat);
+        frmPagarRestante.ShowModal;
+        frmPagarRestante.Free;
+        end;        
+
+      //finalizando locação
+      DM.qryLocacao.Close;
+      DM.qryLocacao.SQL.Clear;
+      DM.qryLocacao.SQL.Add('UPDATE Locacao SET status=:sta,finalizacao=:fin WHERE codigo=:cod');
+      DM.qryLocacao.ParamByName('sta').AsInteger := 1;
+      DM.qryLocacao.ParamByName('fin').AsSQLTimeStamp := DateTimeToSQLTimeStamp(Now);
+      DM.qryLocacao.ParamByName('cod').AsInteger := cdsLocacoesCODIGO.AsInteger;
+      DM.qryLocacao.Prepared := true;
+      DM.qryLocacao.ExecSQL();
+
+
+      DM.SQLConnection.Commit(transacao);
+      MessageDlg('Retorno da Locação realizada com sucesso!',mtInformation,[mbOK],0);
+      mostraTodsLocacoes();
+      except
+        DM.SQLConnection.Rollback(transacao);
+        MessageDlg('Retorno da Locação não pode ser realizada!',mtInformation,[mbOK],0);
+      end;
+    end
+
+  else if (rdBtnDevolverSelecionar.Checked=true) then
+    begin
+      try
+      iniciaTransacao();
+      DM.SQLConnection.StartTransaction(transacao);
+
+      //devolvendo item da locação
+      DM.qryItemLocacao.Close;
+      DM.qryItemLocacao.SQL.Clear;
+      DM.qryItemLocacao.SQL.Add('UPDATE Item_Locacao SET data_devolucao=:dat WHERE codigo=:cod');
+      DM.qryItemLocacao.ParamByName('dat').AsSQLTimeStamp := DateTimeToSQLTimeStamp(Now);
+      DM.qryItemLocacao.ParamByName('cod').AsInteger := cdsItensLocacaoCODIGO.AsInteger;
+      DM.qryItemLocacao.Prepared := true;
+      DM.qryItemLocacao.ExecSQL();
+
+      //liberando produto
+      DM.qryProduto.Close;
+      DM.qryProduto.SQL.Clear;
+      DM.qryProduto.SQL.Add('UPDATE Produto SET status=:sta WHERE codigo=:cod');
+      DM.qryProduto.ParamByName('sta').AsInteger := 0;
+      DM.qryProduto.ParamByName('cod').AsInteger := cdsItensLocacaoCOD_PRODUTO.AsInteger;
+      DM.qryProduto.Prepared := true;
+      DM.qryProduto.ExecSQL();
+
+      pegaItensLocacao();
+      //verifica se todos os itens da locação já foram devolvidos
+      if (cdsItensLocacao.RecordCount = 0) then
+        begin
+        //caso a locação não foi toda paga
+        if (cdsLocacoesVALOR_TOTAL.AsFloat <> cdsLocacoesVALOR_PAGO.AsFloat) then
+          begin
+          Application.CreateForm(TfrmPagarRestante,frmPagarRestante);
+          frmPagarRestante.lblLocacao.Caption := cdsLocacoesCODIGO.AsString;
+          frmPagarRestante.lblValorTotal.Caption := FormatFloat('#0.00',cdsLocacoesVALOR_TOTAL.AsFloat);
+          frmPagarRestante.lblValorPago.Caption := FormatFloat('#0.00',cdsLocacoesVALOR_PAGO.AsFloat);
+          frmPagarRestante.edValorPago.Text := FormatFloat('#0.00',cdsLocacoesVALOR_TOTAL.AsFloat-cdsLocacoesVALOR_PAGO.AsFloat);
+          frmPagarRestante.ShowModal;
+          frmPagarRestante.Free;
+          end;
+
+        //finalizando locação
+        DM.qryLocacao.Close;
+        DM.qryLocacao.SQL.Clear;
+        DM.qryLocacao.SQL.Add('UPDATE Locacao SET status=:sta,finalizacao=:fin WHERE codigo=:cod');
+        DM.qryLocacao.ParamByName('sta').AsInteger := 1;
+        DM.qryLocacao.ParamByName('fin').AsSQLTimeStamp := DateTimeToSQLTimeStamp(Now);
+        DM.qryLocacao.ParamByName('cod').AsInteger := cdsLocacoesCODIGO.AsInteger;
+        DM.qryLocacao.Prepared := true;
+        DM.qryLocacao.ExecSQL();
+
+        mostraTodsLocacoes();
+          end;
+
+      DM.SQLConnection.Commit(transacao);
+      MessageDlg('Retorno da Locação realizada com sucesso!',mtInformation,[mbOK],0)
+      except
+        DM.SQLConnection.Rollback(transacao);
+        MessageDlg('Retorno da Locação não pode ser realizada!',mtInformation,[mbOK],0);
+      end;
+    end;
+end;
+
+procedure TfrmRetornoLocacao.btBtnSelecionarClienteClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaCliente,frmSelecionaCliente);
+  frmSelecionaCliente.tela := 'retornoLocacao';
+  frmSelecionaCliente.ShowModal;
+  frmSelecionaCliente.Free;
+end;
+
+procedure TfrmRetornoLocacao.btBtnPesquisarClick(Sender: TObject);
+begin
+  qryLocacoes.Close;
+  qryLocacoes.SQL.Clear;
+  qryLocacoes.SQL.Add('SELECT l.codigo,c.nome,l.data_inicio,l.data_final,l.observacoes,l.valor_total,l.valor_pago,l.pago ');
+  qryLocacoes.SQL.Add('FROM locacao l,cliente c ');
+  qryLocacoes.SQL.Add('WHERE l.cod_cliente=c.codigo ');
+  qryLocacoes.SQL.Add('AND l.status=0 ');
+  if (Self.codCliente <> 0) then
+    begin
+    qryLocacoes.SQL.Add('AND c.codigo=:cod ');
+    qryLocacoes.ParamByName('cod').AsInteger := Self.codCliente;
+    end;
+  if ((mEdDataInicio1.Text <> '  /  /       :  ')and(mEdDataInicio2.Text <> '  /  /       :  '))then
+    begin
+    qryLocacoes.SQL.Add('AND l.data_inicio BETWEEN :dtIn1 AND :dtIn2 ');
+    qryLocacoes.ParamByName('dtIn1').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataInicio1.Text);
+    qryLocacoes.ParamByName('dtIn2').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataInicio2.Text);
+    end;
+  if ((mEdDataFinal1.Text <> '  /  /       :  ')and(mEdDataFinal2.Text <> '  /  /       :  '))then
+    begin
+    qryLocacoes.SQL.Add('AND l.data_final BETWEEN :dtFi1 AND :dtFi2 ');
+    qryLocacoes.ParamByName('dtFi1').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataFinal1.Text);
+    qryLocacoes.ParamByName('dtFi2').AsSQLTimeStamp := StrToSQLTimeStamp(mEdDataFinal2.Text);
+    end;
+  qryLocacoes.Prepared := true;
+  qryLocacoes.Open;
+  cdsLocacoes.Open;
+  cdsLocacoes.Refresh;
+  cdsLocacoes.First;
+  pegaItensLocacao();
+
+  if (cdsLocacoes.RecordCount = 0) then
+    begin
+    MessageDlg('Nenhum registro encontrado!',mtInformation,[mbOK],0);
+    mostraTodsLocacoes();
+    end;
+
+end;
+
+procedure TfrmRetornoLocacao.btBtnNovoClick(Sender: TObject);
+begin
+  limpar();
+end;
+
+procedure TfrmRetornoLocacao.mnMostrarTodasLocacoesClick(Sender: TObject);
+begin
+  mostraTodsLocacoes();
+end;
+
+procedure TfrmRetornoLocacao.mEdDataInicio1Enter(Sender: TObject);
+begin
+  mEdDataInicio1.Color := clMoneyGreen;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataInicio2Enter(Sender: TObject);
+begin
+  mEdDataInicio2.Color := clMoneyGreen;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataFinal1Enter(Sender: TObject);
+begin
+  mEdDataFinal1.Color := clMoneyGreen;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataFinal2Enter(Sender: TObject);
+begin
+  mEdDataFinal2.Color := clMoneyGreen;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataFinal2Exit(Sender: TObject);
+begin
+  mEdDataFinal2.Color := clWindow;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataFinal1Exit(Sender: TObject);
+begin
+  mEdDataFinal1.Color := clWindow;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataInicio1Exit(Sender: TObject);
+begin
+  mEdDataInicio1.Color := clWindow;
+end;
+
+procedure TfrmRetornoLocacao.mEdDataInicio2Exit(Sender: TObject);
+begin
+  mEdDataInicio2.Color := clWindow;
+end;
+
+end.

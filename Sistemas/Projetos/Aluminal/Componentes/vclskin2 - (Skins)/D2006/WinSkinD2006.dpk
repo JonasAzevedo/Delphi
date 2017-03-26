@@ -1,0 +1,49 @@
+package WinSkinD2006;
+
+{$R *.res}
+{$R 'WinSkinReg.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS OFF}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'VclSkin Delphi2006 Package'}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcl,
+  vclx,
+  vclactnband,
+  designide;
+
+contains
+  WinSkinForm in 'WinSkinForm.pas',
+  ImgUtil in 'ImgUtil.pas',
+  SkinRead in 'SkinRead.pas',
+  WinConvert in 'WinConvert.pas',
+  WinSkinData in 'WinSkinData.pas',
+  WinSkinDlg in 'WinSkinDlg.pas',
+  Winskinmenu in 'Winskinmenu.pas',
+  WinSkinStore in 'WinSkinStore.pas',
+  WinSkinini in 'WinSkinini.pas',
+  WinSubClass in 'WinSubClass.pas',
+  WinSkinReg in 'WinSkinReg.pas';
+
+end.

@@ -1,0 +1,49 @@
+package ResourceEditorComponents;
+
+{$R *.RES}
+{$ALIGN ON}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS ON}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Resource Editor Components'}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl50,
+  GraphicsUtils,
+  MIDIUtils;
+
+contains
+  ResourceVersion in 'components\ResourceVersion.pas',
+  ResourceGraphics in 'components\ResourceGraphics.pas',
+  ResourceMenus in 'components\ResourceMenus.pas',
+  ResourceMessages in 'components\ResourceMessages.pas',
+  ResourceModule in 'components\ResourceModule.pas',
+  ResourceRiff in 'components\ResourceRiff.pas',
+  ResourceDialogs in 'components\ResourceDialogs.pas',
+  cmpBitmapEditor in 'components\cmpBitmapEditor.pas',
+  cmpMenuDesigner in 'components\cmpMenuDesigner.pas',
+  cmpRuler in 'components\cmpRuler.pas',
+  cmpPropertyListBox in 'components\cmpPropertyListBox.pas',
+  DialogEditor in 'components\DialogEditor.pas',
+  DialogBox in 'components\DialogBox.pas',
+  cmpHexEdit in 'cmpHexEdit.pas';
+
+end.

@@ -1,0 +1,255 @@
+unit unSelecionaRegistroConstrutora;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, unSelecionaRegistro, DBClient, Provider, DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, StdCtrls, Buttons, plsComboBox, plsEdit,
+  ExtCtrls, Grids, DBGrids;
+
+type
+  TfrmSelecionaRegistroConstrutora = class(TfrmSelecionaRegistro)
+    zqrySelecionarRegistroCODIGO: TIntegerField;
+    zqrySelecionarRegistroNOME: TStringField;
+    zqrySelecionarRegistroCC_CODIGO: TStringField;
+    cdsSelecionarRegistroCODIGO: TIntegerField;
+    cdsSelecionarRegistroNOME: TStringField;
+    cdsSelecionarRegistroCC_CODIGO: TStringField;
+    procedure FormCreate(Sender: TObject);
+    procedure plsCbBxCampoPesquisarChange(Sender: TObject);
+    procedure cdsSelecionarRegistroAfterScroll(DataSet: TDataSet);
+    procedure plsEdValorPesquisarChange(Sender: TObject);
+  private
+    FiCodigo: integer;
+    FsNome: string;
+    FsCampoPesquisa: string;
+    FbSelecionarTodos: Boolean;
+    //pog - devido ao estar pesquisando por um registro inexistente, e abrir esta tela, a mensagem era apresentada duas vezes
+    FbMostraMensagemNaoEncontrouRegistro: Boolean;
+  public
+    procedure passarParametro(pTipo: String; pValores: OleVariant); override;
+    procedure selecionarTodosRegistros(); override;
+    procedure selecionouRegistro(); override;
+    procedure filtrarPesquisa(); override;
+    procedure configurarCaracteresAceitosPesquisa(); override;
+    procedure inserirNovoRegistro(); override;
+    procedure ConfigurarCampoPesquisa(); override;
+    //seleciona todos os registros do conjunto de dados da tela pai
+    procedure SelecionarTodosRegistrosConjuntoDadosTelaPai();
+  end;
+
+var
+  frmSelecionaRegistroConstrutora: TfrmSelecionaRegistroConstrutora;
+
+implementation
+
+uses unCadVenda, unCadConstrutora, unConstantes, unPesquisarVendas;
+
+{$R *.dfm}
+
+{ TfrmSelecionaRegistroConstrutora }
+
+{***** Minhas Procedures - inicio *****}
+
+procedure TfrmSelecionaRegistroConstrutora.passarParametro(pTipo: String; pValores: OleVariant);
+var
+  sCodConstrutora: String;
+begin
+  inherited;
+
+  if(pTipo = PRM_INSERIU_REGISTRO_AO_ESTAR_SELECIONANDO)then
+  begin
+    Self.selecionarTodosRegistros();
+    SelecionarTodosRegistrosConjuntoDadosTelaPai();
+    if(MessageDlg('Selecionar a construtora que foi cadastrada?',mtConfirmation,[mbYes,mbNo],0)=mrYes)then
+    begin
+      sCodConstrutora := pValores;
+      cdsSelecionarRegistro.Locate('CODIGO', sCodConstrutora, []);
+      dbGrdDadosDblClick(Self);
+    end;
+  end
+
+  else if(pTipo = PRM_DEFINE_FILTRO_PADRAO_TELA_SELECAO)then
+  begin
+    plsCbBxCampoPesquisar.ItemIndex := 1;
+    FsCampoPesquisa := 'NOME';
+    ConfigurarCampoPesquisa();
+  end
+
+  else if(pTipo = PRM_ENVIA_FILTRO_PESQUISA)then
+  //pParametros[0]: campo do filtro
+  //pParametros[1]: valor do filtro
+  //pParametros[2]: FbSelecionarTodos - pode selecionar todos os registros
+  begin
+    plsEdValorPesquisar.Text := VarToStr(pValores[1]);
+    FbMostraMensagemNaoEncontrouRegistro := False;
+    if(pValores[0] = PRM_PESQUISA_NOME)then
+      filtrarPesquisa();
+    FbMostraMensagemNaoEncontrouRegistro := True;
+    FbSelecionarTodos := pValores[2];
+  end;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.filtrarPesquisa();
+begin
+  if((Self.FsCampoPesquisa = 'NOME')or(Self.FsCampoPesquisa = 'CC_CODIGO')) then
+  begin
+    cdsSelecionarRegistro.Filter := Self.FsCampoPesquisa + ' LIKE ' + QuotedStr('%' + plsEdValorPesquisar.Text + '%');
+    cdsSelecionarRegistro.Filtered := true;
+  end;
+
+  if(cdsSelecionarRegistro.RecordCount=0)then
+  begin
+    if(FbMostraMensagemNaoEncontrouRegistro)then
+      MessageDlg('Nenhuma construtora encontrada.',mtInformation,[mbOK],0);
+    cdsSelecionarRegistro.Filter := STRING_INDEFINIDO;
+    cdsSelecionarRegistro.Filtered := true;
+    plsEdValorPesquisar.Clear;
+  end;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.selecionarTodosRegistros();
+begin
+  if(FbSelecionarTodos)then
+  begin
+    cdsSelecionarRegistro.Filter := '';
+    cdsSelecionarRegistro.Filtered := False;
+    cdsSelecionarRegistro.Close;
+
+    zQrySelecionarRegistro.Close;
+    zQrySelecionarRegistro.SQL.Clear;
+    zQrySelecionarRegistro.SQL.Add('SELECT codigo, nome, CAST(codigo AS VARCHAR(10)) AS cc_codigo ');
+    zQrySelecionarRegistro.SQL.Add('FROM construtora ');
+    zQrySelecionarRegistro.SQL.Add(FoFuncoes.inserirCondicaoSelectNaoTrazerRegistroNulo());
+    zQrySelecionarRegistro.SQL.Add('ORDER BY nome');
+    zQrySelecionarRegistro.Open;
+    cdsSelecionarRegistro.Open;
+    cdsSelecionarRegistro.First;
+  end;
+
+  FbSelecionarTodos := True;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.selecionouRegistro();
+begin
+
+  if(cdsSelecionarRegistro.Active)then
+  begin
+    if(FiTelaChamou = FORM_CAD_VENDAS)then //TfrmCadVenda
+    begin
+      frmCadVenda.FoConstrutora.codigo := FiCodigo;
+      frmCadVenda.FoConstrutora.nome := FsNome;
+    end
+    else if(FiTelaChamou = FORM_PESQUISAR_VENDA)then //TfrmPesquisarVendas
+    begin
+      frmPesquisarVendas.FoConstrutora.codigo := FiCodigo;
+      frmPesquisarVendas.FoConstrutora.nome := FsNome;
+    end;
+  end;
+
+  inherited;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.configurarCaracteresAceitosPesquisa();
+begin
+  if(Self.FsCampoPesquisa = 'NOME')then
+    plsEdValorPesquisar.plsCaracteresAceitos := todos
+  else if(Self.FsCampoPesquisa = 'CC_CODIGO') then
+    plsEdValorPesquisar.plsCaracteresAceitos := numeros;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.inserirNovoRegistro();
+begin
+  try
+    Application.CreateForm(TfrmCadConstrutora,frmCadConstrutora);
+    frmCadConstrutora.iniciarTela(frmCadConstrutora);
+    frmCadConstrutora.passarParametro(PRM_INSERE_REGISTRO_AO_ESTAR_SELECIONANDO, FORM_SELECIONA_REGISTRO_CONSTRUTORA);
+    frmCadConstrutora.ShowModal;
+  finally
+    FreeAndNil(frmCadConstrutora);
+  end;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.ConfigurarCampoPesquisa();
+begin
+  plsEdValorPesquisar.Clear;
+  FoFuncoes.focarComponente(plsEdValorPesquisar);
+
+  if(plsCbBxCampoPesquisar.ItemIndex = 0)then //código
+    plsEdValorPesquisar.plsCaracteresAceitos := numeros
+  else if(plsCbBxCampoPesquisar.ItemIndex = 1)then //nome
+    plsEdValorPesquisar.plsCaracteresAceitos := todos;
+end;
+
+//seleciona todos os registros do conjunto de dados da tela pai
+procedure TfrmSelecionaRegistroConstrutora.SelecionarTodosRegistrosConjuntoDadosTelaPai();
+var
+  vParametros: Variant;
+begin
+  vParametros := VarArrayCreate([0,0],varVariant);
+  vParametros[0] := CONJUNTO_DADOS_CONSTRUTORA;
+
+  if(Self.FiTelaChamou = FORM_CAD_VENDAS)then //TfrmCadVenda
+    frmCadVenda.passarParametro(PRM_SELECIONAR_TODOS_REGISTROS_CONJUNTO_DADOS, vParametros);
+end;
+
+{***** Minhas Procedures - fim *****}
+
+
+procedure TfrmSelecionaRegistroConstrutora.FormCreate(Sender: TObject);
+begin
+  inherited;
+  Self.FiCodigo := NUMERO_INDEFINIDO;
+  Self.FsNome := STRING_INDEFINIDO;
+  FbSelecionarTodos := True;
+  FbMostraMensagemNaoEncontrouRegistro := True;
+  selecionarTodosRegistros();
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.plsCbBxCampoPesquisarChange(
+  Sender: TObject);
+begin
+  inherited;
+
+  Self.FsCampoPesquisa := STRING_INDEFINIDO; //default
+  case plsCbBxCampoPesquisar.ItemIndex of
+    0: Self.FsCampoPesquisa := 'CC_CODIGO';
+    1: Self.FsCampoPesquisa := 'NOME';
+  end;
+
+  ConfigurarCampoPesquisa();
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.cdsSelecionarRegistroAfterScroll(
+  DataSet: TDataSet);
+begin
+  inherited;
+  Self.FiCodigo := cdsSelecionarRegistroCODIGO.AsInteger;
+  Self.FsNome := cdsSelecionarRegistroNOME.AsString;
+end;
+
+procedure TfrmSelecionaRegistroConstrutora.plsEdValorPesquisarChange(
+  Sender: TObject);
+begin
+  inherited;
+  if ((Self.FsCampoPesquisa = 'CC_CODIGO')or(Self.FsCampoPesquisa = 'NOME'))then
+  begin
+    cdsSelecionarRegistro.Filter := Self.FsCampoPesquisa + ' LIKE ' + QuotedStr('%' + plsEdValorPesquisar.Text + '%');
+    cdsSelecionarRegistro.Filtered := True;
+    if(cdsSelecionarRegistro.RecordCount=0)then
+    begin
+      MessageDlg('Nenhuma construtora encontrada.',mtInformation,[mbOK],0);
+      selecionarTodosRegistros();
+      FoFuncoes.focarComponente(plsEdValorPesquisar);
+    end;
+  end
+  else
+  //retira os filtro
+  begin
+    cdsSelecionarRegistro.Filter := STRING_INDEFINIDO;
+    cdsSelecionarRegistro.Filtered := False;
+  end;
+end;
+
+end.

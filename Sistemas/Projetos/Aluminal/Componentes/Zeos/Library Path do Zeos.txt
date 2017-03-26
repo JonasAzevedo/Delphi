@@ -1,0 +1,10 @@
+Vai no menu do Delphi em Tools->Environment Options->(aba) Library 
+
+E em Library Path adicione os seguntes caminhos do zeos 
+
+Onde está o Zeos\packages\delphi7 
+Onde está o Zeos\src\component 
+Onde está o Zeos\src\core 
+Onde está o Zeos\src\dbc 
+Onde está o Zeos\src\parsesql 
+Onde está o Zeos\src\plain 

@@ -1,0 +1,50 @@
+SELECT
+  a.codigo AS CODIGO_AGENCIAMENTO,a.data_agenciamento,a.ativo AS ATIVO_AGENCIAMENTO,
+  CAST(a.codigo AS VARCHAR(10)) AS cc_codigo,
+  CASE
+    WHEN a.normal = 'SIM' THEN
+      'NORMAL '
+    ELSE
+      'STAND BY '
+  END AS NORMAL_STANDBY,
+  a.tipo_pessoa,
+  CASE
+    WHEN a.tipo_pessoa = 'FÍSICA' THEN
+       pf.nome
+    WHEN a.tipo_pessoa = 'JURÍDICA' THEN
+       pj.nome
+    ELSE
+      'NENHUMA'
+  END AS NOME_TIPO_PESSOA,
+  a.condicao_pagamento,
+CAST(a.valor_total  AS VARCHAR(20)) AS CC_VALOR_TOTAL_AGENCIAMENTO,
+CAST(a.pgto_vista_cach AS VARCHAR(20)) AS CC_PGTO_VISTA_CACH, 
+CAST(a.pgto_vista_valor_bem AS VARCHAR(20)) AS CC_PGTO_VISTA_VALOR_BEM,
+CAST(a.pgto_vista_descricao_bem AS VARCHAR(20)) AS CC_PGTO_VISTA_DESCRICAO_BEM,
+CAST(a.pgto_fincto_cach_financiado AS VARCHAR(20)) AS CC_PGTO_FINCTO_CACH_FINANCIADO,
+CAST(a.pgto_fincto_cach AS VARCHAR(20)) AS CC_PGTO_FINCTO_CACH,
+CAST(a.pgto_fincto_valor_bem AS VARCHAR(20)) AS CC_PGTO_FINCTO_VALOR_BEM,
+CAST(a.pgto_fincto_descricao_bem AS VARCHAR(20)) AS CC_PGTO_FINCTO_DESCRICAO_BEM,
+  a.observacao AS OBSERVACAO_AGENCIAMENTO,a.prazo_autorizacao,a.data_reagenciamento,
+  pf.codigo AS CODIGO_PESSOA_FISICA,pf.nome AS NOME_PESSOA_FISICA,
+  pj.codigo AS CODIGO_PESSOA_JURIDICA,pj.nome AS NOME_PESSOA_JURIDICA,
+  i.codigo AS CODIGO_IMOVEL,i.status AS STATUS_IMOVEL,i.situacao_desejavel,
+CAST(i.valor_imovel AS VARCHAR(20)) AS CC_VALOR_IMOVEL_IMOVEL,
+i.descricao AS DESCRICAO_IMOVEL,
+  ti.codigo AS CODIGO_TIPO_IMOVEL,ti.nome AS NOME_TIPO_IMOVEL,
+  est.codigo AS CODIGO_ESTADO,est.sigla AS SIGLA_ESTADO,
+  cid.codigo AS CODIGO_CIDADE,cid.nome AS NOME_CIDADE,
+  bai.codigo AS CODIGO_BAIRRO,bai.nome AS NOME_BAIRRO,
+  rua.codigo AS CODIGO_RUA,rua.nome AS NOME_RUA,rua.cep AS CEP_RUA
+FROM agenciamentos a
+JOIN pessoa_fisica pf ON a.cod_fk_pessoa_fisica = pf.codigo
+JOIN pessoa_juridica pj ON a.cod_fk_pessoa_juridica = pj.codigo
+JOIN imovel i ON a.cod_fk_imovel = i.codigo
+JOIN tipo_imovel ti ON i.cod_fk_tipo_imovel = ti.codigo
+JOIN estado est ON i.cod_fk_estado = est.codigo
+JOIN cidade cid ON i.cod_fk_cidade = cid.codigo
+JOIN bairro bai ON i.cod_fk_bairro = bai.codigo
+JOIN rua rua ON i.cod_fk_rua = rua.codigo
+
+
+ORDER BY a.CODIGO

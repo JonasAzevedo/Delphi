@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/09/05 15:33:56.218.pas,C:\Documents and Settings\Bart\My Documents\RAD Studio\Projects\Unit2.pas=C:\Documents and Settings\Bart\Desktop\Demos\AdvSplitter Demo\AdvSplitterDemo.pas</Transaction>
+    <Transaction>2007/09/05 15:33:56.218.dfm,C:\Documents and Settings\Bart\My Documents\RAD Studio\Projects\Unit2.dfm=C:\Documents and Settings\Bart\Desktop\Demos\AdvSplitter Demo\AdvSplitterDemo.dfm</Transaction>
+    <Transaction>2007/09/05 15:33:57.359.dproj,C:\Documents and Settings\Bart\My Documents\RAD Studio\Projects\Project2.dproj=C:\Documents and Settings\Bart\Desktop\Demos\AdvSplitter Demo\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

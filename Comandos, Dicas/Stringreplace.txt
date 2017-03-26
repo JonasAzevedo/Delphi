@@ -1,0 +1,3 @@
+Stringreplace(cnpj,’/’,’’,[rfreplaceall])
+Stringreplace(cnpj,’.’,’’,[rfreplaceall])
+Stringreplace(cnpj,’-’,’’,[rfreplaceall])

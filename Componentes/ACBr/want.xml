@@ -1,0 +1,454 @@
+<project name="ACBr"
+         basedir="."
+         default="compile" >
+
+  <property name="acbr.master" value="%{acbr_master}" />
+
+  <property name="old.version"    value="?{release.ini:releases:current}" />
+  <regexp   property="old.build"  text="${old.version}" pattern="^.*\.(\d+)\-?([ab(rc\-?\d+)]+)$" subst ="\1" />
+  
+  <property name="build" value="={1 + ${old.build}}" if="want.master" />
+  <property name="build" value="${old.build}"    unless="want.master" />
+  
+  <regexp property="version" text="${old.version}" pattern="\.[0-9]*$" subst=".${build}" />
+  <regexp property="comma.version" pattern="\." subst="," text="${version}" />
+
+  <tstamp>
+    <format property="when"      pattern="yyyy,mm,dd,HH,nn,ss" />
+    <format property="date.tag"  pattern="yyyy-mm-dd" />
+  </tstamp>
+
+  <property name="src"               value="${basedir}/source" />
+  <property name="src-comp"          value="${src}/Pascal" />
+  <property name="demo-vcl-src"      value="${src-comp}/Demo/VCL" />
+  <property name="monitor-src"       value="${src}/Monitor/CLX" />
+  <property name="tools"     value="${basedir}/tools" />
+  <property name="doc"       value="${basedir}/doc" />
+  <property name="dist"      value="${basedir}/dist" />
+  <property name="test"      value="${basedir}/test" />
+
+  <property name="bin"       value="${basedir}/bin" />
+  <property name="dcu"       value="${basedir}/dcu" />
+
+  <property name="synaser"   value="${lib}/SynaSer" />
+
+  <property name="zipname-src"   value="acbr-${version}-src.zip" />
+  <property name="zipfile-src"   value="${dist}/${zipname-src}" />
+  <property name="zipname-doc"   value="acbr-${version}-doc.zip" />
+  <property name="zipfile-doc"   value="${dist}/${zipname-doc}" />
+  <property name="zipname-demo"  value="acbr-${version}-demo.zip" />
+  <property name="zipfile-demo"  value="${dist}/${zipname-demo}" />
+  <property name="zipname"       value="acbr-${version}-full.zip" />
+  <property name="zipfile"       value="${dist}/${zipname}" />
+
+  <patternset id="sources" >
+    <include  name="${synaser}/**" />
+    <include  name="${src}" />
+    <include  name="${src}/**" />
+  </patternset>
+
+  <patternset id="resources" >
+    <patternset refid="sources"/>
+    <include name="${bin}" />
+  </patternset>
+
+  <target name="prepare" >
+    <mkdir dir="${dcu}" />
+    <mkdir dir="${bin}" />
+    <echo  message="version=${version}" />
+    <echo  message="build=${build}" />
+  </target>
+
+  <target name="clean" >
+    <delete dir="${bin}" >
+       <include name="**" />
+       <exclude name="ide" />
+       <exclude name="ide/**" />
+    </delete>
+    <delete dir="${dcu}" >
+       <include name="**" />
+       <exclude name="ide" />
+       <exclude name="ide/**" />
+    </delete>
+  </target>
+
+  <target name="versioninfo" >
+    <echo message="version=${version}" />
+    <echo input="${src-comp}/acbrver.template.rc" file="${src-comp}/acbrver.rc" />
+  </target>
+
+  <target name="resources" depends="prepare,versioninfo" >
+    <brcc file="${src-comp}/license.rc" output="${src-comp}/license.res" />
+    <brcc file="${src-comp}/acbrver.rc" output="${src-comp}/acbr.res" />
+  </target>
+
+  <target name="compile-acbr-clx"  depends="prepare,versioninfo,build">
+    <dcc basedir="${src-comp}" source="ACBr_CLX.dpk">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <define   name="VisualCLX" />
+      <debug     value="true" />
+
+      <hugestrings value="true" />   
+      
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+  </target>
+
+ <target name="compile-acbr-vcl"  depends="prepare,versioninfo,build">
+    <dcc basedir="${src-comp}" source="ACBr_VCL.dpk">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+      
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+ </target>
+
+ <target name="compile-demo-vcl"  depends="prepare,versioninfo,build">
+    <dcc basedir="${demo-vcl-src}" source="CHQTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="DISTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="ECFTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="GAVTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="LCBTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="EmulaLCB.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="ExtensoTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dcc basedir="${demo-vcl-src}" source="ValidadorTeste.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>            
+ </target>
+ 
+ <target name="compile-monitor"  depends="prepare,versioninfo,build">
+    <dcc basedir="${monitor-src}" source="ACBrMonitor.dpr">
+      <bploutput path="${bin}" />
+      <dcpoutput path="${bin}" />
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+      <!-- optimize  value="true" / -->
+      <debug     value="true" />
+
+      <hugestrings value="true" />
+    
+      <unitpath     refid="resources"   />
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc> 
+ </target>
+
+ <!--target name="compile-monitor"  depends="prepare,versioninfo,resources,build">
+ </target-->
+ 
+  <target name="compile" depends="compile-acbr-clx,compile-acbr-vcl,compile-demo-vcl,compile-monitor">
+  </target>
+
+  <target name="test" depends="internal_tests,acceptance_tests" />
+
+  <target name="internal_tests" depends="prepare,versioninfo,resources">
+    <property name="test.app" value="ACBrTestLib" />
+    <dcc basedir="${test}" source="${test.app}.dpr" >
+      <exeoutput path="${bin}"  />
+      <dcuoutput path="${dcu}"  />
+      <build     value="true" />
+      <debug     value="true" />
+      <console   value="true" />
+
+      <warning name="SYMBOL_PLATFORM" value="off" />
+
+      <define name="USE_TEXT_RUNNER" unless="debug" />
+      <define name="DUNIT_DLL" />
+      <define name="SUPPORTS_WIDESTRING" />
+
+      <unitpath     refid="sources" >
+        <include  name="${test}/**" />
+        <exclude  name="${test}/data" />
+        <exclude  name="${test}/data/**" />
+      </unitpath>
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dunit testlib="${bin}/${test.app}" />
+ </target>
+
+  <target name="acceptance_tests"  depends="prepare,versioninfo,resources">
+    <property name="test.app" value="ACBrAcceptTestLib" />
+    <dcc basedir="${test}" source="${test.app}.dpr" >
+      <exeoutput path="${bin}"  />
+      <dcuoutput path="${dcu}"  />
+      <build     value="true" />
+      <debug     value="true" />
+      <console   value="true" />
+
+      <define name="USE_TEXT_RUNNER" unless="debug" />
+      <define name="DUNIT_DLL" />
+      <define name="SUPPORTS_WIDESTRING" />
+
+      <unitpath     refid="sources" >
+        <include name="${test}/**" />
+        <exclude  name="${test}/data" />
+        <exclude  name="${test}/data/**" />
+      </unitpath>
+      <includepath  refid="sources"   />
+      <resourcepath refid="resources" />
+    </dcc>
+    <dunit testlib="${bin}/${test.app}" />
+ </target>
+
+ <target name="dist" depends="clean,compile,test,changelog,tag,package,publish" />
+         
+ <target name="zip" depends="package" />
+
+ <target name="package" >
+    <mkdir dir="${dist}" />
+    <delete file="${zipfile}" />
+    <zip zipfile="${zipfile}" >
+         <exclude name="${dist}/**" />
+	 <exclude name="${dcu}/**" />
+         <include name="${bin}/*.exe" />
+         <include name="${doc}/*.ppt" />
+         <include name="${doc}/*.sxi" />
+         <fileset dir="${basedir}" >
+           <exclude name="private/**" />
+           <exclude name="InstallBuilder/**" />
+           <include name="ACBr-change-log.txt" />
+           <include name="**/*.inc" />
+           <include name="**/*.pas" />
+           <include name="**/*.dpr" />
+           <include name="**/*.dof" />
+           <include name="**/*.cfg" />
+           <include name="**/*.bpg" />
+           <include name="**/*.dpk" />
+           <include name="**/*.inc" />
+           <include name="**/*.rc" />
+           <include name="**/*.res" />
+           <include name="**/*.html" />
+           <include name="**/*.htm" />
+           <include name="**/*.css" />
+           <include name="**/*.xml" />
+           <include name="**/*.gif" />
+           <include name="**/*.png" />
+           <include name="**/*.jpg" />
+           <include name="**/*.jpeg" />
+           <include name="**/*.txt" />
+           <include name="**/*.ini" />
+           <include name="**/*.bat" />
+           <include name="**/*.obj" />
+           <include name="tools/**" />
+         </fileset>
+         <include name="${test}/data/**" />
+    </zip>
+    <delete file="${zipfile-src}" />
+    <zip zipfile="${zipfile-src}" >
+         <exclude name="${dist}/**" />
+	 <exclude name="${dcu}/**" />
+         <fileset dir="${basedir}" >
+           <exclude name="private/**" />
+           <exclude name="InstallBuilder/**" />
+           <include name="ACBr-change-log.txt" />
+           <include name="**/*.inc" />
+           <include name="**/*.pas" />
+           <include name="**/*.dpr" />
+           <include name="**/*.dof" />
+           <include name="**/*.cfg" />
+           <include name="**/*.bpg" />
+           <include name="**/*.dpk" />
+           <include name="**/*.inc" />
+           <include name="**/*.rc" />
+           <include name="**/*.res" />
+           <include name="**/*.xml" />
+           <include name="**/*.gif" />
+           <include name="**/*.png" />
+           <include name="**/*.jpg" />
+           <include name="**/*.jpeg" />
+           <include name="**/*.txt" />
+           <include name="**/*.ini" />
+           <include name="**/*.bat" />
+           <include name="**/*.obj" />
+         </fileset>
+         <include name="${test}/data/**" />
+    </zip>
+    <delete file="${zipfile-doc}" />
+    <zip zipfile="${zipfile-doc}" >
+         <exclude name="${dist}/**" />
+	 <exclude name="${dcu}/**" />
+         <include name="${doc}/*.ppt" />
+         <include name="${doc}/*.sxi" />
+         <fileset dir="${basedir}" >
+           <exclude name="private/**" />
+           <exclude name="InstallBuilder/**" />
+           <include name="ACBr-change-log.txt" />
+           <include name="**/*.html" />
+           <include name="**/*.htm" />
+           <include name="**/*.css" />
+           <include name="**/*.xml" />
+           <include name="**/*.gif" />
+           <include name="**/*.png" />
+           <include name="**/*.jpg" />
+           <include name="**/*.jpeg" />
+           <include name="**/*.txt" />
+           <include name="**/*.ini" />
+           <include name="tools/**" />
+         </fileset>
+    </zip>
+    <delete file="${zipfile-demo}" />
+    <zip zipfile="${zipfile-demo}" >
+         <exclude name="${dist}/**" />
+	 <exclude name="${dcu}/**" />
+         <include name="${bin}/*.exe" />
+         <fileset dir="${basedir}" >
+           <exclude name="private/**" />
+           <exclude name="InstallBuilder/**" />
+           <include name="ACBr-change-log.txt" />
+           <include name="**/*.txt" />
+           <include name="**/*.ini" />
+         </fileset>         
+    </zip>
+    
+  </target>
+
+  <target name="build" >
+    <ini file="release.ini" if="acbr.master" >
+      <write section="releases" key="current" value="${version}" />
+      <write section="releases" key="last_date" value="${date.tag}" />
+    </ini>
+  </target>
+
+  <target name="changelog">
+    <cvschangelog
+        destfile="changelog.xml"
+        start="?{release.ini:releases:last_date}"/>       
+    <style in="changelog.xml" out="ChangeLog.html" style="changelog.xsl">
+      <param name="title" expression="ACBr ChangeLog"/>
+      <param name="module" expression="acbr"/>
+      <param name="cvsweb" expression="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/"/>
+    </style>
+    <delete file="changelog.xml"/>    
+  </target>
+
+  <target name="tag">
+    <cvs command="commit release.ini"/>
+    <regexp property="cvs.tag" text="build_${version}" pattern="\."   subst="_" />
+    <cvs command="rtag -R -F ${cvs.tag} ." />
+  </target>
+
+  <target name="tarball">
+    <exec executable="wget">
+      <arg value="--quiet" />
+      <arg value="--output-document=@{want-cvs-${date.tag}.tar.bz2}" />
+      <arg value="http://cvs.sourceforge.net/cvstarballs/acbr-cvsroot.tar.bz2" />
+    </exec>
+  </target>
+</project>

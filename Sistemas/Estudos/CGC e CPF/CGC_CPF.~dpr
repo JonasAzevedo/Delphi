@@ -1,0 +1,14 @@
+program CGC_CPF;
+
+uses
+  Forms,
+  unPrincipal in '..\CGC e CPF\unPrincipal.pas' {frmPrincipal},
+  unFuncoes in '..\CGC e CPF\unFuncoes.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.Run;
+end.

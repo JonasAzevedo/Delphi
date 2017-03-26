@@ -1,0 +1,26 @@
+unit unSelecionaRegistroSubGrupoBemNegociavel;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, unSelecionaRegistro, DBClient, Provider, DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, StdCtrls, Buttons, plsComboBox, plsEdit,
+  ExtCtrls, Grids, DBGrids;
+
+type
+  TfrmSelecionaRegistroSubGrupoBemNegociavel = class(TfrmSelecionaRegistro)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSelecionaRegistroSubGrupoBemNegociavel: TfrmSelecionaRegistroSubGrupoBemNegociavel;
+
+implementation
+
+{$R *.dfm}
+
+end.

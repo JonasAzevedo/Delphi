@@ -1,0 +1,296 @@
+unit unSelecionaRelatorioVendas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, RpCon, RpConDS, RpBase, RpSystem, RpDefine, RpRave,
+  DBClient, Provider, DB, SqlExpr, AppEvnts, ComCtrls, StdCtrls, Mask,
+  Buttons, ExtCtrls;
+
+type
+  TfrmSelecionaRelatorioVendas = class(TForm)
+    pnlVenda: TPanel;
+    Label3: TLabel;
+    Label10: TLabel;
+    Label15: TLabel;
+    Label18: TLabel;
+    Label12: TLabel;
+    Label14: TLabel;
+    Label13: TLabel;
+    Label11: TLabel;
+    Bevel1: TBevel;
+    edCliente: TEdit;
+    btBtnNova: TBitBtn;
+    edValorTotalVenda1: TEdit;
+    mEdDataVenda1: TMaskEdit;
+    btBtnGerar: TBitBtn;
+    edValorTotalVenda2: TEdit;
+    mEdDataVenda2: TMaskEdit;
+    btBtnAbreCliente: TBitBtn;
+    rdBtnVendaResumo: TRadioButton;
+    rdBtnVendaDetalhado: TRadioButton;
+    StatusBar: TStatusBar;
+    ApplicationEvents: TApplicationEvents;
+    qryVendaResumo: TSQLQuery;
+    dspVendaResumo: TDataSetProvider;
+    cdsVendaResumo: TClientDataSet;
+    RvProject: TRvProject;
+    RvSystem: TRvSystem;
+    rvDtStConQryVendaResumo: TRvDataSetConnection;
+    rvDtStConQryProdutosVen: TRvDataSetConnection;
+    qryProduto: TSQLQuery;
+    dspProduto: TDataSetProvider;
+    cdsProduto: TClientDataSet;
+    qryProdutocod_Item: TIntegerField;
+    qryProdutoCOD_VENDA: TIntegerField;
+    qryProdutoVALOR_TOTAL: TFMTBCDField;
+    qryProdutocod_Produto: TIntegerField;
+    qryProdutocod2_Produto: TStringField;
+    qryProdutoNOME: TStringField;
+    qryProdutoDESCRICAO: TStringField;
+    qryProdutoMARCA: TStringField;
+    qryProdutoTAMANHO: TIntegerField;
+    qryProdutoTIPO: TStringField;
+    cdsProdutocod_Item: TIntegerField;
+    cdsProdutoCOD_VENDA: TIntegerField;
+    cdsProdutoVALOR_TOTAL: TFMTBCDField;
+    cdsProdutocod_Produto: TIntegerField;
+    cdsProdutocod2_Produto: TStringField;
+    cdsProdutoNOME: TStringField;
+    cdsProdutoDESCRICAO: TStringField;
+    cdsProdutoMARCA: TStringField;
+    cdsProdutoTAMANHO: TIntegerField;
+    cdsProdutoTIPO: TStringField;
+    qryVendaResumoCODIGO: TIntegerField;
+    qryVendaResumoDATA_VENDA: TSQLTimeStampField;
+    qryVendaResumoOBSERVACOES: TStringField;
+    qryVendaResumoVALOR_TOTAL: TFMTBCDField;
+    qryVendaResumoVALOR_PAGO: TFMTBCDField;
+    qryVendaResumoValor_Resta: TFMTBCDField;
+    qryVendaResumoNOME: TStringField;
+    cdsVendaResumoCODIGO: TIntegerField;
+    cdsVendaResumoDATA_VENDA: TSQLTimeStampField;
+    cdsVendaResumoOBSERVACOES: TStringField;
+    cdsVendaResumoVALOR_TOTAL: TFMTBCDField;
+    cdsVendaResumoVALOR_PAGO: TFMTBCDField;
+    cdsVendaResumoValor_Resta: TFMTBCDField;
+    cdsVendaResumoNOME: TStringField;
+    procedure edClienteEnter(Sender: TObject);
+    procedure mEdDataVenda1Enter(Sender: TObject);
+    procedure mEdDataVenda2Enter(Sender: TObject);
+    procedure edValorTotalVenda1Enter(Sender: TObject);
+    procedure edValorTotalVenda2Enter(Sender: TObject);
+    procedure edClienteExit(Sender: TObject);
+    procedure mEdDataVenda1Exit(Sender: TObject);
+    procedure mEdDataVenda2Exit(Sender: TObject);
+    procedure edValorTotalVenda1Exit(Sender: TObject);
+    procedure edValorTotalVenda2Exit(Sender: TObject);
+    procedure edValorTotalVenda1KeyPress(Sender: TObject; var Key: Char);
+    procedure edValorTotalVenda2KeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure btBtnNovaClick(Sender: TObject);
+    procedure ApplicationEventsHint(Sender: TObject);
+    procedure btBtnAbreClienteClick(Sender: TObject);
+    procedure btBtnGerarClick(Sender: TObject);
+  private
+    (*PROCEDURES DE CONTROLE*)
+    procedure limpar();//limpar componentes
+  public
+    codCliente: Integer; //controle do Cliente
+  end;
+
+var
+  frmSelecionaRelatorioVendas: TfrmSelecionaRelatorioVendas;
+
+implementation
+
+uses unSelecionaCliente, unRelatorioVendaResumo;
+
+{$R *.dfm}
+
+(*PROCEDURES DE CONTROLE*)
+procedure TfrmSelecionaRelatorioVendas.limpar();
+begin
+  Self.codCliente := 0;
+  rdBtnVendaResumo.Checked := true;
+  rdBtnVendaDetalhado.Checked := false;
+  edCliente.Clear;
+  mEdDataVenda1.Clear;
+  mEdDataVenda2.Clear;
+  edValorTotalVenda1.Clear;
+  edValorTotalVenda2.Clear;
+end;
+(*FIM PROCEDURES DE CONTROLE*)
+
+procedure TfrmSelecionaRelatorioVendas.edClienteEnter(Sender: TObject);
+begin
+  edCliente.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.mEdDataVenda1Enter(Sender: TObject);
+begin
+  mEdDataVenda1.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.mEdDataVenda2Enter(Sender: TObject);
+begin
+  mEdDataVenda2.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edValorTotalVenda1Enter(
+  Sender: TObject);
+begin
+  edValorTotalVenda1.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edValorTotalVenda2Enter(
+  Sender: TObject);
+begin
+  edValorTotalVenda2.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edClienteExit(Sender: TObject);
+begin
+  edCliente.Color := clWindow;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.mEdDataVenda1Exit(Sender: TObject);
+begin
+  mEdDataVenda1.Color := clWindow;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.mEdDataVenda2Exit(Sender: TObject);
+begin
+  mEdDataVenda2.Color := clWindow;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edValorTotalVenda1Exit(
+  Sender: TObject);
+begin
+  try
+    edValorTotalVenda1.Text := FormatFloat('#0.00',StrToFloat(edValorTotalVenda1.Text));
+  except
+  end;
+
+  edValorTotalVenda1.Color := clWindow;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edValorTotalVenda2Exit(
+  Sender: TObject);
+begin
+begin
+  try
+    edValorTotalVenda2.Text := FormatFloat('#0.00',StrToFloat(edValorTotalVenda2.Text));
+  except
+  end;
+
+  edValorTotalVenda2.Color := clWindow;
+end;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edValorTotalVenda1KeyPress(
+  Sender: TObject; var Key: Char);
+begin
+  if not(Key in['0'..'9',',',Chr(8)])then
+    Key:= #0;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.edValorTotalVenda2KeyPress(
+  Sender: TObject; var Key: Char);
+begin
+  if not(Key in['0'..'9',',',Chr(8)])then
+    Key:= #0;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.FormKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key=27) then
+    Self.Close;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.FormShow(Sender: TObject);
+begin
+  Self.limpar();
+end;
+
+procedure TfrmSelecionaRelatorioVendas.btBtnNovaClick(Sender: TObject);
+begin
+  Self.limpar();
+end;
+
+procedure TfrmSelecionaRelatorioVendas.ApplicationEventsHint(
+  Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.btBtnAbreClienteClick(
+  Sender: TObject);
+begin
+  Application.CreateForm(TfrmSelecionaCliente,frmSelecionaCliente);
+  frmSelecionaCliente.tela := 'relatorioVenda';
+  frmSelecionaCliente.ShowModal;
+  frmSelecionaCliente.Free;
+end;
+
+procedure TfrmSelecionaRelatorioVendas.btBtnGerarClick(Sender: TObject);
+begin
+  qryVendaResumo.Close;
+  qryVendaResumo.SQL.Clear;
+  qryVendaResumo.SQL.Add('SELECT v.codigo,v.data_venda,v.observacoes,v.valor_total,v.valor_pago, ');
+  qryVendaResumo.SQL.Add('(v.valor_total-v.valor_pago) AS "Valor_Resta",c.nome ');
+  qryVendaResumo.SQL.Add('FROM venda v, cliente c ');
+  qryVendaResumo.SQL.Add('WHERE v.cod_cliente=c.codigo ');
+  //cliente
+  if (Self.codCliente<>0) then
+    begin
+    qryVendaResumo.SQL.Add('AND v.cod_cliente=:codCli ');
+    qryVendaResumo.ParamByName('codCli').AsInteger := Self.codCliente;
+    end;
+  //data da venda
+  if ((mEdDataVenda1.Text <> '  /  /    ')and(mEdDataVenda2.Text <> '  /  /    '))then
+    begin                               
+    qryVendaResumo.SQL.Add('AND CAST (v.data_venda AS DATE) BETWEEN :dtVen1 AND :dtVen2 ');
+    qryVendaResumo.ParamByName('dtVen1').AsDate := StrToDate(mEdDataVenda1.Text);
+    qryVendaResumo.ParamByName('dtVen2').AsDate := StrToDate(mEdDataVenda2.Text);
+    end;
+  //valor total
+  if ((edValorTotalVenda1.Text <> '')and(edValorTotalVenda2.Text <> ''))then
+    begin
+    qryVendaResumo.SQL.Add('AND v.valor_total BETWEEN :valTot1 AND :valTot2 ');
+    qryVendaResumo.ParamByName('valTot1').AsFloat := StrToFloat(edValorTotalVenda1.Text);
+    qryVendaResumo.ParamByName('valTot2').AsFloat := StrToFloat(edValorTotalVenda2.Text);
+    end;
+
+  qryVendaResumo.SQL.Add('ORDER BY v.data_venda');
+
+  qryVendaResumo.Prepared := true;
+  qryVendaResumo.Open;
+  cdsVendaResumo.Open;
+  cdsVendaResumo.Refresh;
+
+  if (cdsVendaResumo.RecordCount <> 0) then
+    begin
+    if (rdBtnVendaResumo.Checked=true) then
+      begin
+      Application.CreateForm(TqckRepRelatorioVendaResumo,qckRepRelatorioVendaResumo);
+      qckRepRelatorioVendaResumo.qrLblRegistros.Caption := IntToStr(cdsVendaResumo.RecordCount);
+      qckRepRelatorioVendaResumo.Prepare;
+      qckRepRelatorioVendaResumo.Preview;
+      qckRepRelatorioVendaResumo.Free;
+      end
+    else if (rdBtnVendaDetalhado.Checked=true) then
+      begin
+      RvProject.ProjectFile := 'C:\Noiva Linda\Relatórios\rave_vendas_com_itens.rav';
+      RvProject.Execute;
+      end;
+   end
+    else
+      MessageDlg('Nenhum Registro encontrado!',mtInformation,[mbOK],0);
+end;
+
+end.

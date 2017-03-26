@@ -1,0 +1,257 @@
+unit unSelecionaFornecedor;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, AppEvnts, ComCtrls, ExtCtrls, StdCtrls, Buttons, Grids,
+  DBGrids;
+
+type
+  TfrmSelecionaFornecedor = class(TForm)
+    grpBxFornecedores: TGroupBox;
+    DBGridFornecedores: TDBGrid;
+    btBtnNovoFornecedor: TBitBtn;
+    grpBxPesquisa: TGroupBox;
+    rdBtnCodigo: TRadioButton;
+    rdBtnNome: TRadioButton;
+    edPesquisa: TEdit;
+    btBtnPesquisar: TBitBtn;
+    pnlDivisao: TPanel;
+    StatusBar: TStatusBar;
+    btBtnSelecionarFornecedor: TBitBtn;
+    ApplicationEvents: TApplicationEvents;
+    PopupMenu: TPopupMenu;
+    ppMnMostrarTodosFornecedores: TMenuItem;
+    procedure rdBtnCodigoClick(Sender: TObject);
+    procedure rdBtnNomeClick(Sender: TObject);
+    procedure edPesquisaEnter(Sender: TObject);
+    procedure edPesquisaChange(Sender: TObject);
+    procedure edPesquisaExit(Sender: TObject);
+    procedure edPesquisaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edPesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure ppMnMostrarTodosFornecedoresClick(Sender: TObject);
+    procedure btBtnPesquisarClick(Sender: TObject);
+    procedure DBGridFornecedoresCellClick(Column: TColumn);
+    procedure DBGridFornecedoresDblClick(Sender: TObject);
+    procedure DBGridFornecedoresExit(Sender: TObject);
+    procedure btBtnNovoFornecedorClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ApplicationEventsHint(Sender: TObject);
+  private
+
+  public
+    tela:String;//tela que chamou esta
+
+    procedure mostraTodosFornecedores();//exibe todos os Fornecedores
+  end;
+
+var
+  frmSelecionaFornecedor: TfrmSelecionaFornecedor;
+
+implementation
+
+uses unDM, unCompra, unFornecedor, unContaPagar, DB,
+  unSelecionaRelatorioCompras;
+
+{$R *.dfm}
+
+(*PROCEDURES DE CONTROLE*)
+
+{exibe todos os Fornecedores}
+procedure TfrmSelecionaFornecedor.mostraTodosFornecedores();
+begin
+  DM.qryFornecedor.Close;
+  DM.qryFornecedor.SQL.Clear;
+  DM.qryFornecedor.SQL.Add('SELECT * From Fornecedor f ORDER BY f.codigo');
+  DM.qryFornecedor.Prepared := true;
+  DM.qryFornecedor.Open;
+
+  DM.cdsFornecedor.Open;
+  DM.cdsFornecedor.Refresh;
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+
+procedure TfrmSelecionaFornecedor.rdBtnCodigoClick(Sender: TObject);
+begin
+  edPesquisa.Enabled := true;
+  edPesquisa.Clear;
+  edPesquisa.SetFocus;
+  btBtnPesquisar.Enabled := false;
+  StatusBar.Panels[1].Text := 'Pesquisar';
+end;
+
+procedure TfrmSelecionaFornecedor.rdBtnNomeClick(Sender: TObject);
+begin
+  edPesquisa.Enabled := true;
+  edPesquisa.Clear;
+  edPesquisa.SetFocus;
+  btBtnPesquisar.Enabled := false;
+  StatusBar.Panels[1].Text := 'Pesquisar';
+
+end;
+
+procedure TfrmSelecionaFornecedor.edPesquisaEnter(Sender: TObject);
+begin
+  edPesquisa.Color := clMoneyGreen;
+end;
+
+procedure TfrmSelecionaFornecedor.edPesquisaChange(Sender: TObject);
+begin
+  if (edPesquisa.Text = '')then
+    btBtnPesquisar.Enabled := false;
+
+  if(edPesquisa.Text <> '')then
+    begin
+    if((rdBtnCodigo.Checked = true)or(rdBtnNome.Checked = true))then
+      btBtnPesquisar.Enabled := true
+    else
+      btBtnPesquisar.Enabled := false;
+    end;
+end;
+
+procedure TfrmSelecionaFornecedor.edPesquisaExit(Sender: TObject);
+begin
+  edPesquisa.Color := clWindow;
+end;
+
+procedure TfrmSelecionaFornecedor.edPesquisaKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key=13) then
+    btBtnPesquisarClick(Sender);
+end;
+
+procedure TfrmSelecionaFornecedor.edPesquisaKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (rdBtnCodigo.Checked = true) then
+    begin
+    if not (Key in['0'..'9',Chr(8)])then
+      Key:= #0;
+    end;
+end;
+
+procedure TfrmSelecionaFornecedor.ppMnMostrarTodosFornecedoresClick(
+  Sender: TObject);
+begin
+  mostraTodosFornecedores();
+end;
+
+procedure TfrmSelecionaFornecedor.btBtnPesquisarClick(Sender: TObject);
+begin
+ {código}
+  if (rdBtnCodigo.Checked = true) then
+    begin
+    DM.qryFornecedor.Close;
+    DM.qryFornecedor.SQL.Clear;
+    DM.qryFornecedor.SQL.Add('SELECT * FROM Fornecedor f WHERE f.codigo = :cod');
+    DM.qryFornecedor.ParamByName('cod').AsInteger := StrToInt(edPesquisa.Text);
+    DM.qryFornecedor.Prepared := true;
+    DM.qryFornecedor.Open;
+
+    DM.cdsFornecedor.Open;
+    DM.cdsFornecedor.Refresh;
+
+    if(DM.cdsFornecedor.RecordCount = 0)then
+      begin
+      MessageDlg('Nenhum Fornecedor encontrado com o código ' + edPesquisa.Text + '!', mtError,[mbOk],0);
+      edPesquisa.Clear;
+      mostraTodosFornecedores();
+      end;
+
+    DM.cdsFornecedor.Open;
+    DM.cdsFornecedor.Refresh;
+    DM.cdsFornecedor.Last;
+    end;
+
+  {nome}
+  if (rdBtnNome.Checked = true) then
+    begin
+    DM.qryFornecedor.Close;
+    DM.qryFornecedor.SQL.Clear;
+    DM.qryFornecedor.SQL.Add('SELECT * FROM Fornecedor f WHERE f.nome LIKE  ' + QuotedStr('%' + edPesquisa.Text + '%'));
+    DM.qryFornecedor.Prepared := true;
+    DM.qryFornecedor.Open;
+
+    DM.cdsFornecedor.Open;
+    DM.cdsFornecedor.Refresh;
+
+    if(DM.cdsFornecedor.RecordCount = 0)then
+      begin
+      MessageDlg('Nenhum Fornecedor encontrado com os caracteres ' + edPesquisa.Text + '!', mtError,[mbOk],0);
+      edPesquisa.Clear;
+      mostraTodosFornecedores();
+      end;
+
+    DM.cdsFornecedor.Open;
+    DM.cdsFornecedor.Refresh;
+    DM.cdsFornecedor.Last;
+    end;
+
+  StatusBar.Panels[1].Text := '';
+end;
+
+procedure TfrmSelecionaFornecedor.DBGridFornecedoresCellClick(
+  Column: TColumn);
+begin
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Navegação';
+end;
+
+procedure TfrmSelecionaFornecedor.DBGridFornecedoresDblClick(
+  Sender: TObject);
+begin
+  if(tela='compra')then
+    begin
+    frmCompra.codFornecedor := DM.cdsFornecedorCODIGO.AsInteger;
+    frmCompra.edFornecedor.Text := DM.cdsFornecedorRAZAO_SOCIAL.AsString;
+    end
+  else if(tela='contaPagar')then
+    begin
+    frmContaPagar.codFornecedor := DM.cdsFornecedorCODIGO.AsInteger;
+    frmContaPagar.edFornecedor.Text := DM.cdsFornecedorRAZAO_SOCIAL.AsString;
+    end
+  else if(tela='relatorioCompra')then
+    begin
+    frmSelecionaRelatorioCompras.codFornecedor := DM.cdsFornecedorCODIGO.AsInteger;
+    frmSelecionaRelatorioCompras.edFornecedor.Text := DM.cdsFornecedorRAZAO_SOCIAL.AsString;
+    end;
+
+  Self.Close;
+end;
+
+procedure TfrmSelecionaFornecedor.DBGridFornecedoresExit(Sender: TObject);
+begin
+  StatusBar.Panels[1].Text := '';
+end;
+
+procedure TfrmSelecionaFornecedor.btBtnNovoFornecedorClick(
+  Sender: TObject);
+begin
+  StatusBar.Panels[1].Text := 'Cadastro de um Novo Fornecedor';
+
+  Application.CreateForm(TfrmFornecedor,frmFornecedor);
+  frmFornecedor.operacao := 'novo';
+  frmFornecedor.ShowModal;
+  frmFornecedor.Free;
+end;
+
+procedure TfrmSelecionaFornecedor.FormShow(Sender: TObject);
+begin
+  mostraTodosFornecedores();  
+  StatusBar.Panels[1].Text := '';
+  if (Self.tela='relatorioCompra') then
+    btBtnNovoFornecedor.Visible := false
+  else
+    btBtnNovoFornecedor.Visible := true;
+end;
+
+procedure TfrmSelecionaFornecedor.ApplicationEventsHint(Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+end.

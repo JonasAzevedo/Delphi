@@ -1,0 +1,148 @@
+unit unConstantes;
+
+interface
+
+const
+  //integer
+  OPC_TELA_INICIO = 0;
+  OPC_NOVO = 1;
+  OPC_EDITAR = 2;
+  OPC_SALVAR = 3;
+  OPC_EXCLUIR = 4;
+  OPC_CANCELAR = 5;
+  OPC_PESQUISOU = 6;
+
+  FUNCAO_REGISTRO_NENHUM = 10;
+  FUNCAO_REGISTRO_EDITAR = 11;
+  FUNCAO_REGISTRO_NOVO = 12;
+
+  //strings
+  NUMERO_INDEFINIDO = 0;
+  STRING_INDEFINIDO = '';
+  NAO_DEFINIDO = 'NÃO DEFINIDO'; 
+
+  //form's
+  FORM_CAD_CIDADE                  = 100;
+  FORM_CAD_BAIRRO                  = 101;
+  FORM_CAD_RUA                     = 102;
+  FORM_CAD_CLIENTE                 = 103;
+  FORM_CAD_CLIENTE_PESSOA_JURIDICA = 104;
+  FORM_CAD_PESSOA_FISICA           = 105;
+  FORM_CAD_PESSOA_JURIDICA         = 106;
+  FORM_CAD_IMOVEL                  = 107;
+  FORM_CAD_AGENCIAMENTOS           = 108;
+  FORM_CAD_IMOVEL_INTERESSE        = 109;
+  FORM_CAD_VENDAS                  = 110;
+
+  FORM_SELECIONA_REGISTRO_IMOVEL                  = 207;
+  FORM_SELECIONA_REGISTRO_PESSOA_FISICA           = 208;
+  FORM_SELECIONA_REGISTRO_CIDADE                  = 209;
+  FORM_SELECIONA_REGISTRO_BAIRRO                  = 210;
+  FORM_SELECIONA_REGISTRO_RUA                     = 211;
+  FORM_SELECIONA_REGISTRO_MEIO_CAPTACAO           = 212;
+  FORM_SELECIONA_REGISTRO_PESSOA_JURIDICA         = 213;
+  FORM_SELECIONA_REGISTRO_CLIENTE                 = 214;
+  FORM_SELECIONA_REGISTRO_CLIENTE_PESSOA_JURIDICA = 215;
+  FORM_SELECIONA_REGISTRO_CONSTRUTORA             = 216;
+  FORM_SELECIONA_REGISTRO_PROFISSAO               = 217;
+
+  //dados salvos no BD
+  VLR_SIM = 'SIM';
+  VLR_NAO = 'NÃO';
+  VLR_TP_PESSOA_FISICA = 'FÍSICA';
+  VLR_TP_PESSOA_JURIDICA = 'JURÍDICA';
+  VLR_CD_PAGAMENTO_VISTA = 'VISTA';
+  VLR_CD_PAGAMENTO_ACEITA_FINANCIAMENTO = 'ACEITA FINANCIAMENTO';
+  VLR_DESLIGADO = 0;
+  VLR_LIGADO = 1;
+  VLR_FINALIDADE_MORAR = 'MORAR';
+  VLR_FINALIDADE_INVESTIR = 'INVESTIR';
+  VLR_SITUACAO_PLANTA = 'PLANTA';
+  VLR_SITUACAO_PRONTO_PARA_MORAR = 'PRONTO PARA MORAR';
+  VLR_SITUACAO_DE_TERCEIROS = 'DE TERCEIROS';
+
+  //constante para registro 'nulo', quando fk não for informado, usar o registro nulo    
+  REGISTRO_NULO = -99999;
+
+  //nome das tabelas
+  TABLE_ESTADO = 'estado';
+  TABLE_CIDADE = 'cidade';
+  TABLE_BAIRRO = 'bairro';
+
+  //table: IMOVEL
+  //campo: status
+  IMOVEL_STATUS_ABERTO = 1;
+  IMOVEL_STATUS_VENDIDO = 2;
+  IMOVEL_STATUS_ABERTO_EXIBE = 'CADASTRADO';
+  IMOVEL_STATUS_VENDIDO_EXIBE = 'VENDIDO';
+
+  //table: AGENDA
+  //campo: status
+  COMPROMISSO_ABERTO = 1;
+  COMPROMISSO_FECHADO = 2;
+
+  //table: PESSOA_FISICA
+  //campo: horario_ligacao
+  PESSOA_FISICA_HORARIO_LIGACAO_MANHA = 'MANHÃ';
+  PESSOA_FISICA_HORARIO_LIGACAO_TARDE = 'TARDE';
+  PESSOA_FISICA_HORARIO_LIGACAO_NOITE = 'NOITE';
+  PESSOA_FISICA_HORARIO_LIGACAO_QUALQUER = 'QUALQUER';
+
+  //table: VENDA
+  TIPO_VENDA_MEU_AGENCIAMENTO = 'MEU AGENCIAMENTO';
+  TIPO_VENDA_PAUTA = 'PAUTA';
+
+  TIPO_IMOVEL_DE_VENDA_MEU_AGENCIAMENTO_MEU = 'MEU';
+  TIPO_IMOVEL_DE_VENDA_MEU_AGENCIAMENTO_COLEGAS = 'COLEGAS';
+  TIPO_IMOVEL_DE_VENDA_PAUTA_CONSTRUTORA = 'CONSTRUTORA';
+  TIPO_IMOVEL_DE_VENDA_TERCEIROS = 'TERCEIROS';
+
+  //parâmetros para pesquisa
+  PRM_PESQUISA_CODIGO = 'prmPesquisaCodigo';
+  PRM_PESQUISA_NOME = 'prmPesquisaNome';
+  PRM_PESQUISA_CPF = 'prmPesquisaCPF';
+  PRM_PESQUISA_CNPJ = 'prmPesquisaCNPJ';
+  PRM_PESQUISA_IDENTIDADE = 'prmPesquisaIdentidade';
+
+  //parâmetro pTipo do procedimento passarParametro()
+  PRM_TELA_CHAMOU = 'prmTelaChamou';
+  PRM_INICIAR_TELA = 'prmIniciarTela';
+  PRM_CRIA_TELA_PESQUISA = 'prmCriaTelaPesquisa';
+  PRM_CONSULTA_COMPROMISSOS_AGENDA = 'prmConsultaCompromissosAgenda';
+  PRM_CRIA_TELA_CONSULTA_COMPROMISSOS_AGENDA_NORMAL = 'prmCriaTelaConsultaCompromissosAgendaNormal';
+  PRM_PESQUISAR_REGISTRO = 'prmPesquisarRegistro';
+  //PRM_TELA_PROPRIETARIA_TELA_PESQUISA = 'prmTelaProprietariaTelaPesquisa';
+  PRM_SELECIONAR_TODOS_REGISTROS = 'prmSelecionarTodosRegistros';
+  PRM_REALIZOU_LOGIN = 'prmRealizouLogin';
+  PRM_INSERE_REGISTRO_AO_ESTAR_SELECIONANDO = 'prmInsereRegistroAoEstarSelecionando';
+  PRM_INSERIU_REGISTRO_AO_ESTAR_SELECIONANDO = 'prmInseriuRegistroAoEstarSelecionando';
+  PRM_DEFINE_ESTADO_CIDADE_INSERINDO = 'prmDefineEstadoCidadeInserindo';
+  PRM_DEFINE_CIDADE_BAIRRO_INSERINDO = 'prmDefineCidadeBairroInserindo';
+  PRM_DEFINE_BAIRRO_RUA_INSERINDO = 'prmDefineBairroRuaInserindo';
+  PRM_ATUALIZAR_COMPROMISSOS_AGENDA = 'prmAtualizarCompromissosAgenda';
+  PRM_ATUALIZAR_AGENCIAMENTOS_EDITANDO = 'prmAtualizarAgenciamentosEditando';
+  PRM_ATUALIZAR_AGENCIAMENTOS_STANDBY = 'prmAtualizarAgenciamentosStandBy';
+  PRM_INSERIU_IMOVEL = 'prmInseriuImovel';
+  PRM_EDITAR_AGENCIAMENTO_EXPIROU = 'prmEditarAgenciamentoExpirou';
+  PRM_FINALIZAR_AGENCIAMENTO_STANDBY = 'prmFinalizarAgenciamentoStandBy';
+  PRM_EDITAR_PESSOA_AGENCIAMENTO_STAND_BY = 'prmEditarPessoaAgenciamentoStandBy';
+  PRM_EDITOU_REGISTRO_AGENCIAMENTO_STAND_BY = 'prmEditouRegistroAgenciamentoStandBy';
+  PRM_CARREGA_REGISTRO_CODIGO = 'prmCarregaRegistroCodigo';
+  PRM_DEFINE_FILTRO = 'prmDefineFiltro';
+  PRM_EXIBE_DADOS_AGENCIAMENTO = 'prmExibeDadosAgenciamento';
+  PRM_PESQUISOU = 'prmPesquisou';
+  PRM_NAO_LIMPAR_ENDERECO = 'prmNaoLimparEndereco';
+  PRM_ENVIA_FILTRO_PESQUISA = 'prmEnviaFiltroPesquisa';
+  PRM_DEFINE_FILTRO_PADRAO_TELA_SELECAO = 'prmDefineFiltroPadraoTelaSelecao';
+  PRM_SELECIONAR_TODOS_REGISTROS_CONJUNTO_DADOS = 'prmSelecionarTodosRegistrosConjuntoDados';
+
+  EDITOU_PESSOA = 0;
+  EDITOU_IMOVEL = 1;
+
+  CAMPO_PESQUISOU_POR_CODIGO = 1;
+  CAMPO_PESQUISOU_POR_NOME = 2;
+
+implementation
+
+
+end.

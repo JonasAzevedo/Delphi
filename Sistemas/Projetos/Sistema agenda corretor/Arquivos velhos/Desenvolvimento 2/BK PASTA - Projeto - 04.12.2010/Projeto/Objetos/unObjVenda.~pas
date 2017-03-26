@@ -1,0 +1,529 @@
+unit unObjVenda;
+
+interface
+
+uses
+  unDM,
+  Controls; //TDate
+
+  type TObjVenda = class
+
+    private
+      FnCodigo: Integer;
+      FdDataCadastro: TDateTime;
+      FdDataVenda: TDate;
+      FsAtivo: String[3];
+      FnFk_Cliente: Integer;
+      FnFk_Imovel: Integer;
+      FsTipoVenda: String[16];
+      FsVendaMeuAgenciamentoMeu: String[3];
+      FsVendaMeuAgenciamentoColegas: String[3];
+      FsVendaPautaConstrutora: String[3];
+      FsVendaPautaTerceiros: String[3];
+      FnFk_Construtora: Integer;
+      FdValorVenda: Double;
+      FdDeducoes: Double;
+      FdValorBemNegociavel: Double;
+      FsDeduzirBemNegocValorVenda: String[3];
+      FdValorParaCalculoComissao: Double;
+      FdPercentualSobreVenda: Double;
+      FdValorTotalComissao: Double;
+      FdPercentualSobreComissao: Double;
+      FsObservacao: String;
+      FdDataCancelamento: TDateTime;
+    public
+      procedure setCodigo(pnCodigo: Integer);
+      procedure setDataCadastro(pdDataCadastro: TDateTime);
+      procedure setDataVenda(pdDataVenda: TDate);
+      procedure setAtivo(psAtivo: String);
+      procedure setFk_Cliente(pnFk_Cliente: Integer);
+      procedure setFk_Imovel(pnFk_Imovel: Integer);
+      procedure setTipoVenda(psTipoVenda: String);
+      procedure setVendaMeuAgenciamentoMeu(psVendaMeuAgenciamentoMeu: String);
+      procedure setVendaMeuAgenciamentoColegas(psVendaMeuAgenciamentoColegas: String);
+      procedure setVendaPautaConstrutora(psVendaPautaConstrutora: String);
+      procedure setVendaPautaTerceiros(psVendaPautaTerceiros: String);
+      procedure setFk_Construtora(pnFk_Construtora: Integer);
+      procedure setValorVenda(pdValorVenda: Double);
+      procedure setDeducoes(pdDeducoes: Double);
+      procedure setValorBemNegociavel(pdValorBemNegociavel: Double);
+      procedure setDeduzirBemNegocValorVenda(psDeduzirBemNegocValorVenda: String);
+      procedure setValorParaCalculoComissao(pdValorParaCalculoComissao: Double);
+      procedure setPercentualSobreVenda(pdPercentualSobreVenda: Double);
+      procedure setValorTotalComissao(pdValorTotalComissao: Double);
+      procedure setPercentualSobreComissao(pdPercentualSobreComissao: Double);
+      procedure setObservacao(psObservacao: String);
+      procedure setDataCancelamento(pdDataCancelamento: TDateTime);
+      procedure setExibeCliente();
+      procedure setExibeImovel();
+      procedure setExibeConstrutora();
+
+      function getCodigo(): Integer;
+      function getDataCadastro(): TDateTime;
+      function getDataVenda(): TDate;
+      function getAtivo(): String;
+      function getFk_Cliente(): Integer;
+      function getFk_Imovel(): Integer;
+      function getTipoVenda(): String;
+      function getVendaMeuAgenciamentoMeu(): String;
+      function getVendaMeuAgenciamentoColegas(): String;
+      function getVendaPautaConstrutora(): String;
+      function getVendaPautaTerceiros(): String;
+      function getFk_Construtora(): Integer;
+      function getValorVenda(): Double;
+      function getDeducoes(): Double;
+      function getValorBemNegociavel(): Double;
+      function getDeduzirBemNegocValorVenda(): String;
+      function getValorParaCalculoComissao(): Double;
+      function getPercentualSobreVenda(): Double;
+      function getValorTotalComissao(): Double;
+      function getPercentualSobreComissao(): Double;
+      function getObservacao(): String;
+      function getDataCancelamento(): TDateTime;
+      function getExibeCliente(): String;
+      function getExibeImovel(): String;
+      function getExibeConstrutora(): String;
+
+      //limpa os dados do objeto
+      procedure limparObjeto();
+
+      //verifica se existe diferença no objeto. Quando estiver editando registro
+      //function verificarDiferencaCadastro(): Boolean;
+  end;
+
+implementation
+
+uses
+  unConstantes, Variants;
+
+{ TObjAgenciamento }
+
+{***** set's e get's *****}
+procedure TObjVenda.setCodigo(pnCodigo: Integer);
+begin
+  try
+    Self.FnCodigo := pnCodigo;
+  except
+    Self.FnCodigo := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getCodigo: Integer;
+begin
+  Result := Self.FnCodigo;
+end;
+
+procedure TObjVenda.setDataCadastro(pdDataCadastro: TDateTime);
+begin
+  try
+    Self.FdDataCadastro := pdDataCadastro;
+  except
+    Self.FdDataCadastro := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getDataCadastro(): TDateTime;
+begin
+  Result := Self.FdDataCadastro;
+end;
+
+procedure TObjVenda.setDataVenda(pdDataVenda: TDate);
+begin
+  try
+    Self.FdDataVenda := pdDataVenda;
+  except
+    Self.FdDataVenda := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getDataVenda(): TDate;
+begin
+  Result := Self.FdDataVenda;
+end;
+
+procedure TObjVenda.setAtivo(psAtivo: String);
+begin
+  try
+    Self.FsAtivo := psAtivo;
+  except
+    Self.FsAtivo := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getAtivo(): String;
+begin
+  Result := Self.FsAtivo;
+end;
+
+procedure TObjVenda.setFk_Cliente(pnFk_Cliente: Integer);
+begin
+  try
+    Self.FnFk_Cliente := pnFk_Cliente;
+  except
+    Self.FnFk_Cliente := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getFk_Cliente(): Integer;
+begin
+  Result := Self.FnFk_Cliente;
+end;
+
+procedure TObjVenda.setFk_Imovel(pnFk_Imovel: Integer);
+begin
+  try
+    Self.FnFk_Imovel := pnFk_Imovel;
+  except
+    Self.FnFk_Imovel := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getFk_Imovel(): Integer;
+begin
+  Result := Self.FnFk_Imovel;
+end;
+
+procedure TObjVenda.setTipoVenda(psTipoVenda: String);
+begin
+  try
+    Self.FsTipoVenda := psTipoVenda;
+  except
+    Self.FsTipoVenda := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getTipoVenda(): String;
+begin
+  Result := Self.FsTipoVenda;
+end;
+
+procedure TObjVenda.setVendaMeuAgenciamentoMeu(psVendaMeuAgenciamentoMeu: String);
+begin
+  try
+    Self.FsVendaMeuAgenciamentoMeu := psVendaMeuAgenciamentoMeu;
+  except
+    Self.FsVendaMeuAgenciamentoMeu := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getVendaMeuAgenciamentoMeu(): String;
+begin
+  Result := Self.FsVendaMeuAgenciamentoMeu;
+end;
+
+procedure TObjVenda.setVendaMeuAgenciamentoColegas(psVendaMeuAgenciamentoColegas: String);
+begin
+  try
+    Self.FsVendaMeuAgenciamentoColegas := psVendaMeuAgenciamentoColegas;
+  except
+    Self.FsVendaMeuAgenciamentoColegas := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getVendaMeuAgenciamentoColegas(): String;
+begin
+  Result := Self.FsVendaMeuAgenciamentoColegas;
+end;
+
+procedure TObjVenda.setVendaPautaConstrutora(psVendaPautaConstrutora: String);
+begin
+  try
+    Self.FsVendaPautaConstrutora := psVendaPautaConstrutora;
+  except
+    Self.FsVendaPautaConstrutora := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getVendaPautaConstrutora(): String;
+begin
+  Result := Self.FsVendaPautaConstrutora;
+end;
+
+procedure TObjVenda.setVendaPautaTerceiros(psVendaPautaTerceiros: String);
+begin
+  try
+    Self.FsVendaPautaTerceiros := psVendaPautaTerceiros;
+  except
+    Self.FsVendaPautaTerceiros := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getVendaPautaTerceiros(): String;
+begin
+  Result := Self.FsVendaPautaTerceiros;
+end;
+
+procedure TObjVenda.setFk_Construtora(pnFk_Construtora: Integer);
+begin
+  try
+    Self.FnFk_Construtora := pnFk_Construtora;
+  except
+    Self.FnFk_Construtora := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getFk_Construtora(): Integer;
+begin
+  Result := Self.FnFk_Construtora;
+end;
+
+procedure TObjVenda.setValorVenda(pdValorVenda: Double);
+begin
+  try
+    Self.FdValorVenda := pdValorVenda;
+  except
+    Self.FdValorVenda := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getValorVenda(): Double;
+begin
+  Result := Self.FdValorVenda;
+end;
+
+procedure TObjVenda.setDeducoes(pdDeducoes: Double);
+begin
+  try
+    Self.FdDeducoes := pdDeducoes;
+  except
+    Self.FdDeducoes := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getDeducoes(): Double;
+begin
+  Result := Self.FdDeducoes;
+end;
+
+procedure TObjVenda.setValorBemNegociavel(pdValorBemNegociavel: Double);
+begin
+  try
+    Self.FdValorBemNegociavel := pdValorBemNegociavel;
+  except
+    Self.FdValorBemNegociavel := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getValorBemNegociavel(): Double;
+begin
+  Result := Self.FdValorBemNegociavel;
+end;
+
+procedure TObjVenda.setDeduzirBemNegocValorVenda(psDeduzirBemNegocValorVenda: String);
+begin
+  try
+    Self.FsDeduzirBemNegocValorVenda := psDeduzirBemNegocValorVenda;
+  except
+    Self.FsDeduzirBemNegocValorVenda := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getDeduzirBemNegocValorVenda(): String;
+begin
+  Result := Self.FsDeduzirBemNegocValorVenda;
+end;
+
+procedure TObjVenda.setValorParaCalculoComissao(pdValorParaCalculoComissao: Double);
+begin
+  try
+    Self.FdValorParaCalculoComissao := pdValorParaCalculoComissao;
+  except
+    Self.FdValorParaCalculoComissao := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getValorParaCalculoComissao(): Double;
+begin
+  Result := Self.FdValorParaCalculoComissao;
+end;
+
+procedure TObjVenda.setPercentualSobreVenda(pdPercentualSobreVenda: Double);
+begin
+  try
+    Self.FdPercentualSobreVenda := pdPercentualSobreVenda;
+  except
+    Self.FdPercentualSobreVenda := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjVenda.getPercentualSobreVenda(): Double;
+begin
+  Result := Self.FdPercentualSobreVenda;
+end;
+xxxxxxxxxx
+      procedure
+      procedure
+      procedure
+      procedure setValorTotalComissao(pdValorTotalComissao: Double);
+      procedure setPercentualSobreComissao(pdPercentualSobreComissao: Double);
+      procedure setObservacao(psObservacao: String);
+      procedure setDataCancelamento(pdDataCancelamento: TDateTime);
+      procedure setExibeCliente();
+      procedure setExibeImovel();
+      procedure setExibeConstrutora();
+
+xxxxxxxxxxxxxxxx
+procedure TObjAgenciamento.setExibePessoaFisica();
+begin
+  Self.FsExibePessoaFisica := STRING_INDEFINIDO;
+
+  if(Self.FnFk_Pessoa_Fisica <> NUMERO_INDEFINIDO)then
+  begin
+    DM.zQryPessoaFisica.Close;
+    DM.zQryPessoaFisica.SQL.Clear;
+    DM.zQryPessoaFisica.SQL.Add('SELECT * FROM pessoa_fisica WHERE codigo=:cod');
+    DM.zQryPessoaFisica.ParamByName('cod').AsInteger := Self.FnFk_Pessoa_Fisica;
+    DM.zQryPessoaFisica.Open;
+    if(DM.zQryPessoaFisica.RecordCount = 1)then
+      //Self.FsExibePessoaFisica := DM.zQryPessoaFisicaCODIGO.AsString + ' - ' + DM.zQryPessoaFisicaNOME.AsString;
+      Self.FsExibePessoaFisica := DM.zQryPessoaFisicaNOME.AsString;
+  end;
+end;
+
+function TObjAgenciamento.getExibePessoaFisica(): String;
+begin
+  Result := Self.FsExibePessoaFisica;
+end;
+
+procedure TObjAgenciamento.setExibePessoaJuridica();
+begin
+  Self.FsExibePessoaJuridica := STRING_INDEFINIDO;
+
+  if(Self.FnFk_Pessoa_Juridica <> NUMERO_INDEFINIDO)then
+  begin
+    DM.zQryPessoaJuridica.Close;
+    DM.zQryPessoaJuridica.SQL.Clear;
+    DM.zQryPessoaJuridica.SQL.Add('SELECT * FROM pessoa_juridica WHERE codigo=:cod');
+    DM.zQryPessoaJuridica.ParamByName('cod').AsInteger := Self.FnFk_Pessoa_Juridica;
+    DM.zQryPessoaJuridica.Open;
+    if(DM.zQryPessoaJuridica.RecordCount = 1)then
+      //Self.FsExibePessoaJuridica := DM.zQryPessoaJuridicaCODIGO.AsString + ' - ' + DM.zQryPessoaJuridicaNOME.AsString;
+      Self.FsExibePessoaJuridica := DM.zQryPessoaJuridicaNOME.AsString;
+  end;
+end;
+
+function TObjAgenciamento.getExibePessoaJuridica(): String;
+begin
+  Result := Self.FsExibePessoaJuridica;
+end;
+
+procedure TObjAgenciamento.setExibeImovel();
+begin
+  Self.FsExibeImovel := STRING_INDEFINIDO;
+
+  if(Self.FnFk_Imovel <> NUMERO_INDEFINIDO)then
+  begin
+{    DM.zQryiPessoaJuridica.Close;
+    DM.zQryPessoaJuridica.SQL.Clear;
+    DM.zQryPessoaJuridica.SQL.Add('SELECT * FROM pessoa_juridica WHERE codigo=:cod');
+    DM.zQryPessoaJuridica.ParamByName('cod').AsInteger := Self.FnFk_Pessoa_Juridica;
+    DM.zQryPessoaJuridica.Open;
+    if(DM.zQryPessoaJuridica.RecordCount = 1)then
+      //Self.FsExibePessoaJuridica := DM.zQryPessoaJuridicaCODIGO.AsString + ' - ' + DM.zQryPessoaJuridicaNOME.AsString;
+      Self.FsExibePessoaJuridica := DM.zQryPessoaJuridicaNOME.AsString;
+ } end;
+end;
+
+function TObjAgenciamento.getExibeImovel(): String;
+begin
+  Result := Self.FsExibeImovel;
+end;
+
+
+{***** procedimentos diversos *****}
+
+//limpa os dados do objeto
+procedure TObjAgenciamento.limparObjeto();
+begin
+    Self.setCodigo(NUMERO_INDEFINIDO);
+    Self.setDataCadastro(NUMERO_INDEFINIDO);
+    Self.setDataAgenciamento(NUMERO_INDEFINIDO);
+    Self.setAtivo(STRING_INDEFINIDO);
+    Self.setNormal(STRING_INDEFINIDO);
+    Self.setStandBy(STRING_INDEFINIDO);
+    Self.setTipoPessoa(STRING_INDEFINIDO);
+    Self.setFk_Pessoa_Fisica(NUMERO_INDEFINIDO);
+    Self.setFk_Pessoa_Juridica(NUMERO_INDEFINIDO);
+    Self.setFk_Imovel(NUMERO_INDEFINIDO);
+    //Self.setMeioCaptacao(STRING_INDEFINIDO);
+    Self.setFk_MeioCaptacao(NUMERO_INDEFINIDO);
+    Self.setCondicaoPagamento(STRING_INDEFINIDO);
+    Self.setValorTotal(NUMERO_INDEFINIDO);
+    Self.setPgto_Vista_Cach(NUMERO_INDEFINIDO);
+    Self.setPgto_Vista_Valor_Bem(NUMERO_INDEFINIDO);
+    Self.setPgto_Vista_Descricao_Bem(STRING_INDEFINIDO);
+    Self.setPgto_Fincto_Cach_Financiado(NUMERO_INDEFINIDO);
+    Self.setPgto_Fincto_Cach(NUMERO_INDEFINIDO);
+    Self.setPgto_Fincto_Valor_Bem(NUMERO_INDEFINIDO);
+    Self.setPgto_Fincto_Descricao_Bem(STRING_INDEFINIDO);
+    Self.setObservacao(STRING_INDEFINIDO);
+    Self.setPrazo_Autorizacao(NUMERO_INDEFINIDO);
+    Self.setData_Reagenciamento(NUMERO_INDEFINIDO);
+    Self.setData_Baixa(NUMERO_INDEFINIDO);
+    Self.setExibePessoaFisica();
+    Self.setExibePessoaJuridica();
+    Self.setExibeImovel();
+end;
+
+//verifica se existe diferença no objeto. Quando estiver editando registro
+function TObjAgenciamento.verificarDiferencaCadastro(psAtivo:String; psNormal:String;
+  psStandBy:String; psTipoPessoa:String; pnFk_Pessoa_Fisica:Integer;
+  pnFk_Pessoa_Juridica:Integer; pnFk_Imovel:Integer; pnFk_MeioCaptacao:Integer; //psMeioCaptacao:String;
+  psCondicaoPagamento:String; pdValorTotal:Double; pdPgto_Vista_Cach:Double;
+  pdPgto_Vista_Valor_Bem:Double; psPgto_Vista_Descricao_Bem:String;
+  pdPgto_Fincto_Cach_Financiado:Double; pdPgto_Fincto_Cach:Double;
+  pdPgto_Fincto_Valor_Bem:Double; psPgto_Fincto_Descricao_Bem:String;
+  psObservacao:String; pdPrazo_Autorizacao:TDate;
+  pdData_Reagenciamento:TDate): Boolean;
+var
+  retorno: Boolean;
+begin
+  retorno := False;
+
+  if (psAtivo <> Self.getAtivo) then
+    retorno := True;
+  if (psNormal <> Self.getNormal) then
+    retorno := True;
+  if (psStandBy <> Self.getStandBy) then
+    retorno := True;
+  if (psTipoPessoa <> Self.getTipoPessoa) then
+    retorno := True;
+  if (pnFk_Pessoa_Fisica <> Self.getFk_Pessoa_Fisica) then
+    retorno := True;
+  if (pnFk_Pessoa_Juridica <> Self.getFk_Pessoa_Juridica) then
+    retorno := True;
+  if (pnFk_Imovel <> Self.getFk_Imovel) then
+    retorno := True;
+  //if (psMeioCaptacao <> Self.getMeioCaptacao) then
+  //  retorno := True;
+  if (pnFk_MeioCaptacao <> Self.getFk_MeioCaptacao) then
+    retorno := True;
+  if (psCondicaoPagamento <> Self.getCondicaoPagamento) then
+    retorno := True;
+  if (pdValorTotal <> Self.getValorTotal) then
+    retorno := True;
+  if (pdPgto_Vista_Cach <> Self.getPgto_Vista_Cach) then
+    retorno := True;
+  if (pdPgto_Vista_Valor_Bem <> Self.getPgto_Vista_Valor_Bem) then
+    retorno := True;
+  if (psPgto_Vista_Descricao_Bem <> Self.getPgto_Vista_Descricao_Bem) then
+    retorno := True;
+  if (pdPgto_Fincto_Cach_Financiado <> Self.getPgto_Fincto_Cach_Financiado) then
+    retorno := True;
+  if (pdPgto_Fincto_Cach <> Self.getPgto_Fincto_Cach) then
+    retorno := True;
+  if (pdPgto_Fincto_Valor_Bem <> Self.getPgto_Fincto_Valor_Bem) then
+    retorno := True;
+  if (psPgto_Fincto_Descricao_Bem <> Self.getPgto_Fincto_Descricao_Bem) then
+    retorno := True;
+  if (psObservacao <> Self.getObservacao) then
+    retorno := True;
+  if (pdPrazo_Autorizacao <> Self.getPrazo_Autorizacao) then
+    retorno := True;
+  if (pdData_Reagenciamento <> Self.getData_Reagenciamento) then
+    retorno := True;
+
+  Result := retorno;
+end;
+
+end.

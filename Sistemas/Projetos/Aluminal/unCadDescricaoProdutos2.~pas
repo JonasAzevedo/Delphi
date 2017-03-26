@@ -1,0 +1,243 @@
+unit unCadDescricaoProdutos2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, DBClient, Provider, ZAbstractRODataset, ZAbstractDataset,
+  ZDataset, ExtCtrls, DBCtrls, Grids, DBGrids, unFrmBasico, ComCtrls,
+  StdCtrls, Mask, Buttons, ToolWin, unFuncoes, ImgList;
+
+type
+  TfrmCadDescricaoProdutos2 = class(TFrmBasico)
+    zQryDescricaoProdutos: TZQuery;
+    dspDescricaoProdutos: TDataSetProvider;
+    cdsDescricaoProdutos: TClientDataSet;
+    zQryDescricaoProdutosCODIGO: TIntegerField;
+    zQryDescricaoProdutosDATA_CADASTRO: TDateTimeField;
+    zQryDescricaoProdutosNOME: TStringField;
+    zQryDescricaoProdutosVALOR: TFloatField;
+    cdsDescricaoProdutosCODIGO: TIntegerField;
+    cdsDescricaoProdutosDATA_CADASTRO: TDateTimeField;
+    cdsDescricaoProdutosNOME: TStringField;
+    cdsDescricaoProdutosVALOR: TFloatField;
+    dsDescricaoProdutos: TDataSource;
+    PageControl: TPageControl;
+    tbShtCadastro: TTabSheet;
+    tbShtEdicao: TTabSheet;
+    bdEdCodigo: TDBEdit;
+    bdEdNome: TDBEdit;
+    bdEdValor: TDBEdit;
+    lblCodigo: TLabel;
+    Label2: TLabel;
+    lblValor: TLabel;
+    DBNavigator: TDBNavigator;
+    StatusBar: TStatusBar;
+    ToolBar: TToolBar;
+    btBtnSalvar: TToolButton;
+    btBtnLimpar: TToolButton;
+    btBtnFechar: TToolButton;
+    imgBotoes: TImageList;
+    pnlBotoes: TPanel;
+    pnlGride: TPanel;
+    btnDeletarDescricao: TSpeedButton;
+    btnAdicionarDescricao: TSpeedButton;
+    grDados: TDBGrid;
+    procedure FormCreate(Sender: TObject);
+    procedure btBtnSalvarClick(Sender: TObject);
+    procedure grDadosDblClick(Sender: TObject);
+    procedure btnAdicionarDescricaoClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure btnDeletarDescricaoClick(Sender: TObject);
+    procedure cdsDescricaoProdutosAfterEdit(DataSet: TDataSet);
+    procedure cdsDescricaoProdutosAfterDelete(DataSet: TDataSet);
+    procedure btBtnFecharClick(Sender: TObject);
+    procedure dsDescricaoProdutosStateChange(Sender: TObject);
+    procedure btBtnLimparClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cdsDescricaoProdutosVALORValidate(Sender: TField);
+  private
+    FoFuncoes: TFuncoes;
+    procedure SelecionarTodosRegistros;
+    procedure Salvar;
+    procedure DefinirLarguraAlturaTela;
+    procedure FecharTela;
+  public
+
+  end;
+
+implementation
+
+uses unDM, unConstantes;
+
+{$R *.dfm}
+
+procedure TfrmCadDescricaoProdutos2.SelecionarTodosRegistros;
+begin
+  cdsDescricaoProdutos.Close;
+  zQryDescricaoProdutos.Close;
+  zQryDescricaoProdutos.SQL.Clear;
+  zQryDescricaoProdutos.SQL.Add('SELECT * FROM descricao_produtos ORDER BY codigo');
+  zQryDescricaoProdutos.Open;
+  cdsDescricaoProdutos.Open;
+end;
+
+procedure TfrmCadDescricaoProdutos2.Salvar;
+begin
+  //primeiro deleta todas as descrições dos produtos.
+  try
+    DM.ZConnection.StartTransaction;
+
+    DM.zQryDescricaoProdutos.Close;
+    DM.zQryDescricaoProdutos.SQL.Clear;
+    DM.zQryDescricaoProdutos.SQL.Add('DELETE FROM descricao_produtos');
+    DM.zQryDescricaoProdutos.ExecSQL;
+
+    DM.ZConnection.Commit;
+    except
+      MessageDlg('Descrição de Produtos não pode ser salvo.', mtInformation, [mbOK], 0);
+      DM.ZConnection.Rollback;
+      Exit;
+    end;
+
+  //salva as descrições dos produtos.
+  try
+    DM.ZConnection.StartTransaction;
+
+    cdsDescricaoProdutos.First;
+    while not(cdsDescricaoProdutos.Eof) do
+    begin
+      DM.cdsDescricaoProdutos.Close;
+      DM.zQryDescricaoProdutos.Close;
+      DM.zQryDescricaoProdutos.SQL.Clear;
+      DM.zQryDescricaoProdutos.SQL.Add('INSERT INTO descricao_produtos (nome,valor) ');
+      DM.zQryDescricaoProdutos.SQL.Add('VALUES (:nome,:valor)');
+      DM.zQryDescricaoProdutos.ParamByName('nome').AsString := cdsDescricaoProdutos.FieldByName('nome').AsString;
+      DM.zQryDescricaoProdutos.ParamByName('valor').AsFloat := cdsDescricaoProdutos.FieldByName('valor').AsFloat;
+      DM.zQryDescricaoProdutos.ExecSQL;
+      cdsDescricaoProdutos.Next;
+    end;
+
+    DM.ZConnection.Commit;
+    btBtnSalvar.Enabled := False;
+    except
+      MessageDlg('Descrição de Produtos não pode ser salvo.', mtInformation, [mbOK], 0);
+      DM.ZConnection.Rollback;
+    end;
+end;
+
+procedure TfrmCadDescricaoProdutos2.DefinirLarguraAlturaTela;
+begin
+  Self.Constraints.MinWidth := Self.Width;
+  Self.Constraints.MinHeight := Self.Height;
+  Self.Constraints.MaxWidth := Self.Width;
+  Self.Constraints.MaxHeight := Self.Height;
+end;
+
+procedure TfrmCadDescricaoProdutos2.FecharTela;
+begin
+  Close;
+end;
+
+procedure TfrmCadDescricaoProdutos2.FormCreate(Sender: TObject);
+begin
+  FoFuncoes := TFuncoes.Create;
+  SelecionarTodosRegistros;
+  btBtnSalvar.Enabled := False;
+  DefinirLarguraAlturaTela;  
+end;
+
+procedure TfrmCadDescricaoProdutos2.btBtnSalvarClick(Sender: TObject);
+begin
+  Salvar;
+end;
+
+procedure TfrmCadDescricaoProdutos2.grDadosDblClick(Sender: TObject);
+begin
+  PageControl.ActivePage := tbShtEdicao;
+end;
+
+procedure TfrmCadDescricaoProdutos2.btnAdicionarDescricaoClick(
+  Sender: TObject);
+begin
+  cdsDescricaoProdutos.Append;
+  cdsDescricaoProdutos.FieldByName('codigo').AsString := IntToStr(FoFuncoes.RetornarProximoCodigo(TABLE_DESCRICAO_PRODUTOS,True));
+  PageControl.ActivePage := tbShtEdicao;
+  btBtnSalvar.Enabled := True;
+  FoFuncoes.focarComponente(bdEdNome);
+end;
+
+procedure TfrmCadDescricaoProdutos2.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FoFuncoes);
+end;
+
+procedure TfrmCadDescricaoProdutos2.btnDeletarDescricaoClick(
+  Sender: TObject);
+begin
+  if (MessageDlg('Deseja deletar a descrição do produto ' + cdsDescricaoProdutos.FieldByName('nome').AsString + ' ?',
+    mtConfirmation, [mbYes,mbNo], 0) = mrYes) then
+  begin
+    cdsDescricaoProdutos.Delete;
+  end;
+
+end;
+
+procedure TfrmCadDescricaoProdutos2.cdsDescricaoProdutosAfterEdit(
+  DataSet: TDataSet);
+begin
+  btBtnSalvar.Enabled := True;
+end;
+
+procedure TfrmCadDescricaoProdutos2.cdsDescricaoProdutosAfterDelete(
+  DataSet: TDataSet);
+begin
+  btBtnSalvar.Enabled := True;
+end;
+
+procedure TfrmCadDescricaoProdutos2.btBtnFecharClick(Sender: TObject);
+begin
+  FecharTela;
+end;
+
+procedure TfrmCadDescricaoProdutos2.dsDescricaoProdutosStateChange(
+  Sender: TObject);
+begin
+  if (cdsDescricaoProdutos.State in [dsBrowse]) then
+    DBNavigator.Enabled := True
+  else
+    DBNavigator.Enabled := False;
+end;
+
+procedure TfrmCadDescricaoProdutos2.btBtnLimparClick(Sender: TObject);
+begin
+  PageControl.ActivePage := tbShtCadastro;
+  SelecionarTodosRegistros;
+  btBtnSalvar.Enabled := False;
+end;
+
+procedure TfrmCadDescricaoProdutos2.FormKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #27 then
+    FecharTela;
+end;
+
+procedure TfrmCadDescricaoProdutos2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if (btBtnSalvar.Enabled) then
+  begin
+    if (MessageDlg('Deseja mesmo sair do cadastro de Descrição de Produtos ?', mtConfirmation, [mbYes,mbNo],0)=mrNo)then
+      Action := caNone;
+  end;
+end;
+
+procedure TfrmCadDescricaoProdutos2.cdsDescricaoProdutosVALORValidate(
+  Sender: TField);
+begin
+  cdsDescricaoProdutos.FieldByName('valor').AsString :=
+    FoFuncoes.FormatarValorMonetario(cdsDescricaoProdutos.FieldByName('valor').AsString);
+end;
+
+end.

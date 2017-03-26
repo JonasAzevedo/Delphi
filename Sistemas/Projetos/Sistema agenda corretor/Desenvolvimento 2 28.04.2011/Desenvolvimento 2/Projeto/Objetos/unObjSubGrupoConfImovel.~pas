@@ -1,0 +1,119 @@
+unit unObjSubGrupoConfImovel;
+
+interface
+
+uses
+  unDM;
+
+  type TObjSubGrupoConfImovel = class
+
+    private
+      FnCodigo: Integer;
+      FnFk_Grupo: Integer;
+      FsNome: String[50];
+      FsExibeGrupo: String;
+    public
+      procedure setCodigo(pnCodigo: Integer);
+      procedure setFkGrupo(pnFkGrupo: Integer);
+      procedure setNome(psNome: String);
+      procedure setExibeGrupo();
+
+      function getCodigo(): Integer;
+      function getFkGrupo(): Integer;
+      function getNome(): String;
+      function getExibeGrupo(): String;
+      //verifica se existe diferença no objeto. Quando estiver editando registro
+      function verificarDiferencaCadastro(pnFkGrupo:Integer; psNome:String): boolean;
+  end;
+
+implementation
+
+uses
+  unConstantes;
+
+{ TObjCidade }
+
+
+{***** set's e get's *****}
+procedure TObjCidade.setCodigo(pnCodigo: Integer);
+begin
+  try
+    Self.FnCodigo := pnCodigo;
+  except
+    Self.FnCodigo := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjCidade.getCodigo: Integer;
+begin
+  Result := Self.FnCodigo;
+end;
+
+procedure TObjCidade.setFkEstado(pnFkEstado: Integer);
+begin
+  try
+    Self.FnFk_Estado := pnFkEstado;
+  except
+    Self.FnFk_Estado := NUMERO_INDEFINIDO;
+  end;
+end;
+
+function TObjCidade.getFkEstado: Integer;
+begin
+  Result := Self.FnFk_Estado;
+end;
+
+procedure TObjCidade.setNome(psNome: String);
+begin
+  try
+    Self.FsNome := psNome;
+  except
+    Self.FsNome := STRING_INDEFINIDO;
+  end;
+end;
+
+function TObjCidade.getNome: String;
+begin
+  Result := Self.FsNome;
+end;
+
+procedure TObjCidade.setExibeEstado();
+begin
+  Self.FsExibeEstado := STRING_INDEFINIDO;
+
+  if(Self.FnFk_Estado <> NUMERO_INDEFINIDO)then
+  begin
+    DM.zQryEstado.Close;
+    DM.zQryEstado.SQL.Clear;
+    DM.zQryEstado.SQL.Add('SELECT * FROM estado WHERE codigo=:cod');
+    DM.zQryEstado.ParamByName('cod').AsInteger := Self.FnFk_Estado;
+    DM.zQryEstado.Open;
+    if(DM.zQryEstado.RecordCount = 1)then
+      //Self.FsExibeEstado := DM.zQryEstadoCODIGO.AsString + ' - ' + DM.zQryEstadoNOME.AsString;
+      Self.FsExibeEstado := DM.zQryEstadoNOME.AsString;
+  end;
+end;
+
+function TObjCidade.getExibeEstado(): String;
+begin
+  Result := Self.FsExibeEstado;
+end;
+
+
+{***** procedimentos diversos *****}
+//verifica se existe diferença no objeto. Quando estiver editando registro
+function TObjCidade.verificarDiferencaCadastro(pnFkEstado:Integer; psNome:String): boolean;
+var
+  retorno: Boolean;
+begin
+  retorno := False;
+
+  if (pnFkEstado <> Self.getFkEstado) then
+    retorno := True;
+  if (psNome <> Self.getNome) then
+    retorno := True;
+
+  Result := retorno;
+end;
+
+end.

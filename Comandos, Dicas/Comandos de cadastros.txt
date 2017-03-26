@@ -1,0 +1,213 @@
+NOVO
+  {preparando}
+  limpar();
+  visibilidade(1);
+  edNome.SetFocus;
+  edCodigo.Enabled := false;
+  opcaoSalvar := 1;//novo
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Novo';
+
+
+EDITAR
+  {preparando}
+  visibilidade(2);
+  edNome.SetFocus;
+  edCodigo.Enabled := false;
+  opcaoSalvar := 2;//novo
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Edição';
+
+
+SALVAR
+  case opcaoSalvar of
+    1: begin //novo
+       try
+       iniciaTransacao();
+       DM.SQLConnection.StartTransaction(transacao);
+
+       DM.qryPaciente.Close;
+       DM.qryPaciente.SQL.Clear;
+       DM.qryPaciente.SQL.Add('INSERT INTO Paciente (nome,pai,mae,sexo,data_nascimento,naturalidade,estado_civil,cor,profissao,endereco,municipio,bairro,estado,telefone,responsavel)');
+       DM.qryPaciente.SQL.Add('VALUES (:nom,:pai,:mae,:sex,:dat,:nat,:estadoCivil,:cor,:pro,:end,:mun,:bai,:estado,:tel,:res)');
+
+       DM.qryPaciente.ParamByName('nom').AsString := edNome.Text;
+       DM.qryPaciente.ParamByName('pai').AsString := edPai.Text;
+       DM.qryPaciente.ParamByName('mae').AsString := edMae.Text;
+
+       if (cbxSexo.ItemIndex=0) then
+         DM.qryPaciente.ParamByName('sex').AsString := 'Feminino'
+       else if (cbxSexo.ItemIndex=1) then
+         DM.qryPaciente.ParamByName('sex').AsString := 'Masculino';
+
+       //DM.qryPaciente.ParamByName('dat').AsDateTime := StrToDateTime(medDataNascimento.Text); //aqui não funciona
+       DM.qryPaciente.ParamByName('dat').AsDate := StrToDate(medDataNascimento.Text);
+
+       DM.qryPaciente.ParamByName('nat').AsString := edNaturalidade.Text;
+
+       if (cbxEstadoCivil.ItemIndex=0)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Amasiado(a)'
+       else if (cbxEstadoCivil.ItemIndex=1)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Casado(a)'
+       else if (cbxEstadoCivil.ItemIndex=2)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Separado(a)'
+       else if (cbxEstadoCivil.ItemIndex=3)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Solteiro(a)'
+       else if (cbxEstadoCivil.ItemIndex=4)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'União Estável'
+       else if (cbxEstadoCivil.ItemIndex=5)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Viúvo(a)';
+
+       if (cbxCor.ItemIndex=0) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Amarela'
+       else if (cbxCor.ItemIndex=1) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Branca'
+       else if (cbxCor.ItemIndex=2) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Parda'
+       else if (cbxCor.ItemIndex=3) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Preta';
+
+       DM.qryPaciente.ParamByName('pro').AsString := edProfissao.Text;
+       DM.qryPaciente.ParamByName('end').AsString := edEndereco.Text;
+       DM.qryPaciente.ParamByName('mun').AsString := edMunicipio.Text;
+       DM.qryPaciente.ParamByName('bai').AsString := edBairro.Text;
+       DM.qryPaciente.ParamByName('estado').AsString := edEstado.Text;
+       DM.qryPaciente.ParamByName('tel').AsString := medTelefone.Text;
+       DM.qryPaciente.ParamByName('res').AsString := edResponsavel.Text;
+
+       DM.qryPaciente.Prepared := true;
+       DM.qryPaciente.ExecSQL();
+
+       DM.SQLConnection.Commit(transacao);
+       except
+         MessageDlg('Paciente não pode ser salvo!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+         DM.SQLConnection.Rollback(transacao);
+       end;
+
+       end;
+
+
+     2: begin //editar
+       try
+       iniciaTransacao();
+       DM.SQLConnection.StartTransaction(transacao);
+
+       DM.qryPaciente.Close;
+       DM.qryPaciente.SQL.Clear;
+       DM.qryPaciente.SQL.Add('UPDATE Paciente SET nome=:nom,pai=:pai,mae=:mae,sexo=:sex,naturalidade=:nat,estado_civil=:estadoCivil,cor=:cor, ');
+       DM.qryPaciente.SQL.Add('profissao=:pro,endereco=:end,municipio=:mun,bairro=:bai,estado=:estado,telefone=:tel,responsavel=:res,data_nascimento=:dat');
+       DM.qryPaciente.SQL.Add('WHERE codigo = :cod');
+
+       DM.qryPaciente.ParamByName('nom').AsString := edNome.Text;
+       DM.qryPaciente.ParamByName('pai').AsString := edPai.Text;
+       DM.qryPaciente.ParamByName('mae').AsString := edMae.Text;
+
+       if (cbxSexo.ItemIndex=0) then
+         DM.qryPaciente.ParamByName('sex').AsString := 'Feminino'
+       else if (cbxSexo.ItemIndex=1) then
+         DM.qryPaciente.ParamByName('sex').AsString := 'Masculino';
+
+       DM.qryPaciente.ParamByName('dat').AsDate := StrToDate(medDataNascimento.Text);
+       DM.qryPaciente.ParamByName('nat').AsString := edNaturalidade.Text;
+
+       if (cbxEstadoCivil.ItemIndex=0)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Amasiado(a)'
+       else if (cbxEstadoCivil.ItemIndex=1)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Casado(a)'
+       else if (cbxEstadoCivil.ItemIndex=2)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Separado(a)'
+       else if (cbxEstadoCivil.ItemIndex=3)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Solteiro(a)'
+       else if (cbxEstadoCivil.ItemIndex=4)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'União Estável'
+       else if (cbxEstadoCivil.ItemIndex=5)then
+         DM.qryPaciente.ParamByName('estadoCivil').AsString := 'Viúvo(a)';
+
+       if (cbxCor.ItemIndex=0) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Amarela'
+       else if (cbxCor.ItemIndex=1) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Branca'
+       else if (cbxCor.ItemIndex=2) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Parda'
+       else if (cbxCor.ItemIndex=3) then
+         DM.qryPaciente.ParamByName('cor').AsString := 'Preta';
+
+       DM.qryPaciente.ParamByName('pro').AsString := edProfissao.Text;
+       DM.qryPaciente.ParamByName('end').AsString := edEndereco.Text;
+       DM.qryPaciente.ParamByName('mun').AsString := edMunicipio.Text;
+       DM.qryPaciente.ParamByName('bai').AsString := edBairro.Text;
+       DM.qryPaciente.ParamByName('estado').AsString := edEstado.Text;
+       DM.qryPaciente.ParamByName('tel').AsString := medTelefone.Text;
+       DM.qryPaciente.ParamByName('res').AsString := edResponsavel.Text;
+       DM.qryPaciente.ParamByName('cod').AsInteger := StrToInt(edCodigo.Text);
+
+       DM.qryPaciente.Prepared := true;
+       DM.qryPaciente.ExecSQL();
+
+       DM.SQLConnection.Commit(transacao);
+       except
+         MessageDlg('Paciente não pode ser editado!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+         DM.SQLConnection.Rollback(transacao);
+       end;
+
+       end;
+
+  end;//case
+
+  {selecionando todos os pacientes}
+  mostraTodosPacientes();
+  {atualizando ClientDataSet}
+  DM.cdsPaciente.Refresh;
+  DM.cdsPaciente.Last;
+  carrega();
+
+  visibilidade(3);
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Salvar';
+
+
+EXCLUIR
+  if (MessageDlg('Deseja deletar o paciente' +#13 + DM.cdsPacienteNOME.Value + '?',mtConfirmation,[mbYes,mbNo],0)=mrYes)then
+    begin
+    try
+    codigo := StrToInt(edCodigo.Text);
+    iniciaTransacao();
+    DM.SQLConnection.StartTransaction(transacao);
+
+    (*deletando*)
+
+    DM.qryPaciente.Close;
+    DM.qryPaciente.SQL.Clear;
+    DM.qryPaciente.SQL.Add('DELETE FROM Paciente WHERE codigo = :cod');
+    DM.qryPaciente.ParamByName('cod').AsInteger := codigo;
+    DM.qryPaciente.Prepared := true;
+    DM.qryPaciente.ExecSQL();
+    DM.SQLConnection.Commit(transacao);
+
+    {selecionando todos os pacientes}
+    mostraTodosPacientes();
+    {atualizando ClientDataSet}
+    DM.cdsPaciente.Refresh;
+    DM.cdsPaciente.Last;
+
+    visibilidade(4);
+    except
+      MessageDlg('Paciente não pode ser deletado!' +#13+ 'Verifique o erro!',mtError,[mbOk],0);
+      DM.SQLConnection.Rollback(transacao);
+    end;
+
+    end
+
+  else
+    begin
+    visibilidade(5);
+    end;
+
+  carrega();
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Excluir';
+
+
+
+CANCELAR
+  limpar();
+  visibilidade(5);
+  DM.cdsPaciente.Last;
+  carrega();
+  StatusBar.Panels[1].Text := '';

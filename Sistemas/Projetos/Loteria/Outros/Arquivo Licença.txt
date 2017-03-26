@@ -1,0 +1,7 @@
+Gerador de Jogos para a Loto Fácil.
+
+Licenciado para: TIME MONEY
+
+
+Versão 1.0.0.3
+Data: 12/06/2010

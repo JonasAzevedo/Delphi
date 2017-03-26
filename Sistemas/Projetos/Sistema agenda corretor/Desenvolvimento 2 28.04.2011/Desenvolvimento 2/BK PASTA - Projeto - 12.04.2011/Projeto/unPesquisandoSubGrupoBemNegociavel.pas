@@ -1,0 +1,117 @@
+unit unPesquisandoSubGrupoBemNegociavel;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, unPesquisandoRegistro, DB, DBClient, StdCtrls, plsEdit,
+  ExtCtrls, Grids, DBGrids, Provider, ZAbstractRODataset, ZAbstractDataset,
+  ZDataset;
+
+type
+  TfrmPesquisandoSubGrupoBemNegociavel = class(TfrmPesquisandoRegistro)
+    zQryPesquisando: TZQuery;
+    dspPesquisando: TDataSetProvider;
+    zQryPesquisandoCODIGO: TIntegerField;
+    zQryPesquisandoNOME: TStringField;
+    zQryPesquisandoCC_CODIGO: TStringField;
+    cdsPesquisandoCODIGO: TIntegerField;
+    cdsPesquisandoNOME: TStringField;
+    cdsPesquisandoCC_CODIGO: TStringField;
+  private
+  protected
+    procedure selecionarTodosRegistros();
+    procedure popularClientDataSetPesquisa(poDados: TClientDataSet); override;
+    procedure filtrarPesquisa(); override;
+    procedure selecionouRegistro(); override;
+    procedure configurarCaracteresAceitosPesquisa(); override;
+    procedure FormatarValores(); override;
+  public
+    procedure passarParametro(pTipo:String; pValores:OleVariant); override;
+  end;
+
+var
+  frmPesquisandoSubGrupoBemNegociavel: TfrmPesquisandoSubGrupoBemNegociavel;
+
+implementation
+
+uses unConstantes, unCadSubGrupoBemNegociavel;
+
+{$R *.dfm}
+
+{ TfrmPesquisandoSubGrupoBemNegociavel }
+
+(* procedimentos de controle *)
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.passarParametro(pTipo:String; pValores:OleVariant);
+begin
+  if(pTipo = PRM_SELECIONAR_TODOS_REGISTROS)then
+    Self.selecionarTodosRegistros();
+end;
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.selecionarTodosRegistros();
+begin
+end;
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.popularClientDataSetPesquisa(poDados: TClientDataSet);
+begin
+  cdsPesquisando.EmptyDataSet;
+  poDados.First;
+  while(not(poDados.Eof))do
+  begin
+    cdsPesquisando.Insert;
+    cdsPesquisando.FieldByName('CODIGO').AsString := poDados.FieldByName('CODIGO').AsString;
+    cdsPesquisando.FieldByName('NOME').AsString := poDados.FieldByName('NOME').AsString;
+    cdsPesquisando.FieldByName('CC_CODIGO').AsString := poDados.FieldByName('CODIGO').AsString;
+    cdsPesquisando.Post;
+    poDados.Next;
+  end;
+  cdsPesquisando.Active := True;
+end;
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.filtrarPesquisa();
+begin
+  if(Self.FsCampoPesquisa = 'NOME')or(Self.FsCampoPesquisa = 'CC_CODIGO') then
+  begin
+    cdsPesquisando.Filter := Self.FsCampoPesquisa + ' LIKE ' + QuotedStr('%' + plsEdValorPesquisa.Text + '%');
+    cdsPesquisando.Filtered := true;
+  end;
+
+  Self.FnTotalRegistrosFiltrandoPesquisa := cdsPesquisando.RecordCount;
+  if(cdsPesquisando.RecordCount=0)then
+  begin
+    MessageDlg('Nenhum registro encontrado.',mtInformation,[mbOK],0);
+    cdsPesquisando.Filter := STRING_INDEFINIDO;
+    cdsPesquisando.Filtered := true;
+    plsEdValorPesquisa.Clear;
+  end;
+end;
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.selecionouRegistro();
+begin
+  if(cdsPesquisando.Active)then
+  begin
+    if(Self.FoNomeFormChamou is TfrmCadSubGrupoBemNegociavel)then
+    begin
+      (Self.FoNomeFormChamou as TfrmCadSubGrupoBemNegociavel).passarParametro(PRM_PESQUISOU,null);
+      (Self.FoNomeFormChamou as TfrmCadSubGrupoBemNegociavel).realizouPesquisa(cdsPesquisandoCODIGO.AsInteger);
+    end;
+    Self.Hide;
+  end;
+end;
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.configurarCaracteresAceitosPesquisa();
+begin
+  if(Self.FsCampoPesquisa = 'NOME')then
+    plsEdValorPesquisa.plsCaracteresAceitos := todos
+  else if(Self.FsCampoPesquisa = 'CC_CODIGO') then
+    plsEdValorPesquisa.plsCaracteresAceitos := numeros;
+end;
+
+procedure TfrmPesquisandoSubGrupoBemNegociavel.FormatarValores();
+begin
+end;
+
+(* fim - procedimentos de controle *)
+
+end.

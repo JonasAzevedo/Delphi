@@ -1,0 +1,50 @@
+unit unConjuntoDadosMeioCaptacao;
+
+interface
+
+  uses
+    unConjuntoDados;
+
+  type TConjuntoDadosMeioCaptacao = class(TConjunto)
+
+    private
+    published
+      constructor CriaObjeto(); override;
+      function GetCodigo: Integer;
+      function GetNome: String;
+    public
+
+  end;
+
+implementation
+
+uses
+  unConstantes;
+
+constructor TConjuntoDadosMeioCaptacao.CriaObjeto();
+begin
+  inherited;
+
+  SetNomeTabela(TABLE_MEIO_CAPTACAO);
+  SetSQLPrincipal();
+  ExecutarSQLSelecao();
+  DeletarRegistroNaoDefinido();  
+end;
+
+function TConjuntoDadosMeioCaptacao.GetCodigo: Integer;
+begin
+  if(FcdsDados.Active)and(FcdsDados.RecordCount > 0)then
+    Result := FcdsDados.FieldByName('codigo').AsInteger
+  else
+    Result := NUMERO_INDEFINIDO;
+end;
+
+function TConjuntoDadosMeioCaptacao.GetNome: String;
+begin
+  if(FcdsDados.Active)and(FcdsDados.RecordCount > 0)then
+    Result := FcdsDados.FieldByName('nome').AsString
+  else
+    Result := STRING_INDEFINIDO;
+end;
+
+end.

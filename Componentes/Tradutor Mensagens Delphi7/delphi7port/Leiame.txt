@@ -1,0 +1,27 @@
+Tradução do dia 13/11/2002 - para controle de futuras alterações
+
+
+Arquivos de tradução das mensagens do "Delphi 7 Enterprise" para o Português (Brasil).
+
+Como não encontrei em lugar nenhum os arquivos de tradução do "Delphi 7 Enterprise"
+para português, por necessidade, eu mesmo os traduzi.
+
+Copie estes arquivos em um diretório vazio do seu HD e compile o projeto "PORTUGUES.DPR"
+no "Delphi 7 Enterprise".
+Em seguida coloque os arquivos gerados com extensão .DCU no diretório LIB onde
+está instalado o seu Delphi.
+Para que a tradução seja incorporada à projetos já criados, é só recompilá-los.
+
+PS1: não sou tradutor, sou somente analista de sistemas. Caso alguma tradução esteja em
+desagrado a você, é só alterar o arquivo e seguir os mesmos passos descritos acima.
+
+Espero ter contribuído mais um pouco para os desenvolvedores desta maravilhosa ferramenta
+de desenvolvimento chamada Delphi.
+
+Um abraço e bom trabalho !!!!!!!!
+
+Marcelo Ceschin
+Analista de Sistemas/Programador
+e-mail: marceloc551@icqmail.com
+ICQ number: 137321158
+Campinas / SP - Brasil

@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-br" xml:lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/standard/styles.php" />
+<link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/cdtc/styles.php" />
+
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://comunidade.cdtc.org.br/theme/standard/styles_ie6.css" />
+<![endif]-->
+
+
+    <meta name="keywords" content="moodle, CSS9: Lição 3 - Fontes, Textos e Links " />
+    <title>CSS9: Lição 3 - Fontes, Textos e Links</title>
+    <link rel="shortcut icon" href="http://comunidade.cdtc.org.br/theme/cdtc/favicon.ico" />
+    <!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(http://comunidade.cdtc.org.br/lib/csshover.htc);} /*]]>*/</style>-->
+
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/javascript-static.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/javascript-mod.php"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/overlib/overlib.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/overlib/overlib_cssstyle.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/cookies.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/ufo.js"></script>
+<script type="text/javascript" src="http://comunidade.cdtc.org.br/lib/dropdown.js"></script>  
+
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+setTimeout('fix_column_widths()', 20);
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function openpopup(url,name,options,fullscreen) {
+  fullurl = "http://comunidade.cdtc.org.br" + url;
+  windowobj = window.open(fullurl,name,options);
+  if (fullscreen) {
+     windowobj.moveTo(0,0);
+     windowobj.resizeTo(screen.availWidth,screen.availHeight);
+  }
+  windowobj.focus();
+  return false;
+}
+
+function uncheckall() {
+  void(d=document);
+  void(el=d.getElementsByTagName('INPUT'));
+  for(i=0;i<el.length;i++) {
+    void(el[i].checked=0);
+  }
+}
+
+function checkall() {
+  void(d=document);
+  void(el=d.getElementsByTagName('INPUT'));
+  for(i=0;i<el.length;i++) {
+    void(el[i].checked=1);
+  }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrReturnElements = new Array();
+	var arrRegExpClassNames = new Array();
+	if(typeof oClassNames == "object"){
+		for(var i=0; i<oClassNames.length; i++){
+			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+		}
+	}
+	else{
+		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+	}
+	var oElement;
+	var bMatchesAll;
+	for(var j=0; j<arrElements.length; j++){
+		oElement = arrElements[j];
+		bMatchesAll = true;
+		for(var k=0; k<arrRegExpClassNames.length; k++){
+			if(!arrRegExpClassNames[k].test(oElement.className)){
+				bMatchesAll = false;
+				break;
+			}
+		}
+		if(bMatchesAll){
+			arrReturnElements.push(oElement);
+		}
+	}
+	return (arrReturnElements)
+}
+//]]>
+</script>
+</head>
+
+<body  class="mod-lesson course-626 dir-ltr lang-pt_br_utf8" id="mod-lesson-view">
+
+<div id="page">
+
+<!-- First, let's wrap the sides -->
+	<div id="wrapper-t">
+		<div id="wrapper-l">
+			<div id="wrapper-r">
+				<div id="wrapper-b">
+				
+				<!-- Now, let's cap the corners -->
+				
+					<div id="wrapper-tl">
+						<div id="wrapper-tr">
+							<div id="wrapper-bl">
+								<div id="wrapper-br">
+
+    <div id="header" class=" clearfix">    <div id="header-t">
+    	<div id="header-r">
+    		<div id="header-l">
+    			<div id="header-m" class="clearfix">
+		        	<a href="http://www.presidencia.gov.br" class="global_logo_topo_presidencia"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/presidencia.gif" alt="Presidência da República Federativa do Brasil"></a>
+					<a href="http://www.brasil.gov.br" class="global_logo_topo_brasil" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/brasil1.gif" alt="Brasil, um país de todos"></a>
+				<span> 
+				<label for="pr" style="display:none">pr</label>
+				<select id="pr" name="sltVoce" class="pr" title="Páginas do Governo Federal" tabIndex=2 size=1 onchange="try{if (this.value!='') window.open(this.value);}catch(e){}">
+					<option value="#" selected="">Destaques do Governo   </option>
+					<option value="http://www.brasil.gov.br">Portal de Serviços do Governo</option>
+					<option value="http://www.radiobras.gov.br/">Portal da Agência de Notícias</option>
+					<option value="http://www.brasil.gov.br/noticias/em_questao">Em Questão</option>
+					<option value="http://www.fomezero.gov.br/">Programa Fome Zero</option>
+				</select>
+				</span>
+		        	<div id="program_select">
+<!--						<form> -->
+<!--						   <select onchange="">-->
+<!--							  <option>Destaques do Governo</option>-->
+<!--							  <option value="http://www.brasil.gov.br">Portal do Governo Federal</option>-->
+<!--							  <option value="http://www.e.gov.br">Portal de Serviços do Governo</option>-->
+
+<!--							  <option value="http://www.radiobras.gov.br">Portal da Agência de Notícias</option>-->
+<!--							  <option value="http://www.previdenciasocial.gov.br/reforma">Reforma da Previdência</option>-->
+<!--						   </select>-->
+<!--						</form>-->
+<!--		        	</div>-->
+<!--    		    <div class="headermenu"><div class="navigation">
+<ul><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php" onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17844" /><button type="submit" title="Atividade anterior"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;Atividade anterior</span></button></fieldset></form></li><li><form action="http://comunidade.cdtc.org.br/course/jumpto.php" method="get"  id="navmenupopup" class="popupform"><div><select id="navmenupopup_jump" name="jump" onchange="self.location=document.getElementById('navmenupopup').jump.options[document.getElementById('navmenupopup').jump.selectedIndex].value;">
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17828" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Guia do aluno</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17829" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Perfil do tutor</option>
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17832" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Ambientação do Moodle</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17833" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Plano de Ensino -  Técnicos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17835" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de notícias</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17836" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de dúvidas gerais</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17837" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Glossário - Wikipédia</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17839" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Sobre o CDTC</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17840" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Licença de Documentação Livre GNU</option>
+   <optgroup label="Semana 1">   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17842" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 1 - Conhecendo o CSS</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17844" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 2 - Cores e Fundos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17846" selected="selected" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Seguir para...</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17848" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 4 - Indentificando elementos e caixas</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17850" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 5 - Posicionamento e Elementos Flutuantes</option>
+   <option value="http://comunidade.cdtc.org.br/mod/quiz/view.php?id=17852" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/quiz/icon.gif);">Avaliação de aprendizagem</option>
+    </optgroup></select><input type="hidden" name="sesskey" value="zvyyoVzfIO" /><div id="noscriptnavmenupopup" style="display: inline;"><input type="submit" value="Vai" /></div><script type="text/javascript">
+//<![CDATA[
+document.getElementById("noscriptnavmenupopup").style.display = "none";
+//]]>
+</script></div></form></li><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php"  onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17848" /><button type="submit" title="Próxima atividade"><span class="accesshide " >Próxima atividade&nbsp;</span><span class="arrow ">&#x25BA;</span></button></fieldset></form></li></ul>
+</div></div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>	<div id=header_bar>
+		 <div><a href="http://comunidade.cdtc.org.br/"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/logos/logo.png" alt="Moodle" title="Moodle" style="float: left;" /></a></div>
+	 	 <div id="banner_t"><script type="text/javascript" language="JavaScript1.2" src="advanced/status.js"></script>
+<a href="http://comunidade.cdtc.org.br/theme/cdtc/advanced/catchadd.php?id=" target="" ><img src="" alt="" width="" height="" border="0"></a>
+<!--
+/*********************************************************
+			This Free Script was downloaded at			
+			Free-php-Scripts.net (HelpPHP.net)			
+	This script is produced under the LGPL license		
+		Which is included with your download.			
+	Not like you are going to read it, but it mostly	
+	States that you are free to do whatever you want	
+				With this script!						
+*********************************************************/
+-->
+</div>
+	 	 <div id="headermenu"><div class="navigation">
+<ul><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php" onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17844" /><button type="submit" title="Atividade anterior"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;Atividade anterior</span></button></fieldset></form></li><li><form action="http://comunidade.cdtc.org.br/course/jumpto.php" method="get"  id="navmenupopup" class="popupform"><div><select id="navmenupopup_jump" name="jump" onchange="self.location=document.getElementById('navmenupopup').jump.options[document.getElementById('navmenupopup').jump.selectedIndex].value;">
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17828" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Guia do aluno</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17829" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Perfil do tutor</option>
+   <option value="http://comunidade.cdtc.org.br/mod/book/view.php?id=17832" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/book/icon.gif);">Ambientação do Moodle</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17833" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Plano de Ensino -  Técnicos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17835" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de notícias</option>
+   <option value="http://comunidade.cdtc.org.br/mod/forum/view.php?id=17836" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/forum/icon.gif);">Fórum de dúvidas gerais</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17837" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Glossário - Wikipédia</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17839" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Sobre o CDTC</option>
+   <option value="http://comunidade.cdtc.org.br/mod/resource/view.php?id=17840" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/resource/icon.gif);">Licença de Documentação Livre GNU</option>
+   <optgroup label="Semana 1">   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17842" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 1 - Conhecendo o CSS</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17844" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 2 - Cores e Fundos</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17846" selected="selected" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Seguir para...</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17848" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 4 - Indentificando elementos e caixas</option>
+   <option value="http://comunidade.cdtc.org.br/mod/lesson/view.php?id=17850" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/lesson/icon.gif);">Lição 5 - Posicionamento e Elementos Flutuantes</option>
+   <option value="http://comunidade.cdtc.org.br/mod/quiz/view.php?id=17852" style="background-image: url(http://comunidade.cdtc.org.br/theme/cdtc/pix/mod/quiz/icon.gif);">Avaliação de aprendizagem</option>
+    </optgroup></select><input type="hidden" name="sesskey" value="zvyyoVzfIO" /><div id="noscriptnavmenupopup" style="display: inline;"><input type="submit" value="Vai" /></div><script type="text/javascript">
+//<![CDATA[
+document.getElementById("noscriptnavmenupopup").style.display = "none";
+//]]>
+</script></div></form></li><li><form action="http://comunidade.cdtc.org.br/mod/lesson/view.php"  onclick="this.target='_top';"><fieldset class="invisiblefieldset"><input type="hidden" name="id" value="17848" /><button type="submit" title="Próxima atividade"><span class="accesshide " >Próxima atividade&nbsp;</span><span class="arrow ">&#x25BA;</span></button></fieldset></form></li></ul>
+</div>			 <div id="icons_bar"> <a href="http://comunidade.cdtc.org.br/"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/icons/home.png" alt="Home" title="Home" align="top" /></a><a href="http://www.iti.gov.br/twiki/bin/view/Swlivre/PerguntasFrequentes"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/icons/woot.png" alt="Perguntas Frequentes" title="Perguntas Frequentes" align="top" /></a>
+<a href="mailto:gestor@cdtc.org.br"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/icons/outlook.png" alt="Fale Conosco" title="Fale Conosco" align="top" /></a>
+<img src="http://comunidade.cdtc.org.br/theme/cdtc/images/blank.gif" width="2" height="1" />
+			<div id="links-cdtc"><a href="http://irc.cdtc.org.br" title="ChatWeb">ChatWeb</a> | <a href="http://conferencia.cdtc.org.br/" title="Conferência">Conferência</a> | <a href="http://downloads.cdtc.org.br" title="Downloads">Downloads</a> | <a href="http://mapa.cdtc.org.br/" title="Mapa">Mapa</a> | <a href="http://radio.cdtc.org.br/" title="Rádio">Rádio</a></div>    				
+			
+			</div>
+		</div>
+	</div>
+    <div class="navbar clearfix">
+        <div class="breadcrumb"><h2 class="accesshide " >Você está aqui</h2> <ul>
+<li class="first"><a onclick="this.target='_top'" href="http://comunidade.cdtc.org.br/">COM</a></li><li class="first"> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a onclick="this.target='_top'" href="http://comunidade.cdtc.org.br/course/view.php?id=626">CSS9</a></li><li class="first"> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a onclick="this.target='_top'" href="http://comunidade.cdtc.org.br/mod/lesson/index.php?id=626">Lições</a></li><li class="first"> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> Lição 3 - Fontes, Textos e Links</li></ul></div>
+        <div class="navbutton">&nbsp;</div>
+    </div>
+    <!-- END OF HEADER -->
+    <div id="content"><h2   class="main">Lição 3 - Fontes, Textos e Links</h2><h2   class="main">Tentativa: 3</h2><!-- Start view start -->
+<table id="layout-table" cellpadding="0" cellspacing="0">
+    <tr>
+        <!-- First Column -->
+                <!-- Start main column -->
+        <td id="middle-column" align="center">
+
+            
+<!-- End view start --><h2   class="main">Escolhendo a Fonte</h2><div class="box generalbox generalboxcontent boxaligncenter"><div class="contents"><p><h2 style="font-family: arial,helvetica,sans-serif;"><font size="5">Escolhendo a Fonte</font></h2><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Escolher fontes para um documento pode ser confuso para aqueles que têm pouca exposição a tipografia. Felizmente, existem algumas boas regras de ouro para retroceder. <br /><a name="ch09index05"></a><a name="ch09index06"></a><a name="ch09index07"></a><a name="ch09index08"></a></font></p><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Fonts têm sido tradicionalmente subdivididos em grupos, referido como fonte ou categorias, como em CSS, font-family. As fontes são agrupadas com base em suas características. Em CSS, existem cinco categorias gerais:</font></p><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3"><a name="ch09index09"></a></font></p><div style="text-align: justify;"></div><ul style="font-family: arial,helvetica,sans-serif; text-align: justify;"><li><p class="docText"><font size="3"><b>Serif</b> - A fonte serif é aquela que tem floresce sobre a carta, referidos como, você adivinhou, serifs. Estas fontes são usadas para servirem com excelência no corpo do texto, especialmente na mídia impressa, e são muito apropriadas para cabeçalho e outros textos, como legendas. As fontes Serif que podem ser familiares para você incluir em seus documentos são a Times e a Geórgia, que são largamente utilizados na web.<a name="ch09index10"></a></font></p></li><li><p class="docText"><font size="3"><b>Sans-serif</b> - O termo sans-serif significa &quot;sem serifa&quot; e descreve, literalmente, fontes que não têm floresces. Em vez disso, fontes sem-serifa costumam ter letras arredondadas e largas, o que se pensa ser melhor para cabeçalhos de impressão. No entanto, nem sempre são a melhor escolha para textos muito pequenos ou em itálico. São exemplos de fontes dentro desta categoria as fontes Arial, Helvetica, e Verdana.<a name="ch09index11"></a></font></p></li><li><p class="docText"><font size="3"><b>Monospace</b> - Fontes Monospace são fontes cujas letras são todas da mesma largura. Eles são tipicamente usadas para descrever amostras de códigos de programação. Nos últimos anos,elas foram populares na concepção, dando um &quot;grunge&quot; no olhar para os desenhos em que são utilizados. No entanto, você deve limitar uso de fontes monospace. A fonte monospace mais comum em computação é a Courier. <br /><a name="ch09index12"></a><a name="ch09index13"></a><a name="ch09index14"></a><a name="ch09index15"></a></font></p></li><li><p class="docText"><font size="3"><b>Fantasy</b> - Fontes Fantasy, também conhecido como fontes decorativas, são fontes com características invulgares. Elas tendem a ser elaboradas e úteis para cabeçalhos ou pequenas áreas de texto, e não são muito úteis para o corpo do texto porque as suas decorações as tornam difíceis de ler. Você raramente usará uma fonte Fantasy em CCS pois elas são muito numerosas e não são encontradas com alguma consistência na maioria dos computadores. Um exemplo é a fonte Western.<a name="ch09index16"></a><a name="ch09index17"></a></font></p></li><li><p class="docText"><font size="3"><b>Cursive</b> - Fontes cursivas são também referidas como fontes de escrita manual. Elas imitam a cursiva manuscrita e são freqüentemente preenchidas com floresce. Tal como acontece com fontes fantasia, fontes cursivas são raramente aplicadas com CSS. Muitos criadores usam em conjunto fontes fantasia ou cursiva nos desenhos, usando-as como elementos tipográficos decorativos. Uma fonte cursiva comum é Lucida Handwriting<a name="ch09index18"></a><a name="ch09index19"></a></font></p><font size="3"><a name="ch09fig01"></a></font><p></p><center><font size="3"><a name="ch09index20"></a><a name="ch09index21"></a><a name="ch09index22"></a></font><p class="docText"></p></center></li></ul><div style="text-align: justify;"></div><div style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3"></font></div><div style="text-align: justify;"></div><p style="font-family: arial,helvetica,sans-serif; text-align: justify;" class="docText"><font size="3">As Fontes que são comuns em quase todos do sistema hoje em dia são a Arial, Helvetica, Verdana, Times, Geórgia e Courier. As fontes Tahoma, Trebuchet, e Lucida são bastante generalizadas porque foram inicialmente incluídas no Microsoft's Web Font Pack, um conjunto de fontes livres que a Microsoft distribuiu no início da Web.</font></p><div style="text-align: justify;"></div><p style="font-family: arial,helvetica,sans-serif; text-align: justify;" class="docText"><font size="3">Se você estiver começando a lidar com fontes é melhor se ater a um sistema muito simples de fontes. Você pode fazer um dos seguintes procedimentos:</font></p><div style="text-align: justify;"></div><ul style="font-family: arial,helvetica,sans-serif; text-align: justify;"><li><p class="docList"><font size="3">Escolha uma fonte (preferencialmente use fontes serif ou sans-serif) tornando-a padrão em seu documento. Modifique o tamanho, peso, cor e outros estilos para ganhar um certo interesse.</font></p></li><li><p class="docList"><font size="3">Escolha duas fontes (preferencialmente use fontes serif ou sans-serif). Use fontes serif para todos os cabeçalhos, titulos e outros textos; a sans-serif para o corpo de texto (Essa é uma opção muito comum utilizada na Web hoje em dia)<br /></font></p></li><li><p class="docList"><font size="3">O mesmo esquema citado acima mas invertendo as fontes serif por sans-serif, e vice-versa.<br /></font></p></li></ul><div style="text-align: justify;"><font size="3"><span style="font-family: arial,helvetica,sans-serif;">A medida em que você vai se habituando ao uso de fontes, você irá criar padrões mais criativos, mas tente sempre ter em mente essas dicas que foram aqui dadas. </span></font></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Você pode instalar o pacote de fontes do windows no Debian/Ubuntu. Para isso execute o seguinte comando como root.</font></p><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3"><span style="font-weight: bold; font-style: italic;">#apt-get install msttcorefonts</span><br /></font></p><div style="text-align: justify;"></div><p><font size="3"></font><br /></p><h2 style="font-family: arial,helvetica,sans-serif;"><font><font size="4">Aplicando &quot;font-family&quot; aos textos<br /></font></font></h2><div style="text-align: justify;"><font size="3"><span style="font-family: arial,helvetica,sans-serif;">Com uma idéia do que você pode escolher é hora de ir em frente e aplicar &quot;font-famíly&quot; a seu texto. Para fazer isso, escolha o seletor para o texto em questão e, em seguida, utilize a propriedade font-family e um valor associado. </span></font><br style="font-family: arial,helvetica,sans-serif;" /><br style="font-family: arial,helvetica,sans-serif;" /><font size="3"><span style="font-family: arial,helvetica,sans-serif;"> O valor que você usa para a grupo de fontes pode ser um único ou vários.</span></font><br style="font-family: arial,helvetica,sans-serif;" /></div><h2 style="font-family: arial,helvetica,sans-serif;"><font size="4">Único nome de fonte</font></h2><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Escolha esta técnica só quando você está absolutamente certo de que seu público tem a fonte em questão (instalada no computador).</font></p><p><font size="3" style="font-family: arial,helvetica,sans-serif;">Exemplo:</font><br /><span style="font-weight: bold; font-style: italic; font-family: arial,helvetica,sans-serif;">body {font-family: Arial;}</span><br /></p><div style="text-align: justify;"><p><font size="3"><span style="font-family: arial,helvetica,sans-serif;">Essa configuração ira atribuir a fonte Arial a todo o seu documento. O problema dessa técnica é que se o usuário não tiver instalado essa fonte no seu computador o navegador irá assumir o valor padrão de fonte (geralmente é a Times New Roman), o que irá acarretar em um visual um pouco diferente daquele elaborado por você.</span></font><br style="font-family: arial,helvetica,sans-serif;" /></p><font size="3"><a name="ch09lev2sec2" style="font-family: arial,helvetica,sans-serif;"></a></font></div><h3><font size="3"><font size="4" style="font-family: arial,helvetica,sans-serif;">Grupo de Fontes</font><br /></font></h3><div style="text-align: justify;"></div><div style="text-align: justify;"></div><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Você pode atribuir um grupo de família de fontes para formatar um texto, titulo ou outro. Como vimos anteriormente os grupos são: serif, sans-serif, monospace, fantasy, and cursive. <br /></font></p><p style="font-family: arial,helvetica,sans-serif;"><font size="3">Exemplo:<a name="ch09index32"></a><a name="ch09index33"></a></font><br /><span style="font-style: italic;"><span style="font-weight: bold;"></span></span><span style="font-weight: bold; font-style: italic;">h1 {font-family: fantasy;}</span></p><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><span style="font-family: arial,helvetica,sans-serif;">No entanto, esse valor irá refletir-se em qual é a fonte &quot;fantasy&quot; padrão do computador do usúario para todo cabeçalho &lt;h1&gt;. <br /></span></p><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><span style="font-family: arial,helvetica,sans-serif;">O problema de usar esse valor é que você não terá controle sobre o que será exibido no computador do usuário final. No entanto ela é usada como um sistema de apoio. Então, se você usar uma única fonte, você poderá usar um grupo de fontes relacionado aquela primeira que você escolheu.</span></p><p style="text-align: left;"><span style="font-family: arial,helvetica,sans-serif;">Exemplo:</span><a name="ch09index34" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09index35" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09index36" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09index37" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09index38" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09index39" style="font-family: arial,helvetica,sans-serif;"></a><br /><font size="3"><span style="font-weight: bold; font-style: italic; font-family: arial,helvetica,sans-serif;">h1 {font-family: Arial, sans-serif;}</span><br /></font></p><div style="text-align: justify;"><p><span style="font-family: arial,helvetica,sans-serif;">Caso o computador do usúario não tenha a fonte arial, ele irá aprensentar uma fonte derivada daquela família.</span><a name="ch09index40" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09index41" style="font-family: arial,helvetica,sans-serif;"></a><a name="ch09lev2sec3" style="font-family: arial,helvetica,sans-serif;"></a></p></div><h2 style="font-family: arial,helvetica,sans-serif;"><font size="3"><font size="4">Nomes Múltiplos</font></font></h2><h4 class="docSection2Title" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3"></font></h4><div style="text-align: justify;"></div><div style="text-align: justify;"></div><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Essa é uma técnica úsada para ter mais controle sobre a apresentação usando-se fontes do mesmo grupo em uma ordem especifica.<br /></font></p><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3">Exemplo:<br /><span style="font-weight: bold; font-style: italic;">body {font-family: Arial, Helvetica, Verdana, sans-serif;}</span></font></p><p class="docText" style="font-family: arial,helvetica,sans-serif; text-align: justify;"><font size="3"><span style="font-family: arial,helvetica,sans-serif;">Caso a fonte Arial não exista no computador do usuário ele imediatamente irá tentar usar a segunda fonte, Helvetica, e assim por diante.</span></font></p></p></div></div><form id="pageform" method="post" action="http://comunidade.cdtc.org.br/mod/lesson/view.php">
+<div><input type="hidden" name="id" value="17846" />
+<input type="hidden" name="pageid" value="16841" />
+<div class="lessonbutton standardbutton"  style="text-align:center">
+<input type="submit" value="Continuar"  style="text-align:center"  /></div>
+</div></form>
+<!-- Start view end -->
+        </td>
+            </tr>
+</table>
+<!-- End view end --></div><div id="footer">
+<div id="footer-b" class="clearfix">
+	<div id="footer-l">
+		<div id="footer-r">
+			<div id="footer-m">
+	
+				<div id="footer-logo">
+					<a href="http://www.unb.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/unb.png" title="Universidade de Brasília"></a>
+					<a href="http://www.iti.gov.org" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/iti.png" title="ITI"></a>
+					<a href="http://www.nead.org.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/td.png" title="NEAD"></a>
+					<a href="http://www.casabrasil.gov.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/casa_brasil.png" title="Casa Brasil"></a>
+					<a href="http://www.embrapa.br" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/embrapa.png" title="Embrapa"></a>
+					<a href="http://moodle.org" target="_blank"><img src="http://comunidade.cdtc.org.br/theme/cdtc/images/parceiros/moodle.png" title="Moodle 1.9.3+ (Build: 20081126)"></a>
+				</div>
+				<div id="footer-loggedinas">
+					<div class="logininfo">Você acessou como <a  href="http://comunidade.cdtc.org.br/user/view.php?id=4651&amp;course=626">jonas azevedo</a>  (<a  href="http://comunidade.cdtc.org.br/login/logout.php?sesskey=zvyyoVzfIO">Sair</a>)</div>				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>							
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

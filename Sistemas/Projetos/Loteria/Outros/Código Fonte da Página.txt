@@ -1,0 +1,1029 @@
+
+<BODY onload=carrega_concurso();><NOSCRIPT></NOSCRIPT><!-- ***************************************************************************** --><!-- ***************************** CABECALHO.INC - INICIO ************************ --><!-- ***************************************************************************** --><!-- INSTITUCIONAL = www.caixa.gov.br --><!-- TRANSACIONAL  = www1.caixa.gov.br --><!-- Div para carregar o RYBENA -->
+<DIV class=ui-draggable id=draggable style="POSITION: absolute"></DIV>
+<DIV id=novoTopo>
+<DIV id=menu_ascessibilidade><!-- Menu de acessibilidade ao Deficiente visual --><A title="Menu de acessibilidade ao Deficiente visual: Tecle Alt + C para pular para conteúdo Tecle Alt + P para Pesquisar no BUSCA" accessKey=C tabIndex=0 href="#acessibilidade"></A><!-- Internet Caixa--><A title="INTERNET CAIXA PARA DEFICIENTES VISUAIS." accessKey=C tabIndex=0 href="https://internetbanking-asp.caixa.gov.br/caixabanking" target=_blank></A></DIV><!-- Menu Header Caixa -->
+<DIV id=icaixa>
+<H1><A class=home_caixa title="Caixa Econômica Federal. O banco que acredita nas pessoas" tabIndex=1 href="http://www.caixa.gov.br">Caixa Econômica Federal</A></H1>
+<DIV class=areaIBank><A onkeypress=maximized(); title="Acesse aqui sua conta" onclick=maximized(); tabIndex=4 href="#">Acesse o internet Banking</A> </DIV>
+<UL id=icones_libras>
+<LI><A class=ico_defVisual title="Internet Banking Caixa: acesso para deficientes visuais" tabIndex=2 href="https://internetbanking-asp.caixa.gov.br/caixabanking/index.asp?flgmsg=01">Internet Banking Caixa: acesso para deficientes visuais</A> </LI>
+<LI><A class=ico_tradLibras onkeypress=getSelText(); title="Tradutor de libras: selecione o texto e clique aqui" onclick=getSelText(); tabIndex=3 href="#">Tradutor de libras: selecione o texto e clique aqui</A> <!--script type="text/javascript" src="http://www7.caixa.gov.br/rybena_cef/js/rybena.js"	></script--><NOSCRIPT></NOSCRIPT>
+<DIV id=selo style="POSITION: relative">
+<DIV class=selo-player><!--a class="ico_tradLibras" href="javascript: void(0);" onmousedown="getPlayerRybena(clienteRybena); return false;" onKeyPress="getPlayerRybena(clienteRybena); return false;"--><!--img name="selo-player"	src="http://www.rybenamobile.com.br/player/images/seloRybena.gif" class="image-selo" alt="Player Rybená - Sinalização em LIBRAS"/--></A></DIV></DIV></LI></UL></DIV>
+<DIV class=abrir_internas id=menu>
+<UL>
+<LI class=menu id=menu_deslizante><A href="#">Menu</A> </LI>
+<LI class=atendimento><A title="Rede de atendimento" href="http://www.caixa.gov.br/_newredirect/barra/r_atendimento.asp">Rede de atendimento</A> </LI>
+<LI class=sobre><A href="#sobre">Sobre a CAIXA</A> 
+<UL>
+<LI><A title=Apresentação href="http://www.caixa.gov.br/acaixa/index.asp">Apresentação</A> 
+<LI><A title="Presidência e Vice-Presidências" href="http://www.caixa.gov.br/acaixa/conselho/index.asp">Presidência e Vice-Presidências</A> 
+<LI><A title="Processos de Contas Anuais" href="http://www.caixa.gov.br/acaixa/processos_contas_anuais/index.asp">Processos de Contas Anuais</A> 
+<LI><A title="Balanços e Demonstrativos" href="http://www.caixa.gov.br/acaixa/relatorios/index.asp">Balanços e Demonstrativos</A> 
+<LI><A title="História e Missão" href="http://www.caixa.gov.br/acaixa/historia_missao.asp">História e Missão</A> 
+<LI><A title="Estrutura Organizacional" href="http://www.caixa.gov.br/acaixa/estrutura_organizacional.asp">Estrutura Organizacional</A> 
+<LI><A href="http://www.caixa.gov.br/acaixa/transparencia.asp ">Transparência CAIXA</A> </LI></UL></LI>
+<LI class=cultural><A title="CAIXA Cultural" href="http://www.caixa.gov.br/caixacultural">CAIXA Cultural</A> </LI>
+<LI class=downloads><A title=Downloads href="http://www.caixa.gov.br/_newredirect/barra/r_download.asp">Downloads</A> </LI>
+<LI class=ouvidoria><A title=Ouvidoria href="http://www.caixa.gov.br/_newredirect/barra/r_ouvidoria.asp">Ouvidoria</A> </LI>
+<LI class=faleconosco><A title="Fale conosco" href="http://www.caixa.gov.br/_newredirect/barra/r_fale_conosco.asp">Fale conosco</A> </LI></UL></DIV></DIV>
+<SCRIPT src="/_newfuncoes/busca_abaDeslizante.js" type=text/javascript></SCRIPT>
+<SPAN id=menu_deslizante_ajax></SPAN><!-- *********************** CONTEUDO ABA DESLIZANTE - INICIO ********************************-->
+<DIV id=menuAcessibilidade_deslizante>
+<DIV class=menu_mostrar_deslizante>
+<UL class=voce_deslizante id=aba_deslizante>
+<LI class=voce_deslizante><A href="#voce_deslizante">Você</A> </LI>
+<LI class=empresas_deslizante><A href="#empresas_deslizante">Empresas</A> </LI>
+<LI class=governo_deslizante><A href="#governo_deslizante">Governo</A> </LI>
+<LI class=judiciario_deslizante><A href="#judiciario_deslizante">Judiciário</A> </LI></UL><!-- <a href="#ajuda" class="bt_ajuda">Ajuda para usar o site</a> -->
+<DIV class=conteudo_deslizante><!-- Aba VOCE -->
+<DIV class=voce_deslizante>
+<DIV id=cx_box_voce_deslizante>
+<DIV class=especial_deslizante><IMG alt="Areas especiais para você" src="/_newimages/_home/nova/tit/tit_areas_especiais.jpg"> 
+<UL>
+<LI><A title="CAIXA é Show" href="http://www.caixa.gov.br/caixashow/">CAIXA é Show</A> 
+<LI><A title="Caixa Internacional" href="https://internetcaixa.caixa.gov.br/NASApp/siloj/index.do">Caixa Internacional</A> 
+<LI><A title="Feirão CAIXA" href="http://www.feirao.caixa.gov.br/" target=_blank>Feirão CAIXA</A> 
+<LI><A title="Imóveis a Venda" href="javascript:void(window.open('http://www1.caixa.gov.br/simov/asp/index.asp','Imoveis','scrollbars,width=720,height=520'))">Imóveis a Venda</A> 
+<LI><A title=Imprensa href="http://www1.caixa.gov.br/imprensa/index.asp">Imprensa</A>&nbsp;&nbsp; 
+<LI><A title="Portal de Compras" href="javascript:void(window.open('http://www.caixa.gov.br/_redirect/links/r_fornecedor.asp','Fornecedores','scrollbars,width=800,height=600'));">Portal de Compras</A> 
+<LI><A href="http://www1.caixa.gov.br/turismo/index.asp">Turismo</A> 
+<LI><A href="http://www1.caixa.gov.br/universitario/index_c.asp">Universitário</A></LI></UL></DIV>
+<DIV class=interno_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title="Aplicações Financeiras" href="http://www.caixa.gov.br/Voce/investimentos/index.asp">Aplicações Financeiras</A> </LI>
+<LI><A title="Bolsa Família" href="http://www.caixa.gov.br/Voce/Social/Transferencia/bolsa_familia/index.asp">Bolsa Família</A> </LI>
+<LI><A title="CAIXA Celular" href="http://www.caixa.gov.br/Voce/CAIXACelular/index.asp">CAIXA Celular</A> </LI>
+<LI><A title="Cartão de Débito" href="http://www.caixa.gov.br/Voce/Cartao_de_Debito/index.asp">Cartão de Débito</A> </LI>
+<LI><A title="Cartões de Crédito" href="http://www.caixa.gov.br/Voce/cartoes/index.asp">Cartões de Crédito</A> </LI>
+<LI><A title="Consórcios CAIXA" href="http://www.caixaconsorcios.com.br/" target=_blank>Consórcios CAIXA</A> </LI>
+<LI><A title="Conta CAIXA Fácil" href="http://www.caixa.gov.br/Voce/contas/Conta_Caixa_Aqui/index.asp">Conta CAIXA Fácil</A> </LI>
+<LI><A title="Conta Corrente Pessoa Física" href="http://www.caixa.gov.br/Voce/contas/Conta_Corrente_Pessoa_Fisica/index.asp">Conta Corrente Pessoa Física</A> </LI>
+<LI><A title="Conta Universitária" href="http://www.caixa.gov.br/Voce/contas/Conta_Universitaria/index.asp">Conta Universitária</A> </LI>
+<LI><A title="Contribuição Sindical Urbana" href="http://www.caixa.gov.br/Voce/contribuicao_sindical/index.asp">Contribuição Sindical Urbana</A> </LI></UL>
+<UL>
+<LI><A title="Consignação CAIXA" href="http://www.caixa.gov.br/Voce/Credito/Consignacoes/index.asp">Consignação CAIXA</A> </LI>
+<LI><A title="Cheque Especial" href="http://www.caixa.gov.br/voce/Credito/Credito_Pessoal/cheque_especial/index.asp">Cheque Especial</A> </LI>
+<LI><A title="DDA CAIXA" href="http://www.caixa.gov.br/voce/dda/index.asp">DDA CAIXA</A> </LI>
+<LI><A title=Financiamentos href="http://www.caixa.gov.br/Voce/credito/index.asp">Empréstimos e Financiamentos</A> </LI>
+<LI><A title="Fundos de Investimento" href="http://www.caixa.gov.br/Voce/Investimentos/fundos/index.asp">Fundos de Investimento</A> </LI>
+<LI><A title=PIS href="http://www.caixa.gov.br/Voce/Social/Beneficios/pis/index.asp">PIS</A> </LI>
+<LI><A title=Poupança href="http://www.caixa.gov.br/Voce/poupanca/index.asp">Poupança</A> </LI>
+<LI><A title="Previdência Privada" href="http://www.caixavidaeprevidencia.com.br/" target=_blank>Previdência Privada</A> </LI>
+<LI><A title=Seguros href="http://www.caixaseguros.com.br/portal/site/CaixaSeguros" target=_blank>Seguros</A> </LI>
+<LI><A title="Seguro Desemprego" href="http://www.caixa.gov.br/Voce/Social/Beneficios/seguro_desemprego/index.asp">Seguro Desemprego</A> </LI></UL>
+<P><A href="http://www.caixa.gov.br/Voce/index.asp">Veja todos os produtos e serviços para você</A></P></DIV></DIV></DIV></DIV><!-- Fim Aba VOCE --><!-- Aba EMPRESAS -->
+<DIV class=empresas_deslizante>
+<DIV id=cx_box_empresas_deslizante>
+<DIV class=especial_deslizante><IMG alt="Areas especiais para sua Empresa" src="/resources/botao_area_empresa.jpg"> 
+<UL>
+<LI><A href="http://www.caixa.gov.br/pj/pj_comercial/mp/linha_credito/financiamentos/empreendedor_individual/index.asp">Empreendedor Individual</A> 
+<LI><A title="Portal de Empreendimentos da HabitaÃ§ão" href="javascript:void(window.open('https://www.portaldeempreendimentos.caixa.gov.br','Empreendimentos','scrollbars=yes,top=6, left=10,width=1000,height=660'));">Empreendimentos</A> 
+<LI><A title="Empresários Lotéricos" href="javascript:void(window.open('https://www1.caixa.gov.br/lotericos/asp/login/index.asp','Loterias','scrollbars,width=800,height=610'));">Empresários Lotéricos</A> 
+<LI><A title=Franquias href="javascript:void(window.open('http://www1.caixa.gov.br/popup/Generico/450x440_1.asp','Fraquias','scrollbars,width=660,height=615'));">Franquias</A> 
+<LI><A title="Portal de Compras" href="javascript:void(window.open('http://www.caixa.gov.br/_redirect/links/r_fornecedor.asp','Fornecedores','scrollbars,width=800,height=600'));">Portal de Compras</A> 
+<LI><A title="Pregão eletrônico" href="https://www5.caixa.gov.br/fornecedores/pregao_internet/index.asp" target=_blank>Pregão eletrônico</A> 
+<LI><A href="http://www1.caixa.gov.br/turismo/index.asp">Turismo</A></LI></UL></DIV>
+<DIV class=topo_deslizante>
+<DIV class=micro_deslizante>
+<DIV id=titulo_topo_deslizante>
+<H3><SPAN class=tit_mpEmpresas>Micro e Pequenas Empresas</SPAN></H3>
+<UL>
+<LI class=veja_deslizante>Veja também: </LI>
+<LI><A class=medias_deslizante href="#">Médias e grandes empresas</A> </LI></UL></DIV></DIV>
+<DIV class=medias_deslizante>
+<DIV id=titulo_topo_deslizante>
+<H3><SPAN class=tit_mgEmpresas>Médias e Grandes Empresas</SPAN></H3>
+<UL>
+<LI class=veja_deslizante>Veja também: </LI>
+<LI><A class=micro_deslizante href="#">Micro e pequenas empresas</A> </LI></UL></DIV></DIV></DIV>
+<DIV class=interno_deslizante>
+<DIV class=micro_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title="Cadastramento de PIS/NIS" href="http://www.caixa.gov.br/pj/pj_comercial/mp/pis/index.asp">Cadastramento de PIS/NIS</A> </LI>
+<LI><A title=Cartões href="http://www.caixa.gov.br/pj/pj_comercial/mp/cartoes_credito/index.asp">Cartões</A> </LI>
+<LI><A title=Consórcios href="http://www.caixaseguros.com.br/portal/site/CaixaConsorcios/menuitem.e0eb5ddb805481cdf7496e95a00066a0/?vgnextoid=26d572e5442d4110VgnVCM1000000a00660aRCRD" target=_blank>Consórcios</A> </LI>
+<LI><A title="Conta Corrente" href="http://www.caixa.gov.br/pj/pj_comercial/mp/conta_corrente/index.asp">Conta Corrente</A> </LI>
+<LI><A title=Convênios href="http://www.caixa.gov.br/pj/pj_comercial/mp/convenios/index.asp">Convênios</A> </LI>
+<LI><A title="Contribuição Sindical Urbana" href="http://www.caixa.gov.br/pj/pj_comercial/mp/solucoes_recebimentos/contribuicao_sindical/index.asp">Contribuição Sindical Urbana</A> </LI>
+<LI><A title="DDA CAIXA" href="http://www.caixa.gov.br/voce/dda/index.asp">DDA CAIXA</A> </LI></UL>
+<UL>
+<LI><A title=FGTS href="http://www.caixa.gov.br/fgts/index.asp">FGTS</A> </LI>
+<LI><A title=Investimentos href="http://www.caixa.gov.br/pj/pj_comercial/mp/investimentos/index.asp">Investimentos</A> </LI>
+<LI><A title="Linhas de Crédito" href="http://www.caixa.gov.br/pj/pj_comercial/mp/linha_credito/index.asp">Linhas de Crédito</A> </LI>
+<LI><A title="Promoções Comerciais" href="http://www.caixa.gov.br/pj/pj_comercial/mp/promocoes_comerciais/index.asp">Promoções Comerciais</A> </LI>
+<LI><A title=Seguros href="http://www.caixaseguros.com.br/portal/site/CaixaSeguros/menuitem.1d5504f4a27c9e411719cb82661010a0/?vgnextoid=272a0a39270d4110VgnVCM1000000a00660aRCRD" target=_blank>Seguros</A> </LI>
+<LI><A title="Soluções em pagamentos" href="http://www.caixa.gov.br/pj/pj_comercial/mp/solucoes_pagamentos/index.asp">Soluções em pagamentos</A> </LI>
+<LI><A title="Soluções em recebimentos" href="http://www.caixa.gov.br/pj/pj_comercial/mp/solucoes_recebimentos/index.asp">Soluções em recebimentos</A> </LI></UL>
+<P><A href="http://www.caixa.gov.br/pj/pj_comercial/mp/index.asp">Veja todos os produtos e serviços para sua empresa</A></P><STRONG></STRONG></DIV></DIV>
+<DIV class=medias_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title="Benefícios para seus empregados" href="http://www.caixa.gov.br/pj/pj_comercial/mg/beneficios_empregados/index.asp">Benefícios para seus empregados</A> </LI>
+<LI><A title=Cartões href="http://www.caixa.gov.br/pj/pj_comercial/mg/cartoes_credito/index.asp">Cartões</A> </LI>
+<LI><A title=Consórcios href="http://www.caixaseguros.com.br/portal/site/CaixaConsorcios/menuitem.e0eb5ddb805481cdf7496e95a00066a0/?vgnextoid=26d572e5442d4110VgnVCM1000000a00660aRCRD" target=_blank>Consórcios</A> </LI>
+<LI><A title="Conta Corrente" href="http://www.caixa.gov.br/pj/pj_comercial/mg/conta_corrente/index.asp">Conta Corrente</A> </LI>
+<LI><A title="Contribuição Sindical Urbana" href="http://www.caixa.gov.br/pj/pj_comercial/mg/solucoes_recebimentos/contribuicao_sindical/index.asp">Contribuição Sindical Urbana</A> </LI>
+<LI><A title=Convênios href="http://www.caixa.gov.br/pj/pj_comercial/mg/convenios/index.asp">Convênios</A> </LI>
+<LI><A title="DDA CAIXA" href="http://www.caixa.gov.br/voce/dda/index.asp">DDA CAIXA</A> </LI></UL>
+<UL>
+<LI><A title=FGTS href="http://www.caixa.gov.br/fgts/index.asp">FGTS</A> </LI>
+<LI><A title=Investimentos href="http://www.caixa.gov.br/pj/pj_comercial/mg/investimentos/index.asp">Investimentos</A> </LI>
+<LI><A title="Linhas de Crédito" href="http://www.caixa.gov.br/pj/pj_comercial/mg/linha_credito/index.asp">Linhas de Crédito</A> </LI>
+<LI><A title="Promoções Comerciais" href="http://www.caixa.gov.br/pj/pj_comercial/mp/promocoes_comerciais/index.asp">Promoções Comerciais</A> </LI>
+<LI><A title=Seguros href="http://www.caixaseguros.com.br/" target=_blank>Seguros</A> </LI>
+<LI><A title="Soluções em pagamentos" href="http://www.caixa.gov.br/pj/pj_comercial/mg/solucoes_pagamentos/index.asp">Soluções em pagamentos</A> </LI>
+<LI><A title="Soluções em recebimentos" href="http://www.caixa.gov.br/pj/pj_comercial/mg/solucoes_recebimentos/index.asp">Soluções em recebimentos</A> </LI></UL>
+<P><A href="http://www.caixa.gov.br/pj/pj_comercial/mg/index.asp">Veja todos os produtos e serviços para sua empresa</A></P></DIV></DIV></DIV></DIV></DIV><!-- Fim Aba EMPRESAS --><!-- Aba GOVERNO -->
+<DIV class=governo_deslizante>
+<DIV id=cx_box_governo_deslizante>
+<DIV class=especial_deslizante>
+<DIV style="MARGIN: 0px 0px 0px -5px"><IMG alt="Areas especiais para governo" src="/resources/botao_area_governo.jpg"></DIV>
+<UL>
+<LI><A title="Acompanhamento de Obras" href="https://webp.caixa.gov.br/urbanizacao/siurbn/acompanhamento/ac_publico/sistema/asp/ptei_filtro_inicial.asp">Acompanhamento de Obras</A> 
+<LI><A title="Assistência Técnica" href="http://www1.caixa.gov.br/gov/gov_social/municipal/assistencia_tecnica/index.asp">Assistência Técnica</A> 
+<LI><A title="Cadastro Único" href="http://www1.caixa.gov.br/gov/gov_social/municipal/distribuicao_servicos_cidadao/cadastramento_unico/index.asp">Cadastro Único</A> 
+<LI><A title="Portal de Compras" href="javascript:void(window.open('http://www.caixa.gov.br/_redirect/links/r_fornecedor.asp','Fornecedores','scrollbars,width=800,height=600'));">Portal de Compras</A> 
+<LI><A title="SINAPI - Ã?ndices da ConstruÃ§Ã£o Civil" href="http://www1.caixa.gov.br/gov/gov_social/municipal/programa_des_urbano/SINAPI/index.asp">SINAPI</A> 
+<LI><A title="SISTN - Dados ContÃ¡beis" href="https://sistn.caixa.gov.br/">SISTN</A> 
+<LI><A href="http://www1.caixa.gov.br/turismo/index.asp">Turismo</A></LI></UL></DIV>
+<DIV class=topo_deslizante>
+<DIV class=municipal_deslizante>
+<DIV id=titulo_topo_deslizante>
+<H3 class=governo_deslizante><SPAN class=tit_govMunicipal>Governo Municipal</SPAN></H3>
+<UL>
+<LI class=veja_deslizante>Veja também: </LI>
+<LI><A class=estadual_deslizante href="#">Estadual</A> </LI>
+<LI><A class=federal_deslizante href="#">Federal</A> </LI></UL></DIV></DIV>
+<DIV class=estadual_deslizante>
+<DIV id=titulo_topo_deslizante>
+<H3 class=governo_deslizante><SPAN class=tit_govEstadual>Governo Estadual</SPAN></H3>
+<UL>
+<LI class=veja_deslizante>Veja também: </LI>
+<LI><A class=municipal_deslizante href="#">Municipal</A> </LI>
+<LI><A class=federal_deslizante href="#">Federal</A> </LI></UL></DIV></DIV>
+<DIV class=federal_deslizante>
+<DIV id=titulo_topo_deslizante>
+<H3 class=governo_deslizante><SPAN class=tit_govFederal>Governo Federal</SPAN></H3>
+<UL>
+<LI class=veja_deslizante>Veja também: </LI>
+<LI><A class=municipal_deslizante href="#">Municipal</A> </LI>
+<LI><A class=estadual_deslizante href="#">Estadual</A> </LI></UL></DIV></DIV></DIV>
+<DIV class=interno_deslizante>
+<DIV class=municipal_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title=PMAT href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/modernizacao_gestao_publica/pmat/index.asp">Administração Pública - PMAT</A> </LI>
+<LI><A title=Arrecadação href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/arrecadacao/index.asp">Arrecadação</A> </LI>
+<LI><A title="Bolsa Família" href="http://www1.caixa.gov.br/gov/gov_social/municipal/distribuicao_servicos_cidadao/bolsa_familia/index.asp">Bolsa Família</A> </LI>
+<LI><A title="Cobrança de Dívida Ativa" href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/arrecadacao/cobranca_divida_ativa/index.asp">Cobrança de Dívida Ativa</A> </LI>
+<LI><A title="Folha de Pagamento" href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/contas_pagamentos/folha_pagamento/index.asp">Folha de pagamento</A> </LI>
+<LI><A title="Fundo a Fundo" href="http://www1.caixa.gov.br/gov/gov_social/municipal/educacao_turismo_saude/fundo_fundo/index.asp">Fundo a Fundo</A> </LI>
+<LI><A title=GovConta href="https://gov.caixa.gov.br/index.asp?Id=1&amp;govcontacaixa=">GovConta</A> </LI>
+<LI><A title=Infraestrutura href="http://www1.caixa.gov.br/gov/gov_social/municipal/programa_des_urbano/infra_estrutura_setor_publico/index.asp">Infraestrutura</A></LI></UL>
+<UL>
+<LI><A title=Investimentos href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/investimentos/index.asp">Investimentos</A> </LI>
+<LI><A title="OGU - Repasses" href="http://www1.caixa.gov.br/gov/gov_social/municipal/programas_de_repasse_do_OGU/index.asp">OGU - Repasses</A> </LI>
+<LI><A title="Pagamento a Fornecedores" href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/contas_pagamentos/pagamento_fornecedor/index.asp">Pagamento a Fornecedores</A> </LI>
+<LI><A title=PNAFM href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/modernizacao_gestao_publica/pnafm/index.asp">PNAFM</A> </LI>
+<LI><A title="Previdência - RPPS" href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/previdencia/index.asp">Previdência - RPPS</A> </LI>
+<LI><A title="Programas de Habitação" href="http://www1.caixa.gov.br/gov/gov_social/municipal/programas_habitacao/index.asp">Programas de Habitação</A> </LI>
+<LI><A title="Sala das Prefeituras" href="http://www1.caixa.gov.br/atendimento/canais_atendimento/sala_prefeituras.asp?TipoParametro">Sala das Prefeituras</A> </LI>
+<LI><A title="Saneamento e Meio Ambiente" href="http://www1.caixa.gov.br/gov/gov_social/municipal/programa_des_urbano/saneamento_ambiental/index.asp">Saneamento e Meio ambiente</A> </LI></UL>
+<P><A href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/index.asp">Veja todos os produtos e serviços para seu município</A></P></DIV></DIV>
+<DIV class=federal_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title=Arrecadação href="http://www1.caixa.gov.br/gov/gov_comercial/federal/arrecadacao/index.asp">Arrecadação</A> </LI>
+<LI><A title="Bolsa Família" href="http://www1.caixa.gov.br/gov/gov_social/federal/programas_sociais_municipios/bolsa_familia/index.asp">Bolsa Família</A> </LI>
+<LI><A title="Brasil Joga Limpo" href="http://www1.caixa.gov.br/gov/gov_social/federal/lista_completa_programas/brasil_joga_limpo.asp">Brasil Joga Limpo</A> </LI>
+<LI><A title="Contas e Pagamentos" href="http://www1.caixa.gov.br/gov/gov_comercial/federal/contas_pagamentos/index.asp">Contas e Pagamentos</A> </LI>
+<LI><A title="DDA CAIXA" href="http://www.caixa.gov.br/voce/dda/index.asp">DDA CAIXA</A> </LI></UL>
+<UL>
+<LI><A href="http://www1.caixa.gov.br/gov/gov_social/municipal/educacao_turismo_saude/programa_farmacia_popular/index.asp">Farmácia Popular</A> </LI>
+<LI><A title="Habitação de Interesse Social" href="http://www1.caixa.gov.br/gov/gov_social/federal/lista_completa_programas/habitacao_social.asp">Habitação de Interesse Social</A> </LI>
+<LI><A title=PETI href="http://www1.caixa.gov.br/gov/gov_social/estadual/distribuicao_servicos_cidadao/peti/index.asp">PETI</A> </LI>
+<LI><A title="Pré - municípios" href="http://www1.caixa.gov.br/gov/gov_social/federal/lista_completa_programas/desenvolvimento_municipios_mg.asp">Pré - municípios</A> </LI></UL>
+<P><A href="http://www1.caixa.gov.br/gov/gov_comercial/federal/index.asp">Veja todos os produtos e serviços</A></P></DIV></DIV>
+<DIV class=estadual_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title="Acompanhamento de Obras" href="https://webp.caixa.gov.br/urbanizacao/siurbn/acompanhamento/ac_publico/sistema/asp/ptei_filtro_inicial.asp" target=_blank>Acompanhamento de Obras</A> </LI>
+<LI><A title="Arrecadação de Concessionárias" href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/arrecadacao/concessionarias/index.asp">Arrecadação de Concessionárias</A> </LI>
+<LI><A title="Arrecadação de Tributos" href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/arrecadacao/arrecadacao_tributos/index.asp">Arrecadação de Tributos</A> </LI>
+<LI><A title="Bolsa Família" href="http://www1.caixa.gov.br/gov/gov_social/estadual/distribuicao_servicos_cidadao/bolsa_familia/index.asp">Bolsa Família</A> </LI>
+<LI><A title="Cadastramento Único" href="http://www1.caixa.gov.br/gov/gov_social/estadual/distribuicao_servicos_cidadao/cadastramento_unico/index.asp">Cadastro Único</A> </LI>
+<LI><A title="Cobrança de Dívida Ativa" href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/arrecadacao/cobranca_divida/index.asp">Cobrança de Dívida Ativa</A> </LI>
+<LI><A title="Contas e Pagamentos" href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/contas_pagamentos/index.asp">Contas e Pagamentos</A> </LI>
+<LI><A title="DDA CAIXA" href="http://www.caixa.gov.br/voce/dda/index.asp">DDA CAIXA</A> </LI></UL>
+<UL>
+<LI><A title="Desenvolvimento Urbano" href="http://www1.caixa.gov.br/gov/gov_social/estadual/programas_desenvolvimento_urbano/index.asp">Desenvolvimento Urbano</A> </LI>
+<LI><A title="Fundo a Fundo" href="http://www1.caixa.gov.br/gov/gov_social/estadual/educacao_turismo_saude/fundo_fundo/index.asp">Fundo a Fundo</A> </LI>
+<LI><A title=Investimentos href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/investimentos/index.asp">Investimentos</A> </LI>
+<LI><A title="Previdência para Estados e Municípios" href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/previdencia/index.asp">Previdência para Estados e Municípios</A> </LI>
+<LI><A title="Programas de Habitação" href="http://www1.caixa.gov.br/gov/gov_social/estadual/programas_habitacao/index.asp">Programas de Habitação</A> </LI>
+<LI><A title="Programas do OGU" href="http://www1.caixa.gov.br/gov/gov_social/federal/lista_completa_programas/index.asp">Programas do OGU</A> </LI>
+<LI><A title="Saneamento Ambiental" href="http://www1.caixa.gov.br/gov/gov_social/estadual/programas_desenvolvimento_urbano/saneamento_ambiental/index.asp">Saneamento Ambiental</A> </LI></UL>
+<P><A href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/index.asp">Veja todos os produtos e serviços para seu estado</A></P></DIV></DIV></DIV></DIV></DIV><!-- Fim Aba GOVERNO --><!-- Aba JUDICIARIO -->
+<DIV class=judiciario_deslizante>
+<DIV id=cx_box_judiciario_deslizante>
+<DIV class=especial_deslizante><IMG src="/resources/areas_especiais_jud.jpg" border=0> 
+<UL>
+<LI><A title="Para os Magistrados" href="http://www1.caixa.gov.br/judiciario/magistrados/index.asp">Para os Magistrados</A> 
+<LI><A title="Para os Servidores" href="http://www1.caixa.gov.br/judiciario/servidores/index.asp">Para os Servidores</A> 
+<LI><A title="Para os Advogados" href="http://www1.caixa.gov.br/judiciario/advogados/index.asp">Para os Advogados</A> 
+<LI><A title="Para as Empresas" href="http://www1.caixa.gov.br/judiciario/empresas/index.asp">Para as Empresas</A> 
+<LI><A title="Para Pessoa Física" href="http://www1.caixa.gov.br/judiciario/voce/index.asp">Para Pessoa Física</A></LI></UL></DIV>
+<DIV class=interno_deslizante>
+<DIV class=lista_deslizante>
+<UL>
+<LI><A title=Capitalização href="http://www.caixacapitalizacao.com.br/">Capitalização</A> </LI>
+<LI><A title="Cartão de Crédito" href="http://www.caixa.gov.br/Voce/cartoes/index.asp">Cartão de Crédito </A></LI>
+<LI><A title="Centralização de Alvarás" href="http://www1.caixa.gov.br/judiciario/empresas/cont_cent_rec_lev_alv_judiciais.asp">Centralização de Alvarás</A> </LI>
+<LI><A title=Certificação href="http://icp.caixa.gov.br/" target=_blank>Certificação Digital</A> </LI>
+<LI><A title="Conta Salário" href="http://www1.caixa.gov.br/judiciario/magistrados/conta_salario.asp">Conta Salário </A></LI>
+<LI><A title="Consórcios CAIXA" href="http://www.caixaconsorcios.com.br/" target=_blank>Consórcios CAIXA </A></LI></UL>
+<UL>
+<LI><A title="Financiamento Imobiliário" href="http://www.caixa.gov.br/habitacao/index.asp">Financiamento Imobiliário</A> </LI>
+<LI><A title=Investimentos href="http://www.caixa.gov.br/Voce/investimentos/index.asp">Investimentos </A></LI>
+<LI><A title="Linhas de Crédito" href="http://www.caixa.gov.br/Voce/credito/index.asp">Linhas de Crédito </A></LI>
+<LI><A title="Perguntas Frequentes" href="http://www1.caixa.gov.br/judiciario/perguntas_frequentes.asp">Perguntas Frequentes </A></LI>
+<LI><A title=Previdência href="http://www.caixavidaeprevidencia.com.br/" target=_blank>Previdência </A></LI>
+<LI><A title=Seguros href="http://www.caixaseguros.com.br/">Seguros </A></LI></UL>
+<P><A href="http://www1.caixa.gov.br/judiciario/index.asp">Veja todos os produtos e serviços</A></P></DIV></DIV></DIV></DIV><!-- Fim Aba JUDICIARIO --></DIV><!--fim Conteudo -->
+<DIV class=rodape>
+<UL>
+<LI><A href="http://www.caixa.gov.br/habitacao/index.asp">Habitação</A> </LI>
+<LI><A href="http://www.caixa.gov.br/fgts/index.asp">FGTS</A> </LI></UL>
+<DIV id=busca_menu_deslizante><LABEL for=busca_por>Buscar por:</LABEL> <INPUT onkeypress="if ((window.event ? event.keyCode : event.which) == 13) buscar_deslizante(document.getElementById('busca_por').value);" id=busca_por name=busca_por><BUTTON class=bt_ok onclick="buscar_deslizante(document.getElementById('busca_por').value);">OK</BUTTON> </DIV><A class=bt_recolher href="#" onundefined="null">Recolher</A> </DIV></DIV></DIV><!-- *********************** CONTEUDO ABA DESLIZANTE - FIM ********************************--><!-- pvieira - 10-02-2010 --><!-- ***************************************************************************** --><!-- ***************************** CABECALHO.INC - FIM *************************** --><!-- ***************************************************************************** --><!-- ==========================================
+	DIV ONDE ENTRA O INCLUDE DE ACESSIBILIDADE
+	Css que regula: a_caixa.css
+========================================== -->
+<DIV class=acessibilidade_sem_degrade id=areaAcessibilidade><SPAN class=barraTopo_semDegrade><!-- Ñ tirar esse SPAN --></SPAN>
+<DIV class=botoes_semDegrade id=areasBotoes><A class=pgAnterior onkeypress=javascript:history.back() title="Voltar à página anterior" onclick=javascript:history.back() href="#">Voltar à página anterior</A> <A class=pgBoasVindas title="Voltar à página inicial da CAIXA" href="/index.asp">Voltar à página inicial da CAIXA</A> <!-- 
+						antigo aumenta font 
+<a class="tamanhoNormal" href="#" onclick="javascript:tamanhoTexto('0');" onkeypress="javascript:tamanhoTexto('0');" title="Tamanho de fonte normal">Tamanho de fonte normal</a> 
+<a class="tamanhoUmaVez" href="#" onclick="javascript:tamanhoTexto('0.8');" onkeypress="javascript:tamanhoTexto('0.8');" title="Tamanho de fonte aumentado uma vez">Tamanho de fonte aumentado uma vez</a> 
+<a class="tamanhoDuasVezes" href="#" onclick="javascript:tamanhoTexto('1.02');" onkeypress="javascript:tamanhoTexto('1.02');" title="Tamanho de fonte aumentado duas vezes">Tamanho de fonte aumentado duas vezes</a>
+
+--><A class="tamanhoNormal tamFonte1" title="Tamanho de fonte normal" href="#">Tamanho de fonte normal</A> <A class="tamanhoUmaVez tamFonte2" title="Tamanho de fonte aumentado uma vez" href="#">Tamanho de fonte aumentado uma vez</A> <A class="tamanhoDuasVezes tamFonte3" title="Tamanho de fonte aumentado duas vezes" href="#">Tamanho de fonte aumentado duas vezes</A> </DIV><SPAN class="titleMenor tit_loteriasMenor">Loterias CAIXA</SPAN> <A title="Acessibilidade: Tecle Alt + C para ir ao Ínicio da Página, &#13;&#10;&#9;&#9;&#9;&#9;&#9;Tecle Alt + P para Pesquisar no BUSCA, &#13;&#10;&#9;&#9;&#9;&#9;&#9;Tecle Alt + R para ir a O que você procura?" accessKey=C tabIndex=0 href="#acessibilidade"></A>
+<H2 id=titlePortal>Resultado</H2></DIV><!-- DIV's ONDE ENTRA O CORPO -->
+<DIV id=montaCorpo_2009>
+<DIV class=h_lotofacil id=title_navbar>&nbsp;<IMG alt=Hierarquia src="/_newimages/bullets/seta_hierarquia_verde.gif">&nbsp; <A class=link_azul title=Boas-vindas href="/index.asp">Boas-vindas</A> <IMG alt=Hierarquia src="/_newimages/bullets/seta_hierarquia_verde.gif">&nbsp; <A class=link_azul title=Loterias href="../../index.asp">Loterias</A> <IMG alt=Hierarquia src="/_newimages/bullets/seta_hierarquia_verde.gif">&nbsp; <A class=link_azul title=Loterias href="../index.asp">Loterias</A> <IMG alt=Hierarquia src="/_newimages/bullets/seta_hierarquia_verde.gif">&nbsp; <A class=link_azul title=Lotofácil href="#">Lotofácil</A> <IMG alt=Hierarquia src="/_newimages/bullets/seta_hierarquia_verde.gif">&nbsp; Resultado </DIV><!-- Menu opcional -->
+<DIV class="mostraResultados expand_text" id=menuOpcional>
+<UL>
+<LI>Resultados </LI>
+<LI><A title="Como jogar" href="como_jogar.asp">Como jogar </A></LI>
+<LI><A title="Distribuição de Arrecadação" href="distribuicao.asp">Distribuição de Arrecadação</A> </LI>
+<LI><A title=Probabilidades href="probabilidades.asp">Probabilidades</A> </LI>
+<LI><A title="Download de todos os resultados " href="download.asp">Download de todos os resultados </A></LI>
+<LI><A title="Acesse via celular" onclick="javascript:window.open('http://www1.caixa.gov.br/popup/home/popup_home_17.asp','hotsite','width=950,height=600');" href="#">Acesse via celular</A> </LI></UL></DIV><!-- Menu opcional -->
+<FORM name=frmPortal1 action=lotofacil.asp method=post><INPUT id=submeteu type=hidden value=nao name=submeteu> <INPUT id=opcao type=hidden name=opcao> <INPUT id=txtConcurso type=hidden name=txtConcurso> <INPUT id=nu_concurso type=hidden name=nu_concurso> <!-- COLUNA do MEIO -->
+<DIV id=col_meio>
+<DIV class=expand_text id=informacoes_gerais>
+<H3>Resultados</H3>
+<P>Conheça o jogo em que é fácil apostar e ainda mais fácil ganhar. Com a Lotofácil, você marca 15 dos 25 números disponíveis na cartela e ganha acertando 11, 12, 13, 14 ou 15 números. Com apenas R$ 1,25 você pode se tornar um milionário. Nunca foi tão fácil ganhar.</P></DIV><!-- [ INÍCIO ] RESULTADOS -->
+<DIV id=resultados>
+<DIV id=coluna_esquerda>
+<DIV id=carregando1 style="DISPLAY: none"><IMG alt=Carregando... src="/loterias/_images/ampulheta_2.gif">
+<P>Carregando...</P></DIV>
+<DIV id=cabec_resultado>
+<H3 class=tit_resulLotofacil>Lotofácil</H3>
+<H4>Concurso n. <SPAN class=numero_concurso id=span_conc>507</SPAN></H4></DIV><!--MENU-->
+<DIV id=menu_concurso style="DISPLAY: block">
+<DIV id=menu_concurso_bt_ant><A tabIndex=27 href="javascript:carrega_concurso(506);"><IMG alt="Ver concurso anterior" src="http://www1.caixa.gov.br/loterias/_images/button/btn_conc_ant_lotofacil.jpg" border=0></A></DIV>
+<DIV id=menu_concurso_bt_data><A class=tooltip href="http://www1.caixa.gov.br/loterias/loterias/lotofacil/lotofacil_resultado.asp#"><B>22/02/2010</B> (Caminhão ...)<BR><B>Realizado em Flori../SC</B><SPAN style="FONT-SIZE: 13px"><B>22/02/2010</B>(Caminhão da Sorte) <BR>Realizado em Florianópolis/SC)</SPAN></A></DIV>
+<DIV id=menu_concurso_bt_prx><SPAN class=btn_off_prx_conc></SPAN></DIV></DIV><!--Mensagem de Erro-->
+<DIV id=msg_concurso style="DISPLAY: none"></DIV><!-- 
+					<span class="data_concurso">--><!--OBSERVACAO-->
+<DIV id=observacao style="DISPLAY: none"></DIV><!-- Detalhes -->
+<DIV id=detalhes_resultado style="DISPLAY: block"><SPAN id=acumulou style="DISPLAY: block"><SPAN style="FONT-WEIGHT: bold; FONT-SIZE: 14px">Estimativa de Prêmio</SPAN><BR><SPAN style="FONT-WEIGHT: bold; FONT-SIZE: 22px; COLOR: rgb(102,102,102)">R$</SPAN> <SPAN style="FONT-WEIGHT: bold; FONT-SIZE: 22px; COLOR: #911687">1.500.000,00</SPAN><BR><SPAN style="FONT-SIZE: 13px">*para o próximo concurso, a ser realizado em 25/02/2010</SPAN><BR><BR></SPAN></DIV>
+<DIV id=tabela_jogo style="DISPLAY: block">
+<TABLE class=tabela_jogo cellSpacing=0 cellPadding=4 summary="Tabela de jogos">
+<TBODY>
+<TR class=linhas>
+<TD></TD>
+<TD></TD>
+<TD><SPAN id=lfacil1>01</SPAN></TD>
+<TD><SPAN id=lfacil2>02</SPAN></TD>
+<TD><SPAN id=lfacil3>03</SPAN></TD>
+<TD><SPAN id=lfacil4>05</SPAN></TD>
+<TD><SPAN id=lfacil5>06</SPAN></TD>
+<TD></TD>
+<TD></TD></TR>
+<TR class=linhas>
+<TD></TD>
+<TD></TD>
+<TD><SPAN id=lfacil6>08</SPAN></TD>
+<TD><SPAN id=lfacil7>09</SPAN></TD>
+<TD><SPAN id=lfacil8>10</SPAN></TD>
+<TD><SPAN id=lfacil9>11</SPAN></TD>
+<TD><SPAN id=lfacil10>12</SPAN></TD>
+<TD></TD>
+<TD></TD></TR>
+<TR class=linhas>
+<TD></TD>
+<TD></TD>
+<TD><SPAN id=lfacil11>20</SPAN></TD>
+<TD><SPAN id=lfacil12>21</SPAN></TD>
+<TD><SPAN id=lfacil13>23</SPAN></TD>
+<TD><SPAN id=lfacil14>24</SPAN></TD>
+<TD><SPAN id=lfacil15>25</SPAN></TD>
+<TD></TD>
+<TD></TD></TR></TBODY></TABLE></DIV>
+<DIV id=tabela_jogo2 style="DISPLAY: none">
+<TABLE class=tabela_jogo cellSpacing=0 cellPadding=4 summary="Tabela de jogos2">
+<TBODY>
+<TR class=linhas>
+<TD></TD>
+<TD></TD>
+<TD><SPAN id=lfacil1_2>08</SPAN></TD>
+<TD><SPAN id=lfacil2_2>24</SPAN></TD>
+<TD><SPAN id=lfacil3_2>09</SPAN></TD>
+<TD><SPAN id=lfacil4_2>11</SPAN></TD>
+<TD><SPAN id=lfacil5_2>03</SPAN></TD>
+<TD></TD>
+<TD></TD></TR>
+<TR class=linhas>
+<TD></TD>
+<TD></TD>
+<TD><SPAN id=lfacil6_2>20</SPAN></TD>
+<TD><SPAN id=lfacil7_2>21</SPAN></TD>
+<TD><SPAN id=lfacil8_2>01</SPAN></TD>
+<TD><SPAN id=lfacil9_2>06</SPAN></TD>
+<TD><SPAN id=lfacil10_2>10</SPAN></TD>
+<TD></TD>
+<TD></TD></TR>
+<TR class=linhas>
+<TD></TD>
+<TD></TD>
+<TD><SPAN id=lfacil11_2>23</SPAN></TD>
+<TD><SPAN id=lfacil12_2>05</SPAN></TD>
+<TD><SPAN id=lfacil13_2>02</SPAN></TD>
+<TD><SPAN id=lfacil14_2>12</SPAN></TD>
+<TD><SPAN id=lfacil15_2>25</SPAN></TD>
+<TD></TD>
+<TD></TD></TR></TBODY></TABLE></DIV><BR>
+<DIV class=link_azul id=dtitcrescenteDiv style="DISPLAY: block">
+<TABLE cellSpacing=0 cellPadding=0 width=200 align=center border=0>
+<TBODY>
+<TR>
+<TD class=txtbranco align=middle><A class=ordem onkeypress="mostra_sorteio(); return false;" title="Ver números na ordem do sorteio" style="FONT-SIZE: 13px" onclick="mostra_sorteio(); return false;" tabIndex=26 href="#">Ver números na ordem do sorteio</A> </TD></TR></TBODY></TABLE></DIV>
+<DIV class=link_azul id=dtitsorteioDiv style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width=200 align=center border=0>
+<TBODY>
+<TR>
+<TD class=txtbranco align=middle><A class=ordem onkeypress="mostra_crescente(); return false;" title="Ver números em ordem crescente" style="FONT-SIZE: 13px" onclick="mostra_crescente(); return false;" tabIndex=26 href="#">Ver números em ordem crescente</A> </TD></TR></TBODY></TABLE></DIV>
+<DIV id=ganhadores_estado style="DISPLAY: block">
+<DIV id=titulo_premiacao>Premiação</DIV>
+<TABLE id=tabela_premiacao cellSpacing=0 cellPadding=2 border=0>
+<TBODY>
+<TR>
+<TH class=meio>Faixa de premiação</TH>
+<TH class=meio>Nº de Ganhadores</TH>
+<TH class=direita>Valor de prêmio(R$)&nbsp;</TH></TR>
+<TR>
+<TD class=meio>15 acertos</TD>
+<TD class=meio><SPAN id=lfacil16>6</SPAN></TD>
+<TD class=direita><SPAN id=lfacil17>254.800,40</SPAN>&nbsp;</TD></TR>
+<TR>
+<TD class=meio>14 acertos</TD>
+<TD class=meio><SPAN id=lfacil18>406</SPAN></TD>
+<TD class=direita><SPAN id=lfacil19>1.613,80</SPAN>&nbsp;</TD></TR>
+<TR>
+<TD class=meio>13 acertos</TD>
+<TD class=meio><SPAN id=lfacil20>15.636</SPAN></TD>
+<TD class=direita><SPAN id=lfacil21>12,50</SPAN>&nbsp;</TD></TR>
+<TR>
+<TD class=meio>12 acertos</TD>
+<TD class=meio><SPAN id=lfacil22>212.701</SPAN></TD>
+<TD class=direita><SPAN id=lfacil23>5,00</SPAN>&nbsp;</TD></TR>
+<TR>
+<TD class=meio>11 acertos</TD>
+<TD class=meio><SPAN id=lfacil24>1.221.538</SPAN></TD>
+<TD class=direita><SPAN id=lfacil25>2,50</SPAN>&nbsp;</TD></TR>
+<TR>
+<TD colSpan=3 height=10></TD></TR></TBODY></TABLE></DIV><!-- [ INÍCIO ] GANHADORES POR ESTADO --><SPAN id=result_ganhador style="DISPLAY: block">
+<DIV id=titulo_ganhadores><IMG title="Ganhadores por estado" src="http://www1.caixa.gov.br/loterias/_images/title/ganhadores_estado_lotofacil.jpg"></DIV>
+<DIV id=ganhadores_novo_modelo>
+<TABLE>
+<THEAD>
+<TR>
+<TH class=largura_uf>UF</TH>
+<TH>Nº de Ganhadores</TH></TR></THEAD>
+<TBODY>
+<TR class=destaca_estado>
+<TD>DF</TD>
+<TD>1</TD></TR>
+<TR>
+<TD><SPAN>BRASÍLIA </SPAN></TD>
+<TD>1</TD></TR>
+<TR class=destaca_estado>
+<TD>MG</TD>
+<TD>1</TD></TR>
+<TR>
+<TD><SPAN>ITABIRINHA </SPAN></TD>
+<TD>1</TD></TR>
+<TR class=destaca_estado>
+<TD>SC</TD>
+<TD>1</TD></TR>
+<TR>
+<TD><SPAN>LAGUNA </SPAN></TD>
+<TD>1</TD></TR>
+<TR class=destaca_estado>
+<TD>SP</TD>
+<TD>3</TD></TR>
+<TR>
+<TD><SPAN>ASSIS </SPAN></TD>
+<TD>1</TD></TR>
+<TR>
+<TD><SPAN>SÃO PAULO </SPAN></TD>
+<TD>1</TD></TR>
+<TR>
+<TD><SPAN>TAUBATÉ </SPAN></TD>
+<TD>1</TD></TR></TBODY></TABLE></DIV></SPAN><!-- [ FINAL ] GANHADORES POR ESTADO --><!-- [ INÍCIO ] VALOR ARRECADADO -->
+<DIV id=vr_arrecadado style="DISPLAY: block"><STRONG><SPAN style="FONT-SIZE: 12px">Arrecadação Total: </SPAN></STRONG>&nbsp;<STRONG><SPAN style="FONT-SIZE: 18px; COLOR: #666"> R$ </SPAN><SPAN style="FONT-SIZE: 18px; COLOR: #911687">16.885.393,75</SPAN></STRONG></DIV><!-- [ FINAL ] VALOR ARRECADADO --><!-- [ INICIO ] TEXTO INFORMATIVO -->
+<DIV id=texto style="DISPLAY: block">
+<UL>
+<LI>O valor estimado para o prêmio principal (15 acertos) pode variar em função da quantidade de acertadores dos prêmios fixos (11, 12 e 13 acertos). 
+<LI>Você pode receber prêmios de até R$ 800,00 em qualquer casa lotérica credenciada ou nas agências da CAIXA, independente do valor. 
+<LI>A programação das loterias está sujeita a alterações. 
+<LI>Confira o bilhete impresso pelo terminal. Ele é o único comprovante para o recebimento do prêmio. <!--li>O valor estimado para o pr&ecirc;mio principal (15 acertos) pode ser alterado
+							em fun&ccedil;&atilde;o da quantidade de acertadores
+							de pr&ecirc;mios fixos ( 11, 12 e 13 acertos), conforme regra do produto.</li--></LI></UL></DIV></DIV><!-- [ FINAL ] TEXTO INFORMATIVO -->
+<DIV id=coluna_direita><!-- [ INÍCIO ] PESQUISAR CONCURSOS -->
+<SCRIPT language=javascript type=text/javascript>
+								var nome_tabela = "LOTTB035_LOTOFACIL";
+								var campo_data = "dt_apuracao";
+								var campo_concurso = "nu_concurso";
+							</SCRIPT>
+
+<SCRIPT language=javascript src="/loterias/_includes/jsobjects/widgets/jsobjects.js" type=text/javascript></SCRIPT>
+<LINK href="/loterias/_includes/jsobjects/css/jsstyle.css" type=text/css rel=stylesheet>
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jstranslation.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jscompatibilitylib.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jsgeneral.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jscalendar.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jsimage.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jsimagebutton.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jslabel.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/loterias/_includes/jsobjects/widgets/jsmenu.js"></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+function verificaPesquisa(objPesq)
+{
+ 
+	//verifica se é string
+	if (isNaN(objPesq.value))
+	{
+			alert('Campo de pesquisa só aceita número! \n Tente outra vez.');
+			objPesq.focus();
+			objPesq.select();
+	}
+	else
+			carrega_concurso(objPesq.value); //carrega concurso
+}
+</SCRIPT>
+
+<DIV id=pesquisar_concursos><SPAN class=tit_pesquisarConcursos>Pesquisar concursos anteriores</SPAN> <LABEL class=h3_class for=cal_concurso>Por número do concurso:</LABEL> <INPUT class=campo_numconsurso id=cal_concurso title="Insira um número de concurso" maxLength=5 value=" " name=cal_concurso> <!-- onkeydown="return BloqueiaLetras(this.value);"  --><A class=btn_buscarConcurso onkeypress="verificaPesquisa(document.getElementById('cal_concurso'));" title="Pesquise outros concursos" onclick="verificaPesquisa(document.getElementById('cal_concurso'));" href="#">Buscar</A> <!--p class="h3_class">Por data:</p>
+	<div id="calendario">
+		<div id="cont_calendario">
+			<script language="javascript" type="text/javascript">
+				lang = "pt";
+				var cal = new JsCalendar("cal");
+				cal.setHeight(100);
+				document.getElementById("cont_calendario").appendChild(cal.output);
+			</script>
+		</div>
+	</div--></DIV><!-- [ FINAL ] PESQUISAR CONCURSOS --><!-- [ INÃCIO ] FERRAMENTAS -->
+<DIV id=ferramentas><!--<a href="javascript:imprimir_lotofacil();"><img src="/loterias/_images/button/btn_imprimir_resultadojogo.jpg" width="148" height="73" border="0" /></a> --><SPAN id=imprimir_conc><A class=btn_impressaoLoterias title="Imprimir resultado" href="javascript:imprimir_lotofacil(507);">Imprima o resultado</A></SPAN><A class=btn_downloadLoterias title=Download href="download.asp">Download</A> <!--MODIFICACAO PROBABILIDADES => 21/06/2006--><A class=btn_probabilidadesLoterias title=Probabilidades href="probabilidades.asp">Probabilidades</A> </DIV><!-- [ INÍCIO ] FERRAMENTAS --></DIV></DIV>
+<DIV id=rodape_resultados><!-- Rodapé resultados --></DIV><!-- [ FINAL ] RESULTADOS --></DIV></FORM><!-- [ INÍCIO ] COLUNA DIREITA -->
+<DIV id=col_direita><!-- [ INÍCIO ] RECEBA O RESULTADO DAS LOTERIAS NO SEU E-MAIL -->
+<SCRIPT language=JavaScript><!--
+
+/*********  D A T A ***********/
+
+function anobissexto (ano) { 
+	if (((ano % 4)==0) && ((ano % 100)!=0) || ((ano % 400)==0)) { 
+		return (true);
+	} else 
+	{ return (false) 
+	}
+}
+
+
+function maiorData(data1, data2){
+	var d1 = data1.split('/');
+	var d2 = data2.split('/');
+ 
+	var d1 = new Date(d1[2],d1[1]-1,d1[0]);
+	var d2 = new Date(d2[2],d2[1]-1,d2[0]);
+	return (d1>d2?data1:data2);
+}
+
+function valida_data(form,objeto,valor){
+	
+	var mNomes = "JanFebMarAprMayJunJulAugSepOctNovDec"
+	var mValores = "312831303130313130313031"
+	var alertMsg = ""
+	var forFocus = form+"."+objeto+".focus()"
+	var erro = true
+	var args = valida_data.arguments
+
+    dia   	= parseInt(valor.substring(0,2),10)		// pega o dia
+	mes   	= parseInt(valor.substring(3,5),10)  	// pega o mês
+	ano   	= parseInt(valor.substring(6,10),10)	// pega o ano
+ 
+	objeto = args[1]		// nome do objeto
+	valor  = args[2]		// valor do campo
+
+	var lastDate = 0
+
+	if (mes == 2){
+		if (anobissexto(ano)) {
+			lastDate = 29
+		}
+		else{
+			lastDate = 28
+		}
+	} 
+	else {
+		lastDate = mValores.substring((mes-1)*2, (mes-1)*2+2)
+	}
+
+
+	if (valor.length<10){
+		eval(forFocus)
+		return false
+	}
+ 
+	else if ( (valor.substring(2,3) != "/" ) || (valor.substring(5,6) != "/") ) {
+		eval(forFocus)
+		return false
+	}
+	
+	// Se o ano for menor que 1890, critica...
+	else if (ano < 1890){
+		eval(forFocus)
+		return false
+	}
+
+	else if ( (isNaN(dia)) || (isNaN(mes)) || ( isNaN(ano)) ){
+		eval(forFocus)
+		return false
+	}
+
+	else if ( (mes > 12) || (mes <= 0) ){
+		eval(forFocus)
+		return false
+	}
+
+
+   else if ( (dia > lastDate) || (dia <=0) ){
+		eval(forFocus)
+		return false
+	}
+
+	else {
+      var newValue = ""
+	if (dia<10){
+		dia = "0"+dia
+	}
+	if (mes<10){
+		mes = "0"+mes
+	}
+	return true}
+}
+
+
+/**************** S T R I N G **********************/
+
+function verifica_acento(campo, tamanho) {
+   var letras=false;
+   var vetor=new Array("á", "Á", "à", "À", "ã", "Ã", "â", "Â", "ä", "Ä", "é", "É", "è", "È", "ê", "Ê", "ë", "Ë", "í", "Í", "ì", "Ì", "î", "Î", "ï", "Ï", "ó", "Ó", "ò", "Ò", "ô", "Ô", "ö", "Ö", "õ", "Õ", "ú", "Ú", "ù", "Ù", "ü", "Ü","û", "Û", "^", "`", "'", "~");
+   var temp;
+   for(i=0;i<tamanho;i++) {
+      temp=campo.substring(i,i+1);
+      for (x=0;x<100;x++) {
+          if (vetor[x]==temp) {
+             letras=true;}
+          else {}
+      }
+   }
+	if (letras==true) {
+       return true}
+    else {
+       return false;}
+}
+	
+	
+/* Verifica se word é uma entrada em branco */
+   function verifica_branco(parametro)   // FUNCAO PARA VERIFICAÇÃO DE CAMPOS NÃO PREENCHIDOS
+                                         // OU PREENCHIDOS APENAS COM ESPAÇOS EM BRANCO
+   {
+     teste_parametro = "false"; //variavel para teste de espacos em branco
+     tamanho_parametro = parametro.length;
+     if (tamanho_parametro != 0){
+        for (i = 0; i < tamanho_parametro; i++){
+            if (parametro.charAt(i) != " "){
+                teste_parametro = "true"; /*existe caracter diferente de branco*/
+            }
+        }
+        
+        if (teste_parametro == "false"){  //todos os caracteres digitados são brancos
+           return false;
+        }
+        else
+        {
+           return true;
+        }
+     }
+     else
+     {
+         return false;
+     }
+   }
+	
+
+function formatonulo (campo) {
+  for (contador=0; contador < campo.length; contador++) {
+      retorno = campo.substring (contador, contador+1);
+      if (retorno!=' ') return (false);
+  }
+  return (true);
+}
+
+
+function completa_zeros(iValor, iTamanho) {
+
+   if (iValor.length < iTamanho) {
+   
+      for (contador = 1; iTamanho - iValor.length; contador++) {
+          iValor = "0" + iValor;
+      }    
+   }
+   else if(iValor.length > iTamanho) {
+      if (iValor.substring(1, 2) == "0") 
+         iValor = iValor.substring(1, iValor.length);
+      else {
+         iValor = iValor.substring(1, iValor.length-1);
+      }   
+   }
+   
+   return(iValor);
+}
+
+
+/***************** N U M E R O ***********************/
+
+function formatointeiro (numero) {
+
+    for (i=0; i<numero.length; i++) {
+     
+      if (((parseInt(numero.substring(i, i+1), 10)>=0)
+           && (parseInt(numero.substring(i, i+1), 10)<=9))) {
+      }
+      else
+        return (false);
+    } /* fecha for */
+    if (parseInt(numero)>=0)
+      return (true);
+    else
+      return (false);
+  }
+
+
+function formatodecimal (numero) {
+    num_pontos=0;
+
+    for (i=0; i<numero.length; i++) {
+        if (numero.substring(i, i+1)=="."){ 
+           return(false);
+        }
+        else {
+             if (((parseInt(numero.substring(i, i+1), 10)>=0)
+                && (parseInt(numero.substring(i, i+1), 10)<=9))
+                || (numero.substring(i, i+1)==",")) {
+                if (numero.substring(i, i+1)==",")
+                  num_pontos++;
+       }
+       else
+         return (false);
+       } /* fecha if */
+    } /* fecha for */
+    if (num_pontos>1)
+       return (false);
+
+    if (parseFloat(numero)>=0.00)
+       return (true);
+    else
+       return (false);
+}
+
+
+/**************** O U T R O S *******************/
+
+function EmailCorreto (conteudo) {
+
+  Valor = false
+
+  if ( conteudo.indexOf(".@") > -1 )	
+  {
+	return false ;	
+  }
+  
+  if ( conteudo.indexOf("@.") > -1 )	
+  {
+	return false ;	
+  }
+
+  if ( conteudo.indexOf(";") > -1 )	
+  {
+	return false ;	
+  }
+  
+  if ( conteudo.indexOf("www") > -1 )	
+  {
+	return false ;	
+  }
+
+  if ( conteudo.indexOf(" ") > -1 )	
+  {
+	return false ;	
+  }
+
+  if ( conteudo.substr(conteudo.length-1,1) == "." )
+  {
+	return false ;	
+  }
+
+  for (Count=0; Count<conteudo.length; Count++) {
+      ch = conteudo.substring (Count, Count+1);
+	   if ((conteudo.length - (Count+1)) >0 ){
+		    if (ch=='@') {
+				// Se existe outro @ no mesmo endereço de email, retorna falso
+				if ( Valor ) 	
+					return (false);
+				else
+					Valor = true;
+
+			}
+		
+			if(!((ch.charCodeAt(0)>=65 && ch.charCodeAt(0)<=90) || (ch.charCodeAt(0)>=97 && ch.charCodeAt(0)<=122)  || (ch.charCodeAt(0)>=48 && ch.charCodeAt(0)<=57) || ch.charCodeAt(0)==46 || ch.charCodeAt(0)==64  
+			|| ch.charCodeAt(0)==95  || ch.charCodeAt(0)==45)){
+				return false;
+			}
+		}
+		
+  } // Fim for
+
+  return (Valor);
+}
+
+
+
+function Valida_PISPASEP(iValor)
+{
+   var iCont1,iSoma=0,iMult,iLimiteMult,iResto,iDV
+   
+   iResto = 0 
+   iLimiteMult = 9 
+   iSoma = 0
+   iMult = 2
+
+      for (iCont1 = 10; iCont1>0; iCont1--)
+
+      {
+         iSoma = iSoma + (iMult * (iValor.substring(iCont1-1,iCont1)))
+
+         iMult++
+         if (iMult > iLimiteMult)
+            iMult = 2
+      }
+
+      iResto = (iSoma % 11)
+      iDV = (11 - parseInt(iResto))
+      
+      if (iDV > 9) return(0); else return(iDV);
+}
+
+
+
+function fVerificaCPFCGC(txtcpfcgc)
+{
+	sDigito = txtcpfcgc.substring(txtcpfcgc.length,txtcpfcgc.length-2)
+	sNumero = txtcpfcgc.substring(0,txtcpfcgc.length-2)
+	
+	sCpf = sCalculaDigitoMod11(sNumero,2,1)
+	sCgc = sCalculaDigitoMod11(sNumero,2,2)
+	
+	if (sDigito == sCpf)
+	{
+		return("1" + txtcpfcgc)
+	}
+	
+	else
+	{
+		if (sDigito == sCgc)
+		{
+			return("2" + txtcpfcgc)
+		}
+		
+		else
+		{
+			return("0" + txtcpfcgc)
+		}	
+	}	
+}
+
+
+function fSoCaracter(_string,carac)
+{
+for(i=0;i<_string.length;i++)
+{
+	if(_string.charAt(i)!=carac)
+		return false;	
+}
+return true;
+}
+
+
+function sCalculaDigitoMod11(sValor,iDigSaida,sTipoValidacao)
+{
+  if (sTipoValidacao == 1) iCod = 12  
+  if (sTipoValidacao == 2) iCod = 9   
+
+  for (t=1;t<=iDigSaida;t++)
+    {
+      soma = 0
+      mult = 2
+      for (j=sValor.length;j>0;j--)
+      {
+        soma = soma + (mult * parseInt(sValor.substring(j,j-1),10))
+        mult++
+        if (mult > iCod) mult = 2
+      }
+      soma = (soma * 10) % 11
+      if (soma == 10) sValor = sValor + "0"
+      else sValor = sValor + soma
+    }
+  	return sValor.substring(sValor.length-iDigSaida,sValor.length)
+}
+
+
+function fValidaDV(iValor,sTipoValidacao)
+{
+   var iCont1,iCont2,iSoma=0,iMult,iLimiteMult
+   if (sTipoValidacao==1) iLimiteMult = 12
+   if (sTipoValidacao==2) iLimiteMult = 9
+   for (iCont1 = 1; iCont1<=2; iCont1++)
+   {
+      iSoma = 0
+      iMult = 2
+      for (iCont2 = iValor.length; iCont2>=1; iCont2--)
+      {
+         iSoma = iSoma + (iMult * (iValor.substring(iCont2-1,iCont2)*1))
+         iMult++
+         if (iMult > iLimiteMult)
+            iMult = 2
+      }
+      iValor = iValor + (((iSoma * 10) % 11) % 10)
+   }
+
+   return(iValor.substring(iValor.length-2,iValor.length))
+}
+
+
+  function IsNumeric(Valor)
+   {
+     var i;
+ 
+     for   (i = 0; i < Valor.length; i++)
+      {
+        if (Valor.charAt(i) < "0" || Valor.charAt(i) > "9")
+         {
+          return false;
+         }
+      }
+     return true;
+   }
+
+function validaNome (string){
+		var branco = 0;
+		var carac;
+		var pos_espaco;
+		var incio;
+		var fim = string;
+		
+		while (fim.indexOf(" ") !=  -1 ){
+			pos_espaco = fim.indexOf(" ");
+			inicio = fim.substring(0,pos_espaco);
+			fim  = fim.substring(pos_espaco+1, fim.length);
+		
+	
+			if (inicio.length > 20){
+				return false; 
+			}
+			
+		}
+		
+		if (fim.length > 20){
+				return false;
+		}
+	
+		
+		for (i=0; i<string.length; i++)
+		{
+			carac=string.charAt(i);
+	
+			if ((string.charAt(i)== string.charAt(i-1)) &&(string.charAt(i-1)== string.charAt(i-2))){
+				return false;
+			}	
+	
+			if (carac == " "){
+				branco = 1	
+			}
+		}
+		if (branco == 0){
+			return false;
+		}
+		return true;
+	}
+
+
+function validaString (string){
+		var valido="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUWVXYZçÇáÁéÉíÍóÓôÔâÂúÚãÃõÕêÊüÜ ";
+		var carac;
+		
+		for (i=0; i< string.length; i++)
+		{
+			carac= string.charAt(i);
+			
+			if (valido.indexOf(carac)< 0){
+				return false;
+			
+			}
+		}
+		return true;
+	}
+
+
+// --></SCRIPT>
+
+<SCRIPT language=javascript src="/loterias/_scripts/funcoes_loterias.js" type=text/javascript></SCRIPT>
+
+<DIV class=link_azul id=menu_receba_resultados>
+<H6>Receba o resultado das loterias em seu email</H6><A title=Acessibilidade:BUSCA accessKey=P href="#busca"></A>
+<FORM id=frmEmail name=frmEmail action=http://www1.caixa.gov.br/push/push.asp method=get><LABEL for=c_email>Seu e-mail:</LABEL> <INPUT class=campo_email id=c_email value=" " name=c_email> <A class=btn_cadastrarEmail onkeypress="mandaEmail('resp','c_email','frmEmail');" title="Clique e se cadastre" onclick="mandaEmail('resp','c_email','frmEmail');" href="#">Clique e se cadastre</A> </FORM>
+<DIV id=resp></DIV>
+<UL>
+<LI><A title="Desejo me cadastrar" href="https://www1.caixa.gov.br/push/push.asp">Desejo me cadastrar</A> 
+<LI><A title="Quero cancelar meu cadastro" href="https://www1.caixa.gov.br/push/push.asp">Quero cancelar meu cadastro</A> </LI></UL></DIV><!-- [ FINAL ] RECEBA O RESULTADO DAS LOTERIAS NO SEU E-MAIL --><!-- [ INÍCIO ] RSS -->
+<DIV id=destaque_rss>
+<H4>Receba em RSS</H4>
+<P>Acesse os resultados das Loterias da CAIXA no seu agregador de RSS.</P>
+<P>&nbsp;</P><A href="http://www1.caixa.gov.br/rss/index.asp">Saiba mais</A> </DIV><!-- [ FINAL ] RSS --><!-- [ INÍCIO ] ATALHOS DOS JOGOS -->
+<DIV id=atalho_jogos style="HEIGHT: auto">
+<DIV id=coluna_esquerda_jogos style="HEIGHT: auto"><A class=atalho_megasena title="Acesse por aqui os resultados da Megasena" href="http://www1.caixa.gov.br/loterias/loterias/megasena/megasena_resultado.asp">Acesse por aqui os resultados da Megasena</A> <A class=atalho_lotomania title="Acesse por aqui os resultados da Lotomania" href="http://www1.caixa.gov.br/loterias/loterias/lotomania/lotomania_resultado.asp">Acesse por aqui os resultados da Lotomania</A> <A class=atalho_federal title="Acesse por aqui os resultados da Loteria Federal" href="http://www1.caixa.gov.br/loterias/loterias/federal/federal_resultado.asp">Acesse por aqui os resultados da Loteria Federal</A> <A class=atalho_loteca title="Acesse por aqui os resultados da Loteca" href="http://www1.caixa.gov.br/loterias/loterias/loteca/loteca_resultado.asp">Acesse por aqui os resultados da Loteca</A> <A class=atalho_timemania title="Acesse por aqui os resultados da Timemania" href="http://www1.caixa.gov.br/loterias/loterias/timemania/timemania_resultado.asp">Acesse por aqui os resultados da Timemania</A> </DIV>
+<DIV id=coluna_direita_jogos style="HEIGHT: auto"><A class=atalho_quina title="Acesse por aqui os resultados da Quina" href="http://www1.caixa.gov.br/loterias/loterias/quina/quina_resultado.asp">Acesse por aqui os resultados da Quina</A> <A class=atalho_duplasena title="Acesse por aqui os resultados da Duplasena" href="http://www1.caixa.gov.br/loterias/loterias/duplasena/duplasena_resultado.asp">Acesse por aqui os resultados da Duplasena</A> <A class=atalho_loteriaInst title="Acesse por aqui as maneiras de como jogar na Loteria Instantânea" href="http://www1.caixa.gov.br/loterias/loterias/loteriainst/como_jogar.asp">Acesse por aqui as maneiras de como jogar na Loteria Instantânea</A> <A class=atalho_lotogol title="Acesse por aqui os resultados da Lotogol" href="http://www1.caixa.gov.br/loterias/loterias/lotogol/lotogol_resultado.asp">Acesse por aqui os resultados da Lotogol</A> </DIV></DIV><!-- [ FINAL ] ATALHOS DOS JOGOS --><!-- [ INÍCIO ] DESTAQUE PUBLICITÁRIO -->
+<DIV id=destaque_publicitario><LABEL style="DISPLAY: none" for=flashpublicidade><TEXTAREA id=flashpublicidade style="DISPLAY: none" rows=100 cols=5> &lt;object type="application/x-shockwave-flash" data="/loterias/resources/raiz_002.swf" width="186" height="253" title="CAIXA"&gt;&lt;param name="wmode" value="transparent" /&gt;&lt;param name="movie" value="/loterias/resources/raiz_002.swf" /&gt;&lt;/object&gt; </TEXTAREA></LABEL> </DIV><!-- [ FINAL ] DESTAQUE PUBLICITÁRIO --><!-- [ INÍCIO ] COMUNICADOS IMPORTANTES --><!--include virtual="/_newincludes/funcoes_placeholder.asp"--><!--	Include Comunicados Importantes  
+		com CSS no loterias.css				-->
+<DIV id=comunicados_importantes>
+<DIV class=link_azulnegrito id=link_comunidado><A href="http://www1.caixa.gov.br/loterias/comunicados_importantes.asp">Comunicados importantes das Loterias da Caixa</A> </DIV></DIV><!--	Fim Include Comunicados Importantes		--><!-- [ FINAL ] COMUNICADOS IMPORTANTES --><!-- [ INÍCIO ] ENCONTRE FÁCIL -->
+<SCRIPT language=javascript src="/loterias/_scripts/inc_pesquisa.js" type=text/javascript></SCRIPT>
+
+<FORM id=frmPortal name=frmPortal action=http://www1.caixa.gov.br/loterias/loterias/rede_casas_lotericas.asp method=post>
+<DIV id=pesquisa>
+<DIV id=descricao_pesquisa>
+<P>Encontre a Lotérica mais perto de você:</P></DIV><INPUT id=nomecidadade type=hidden value=0 name=nomecidadade> 
+<DIV id=campo_estado><LABEL for=uf>Estado</LABEL><BR><SELECT id=uf onchange="mostraCarrega1('block');pesquisa_casa_loterica('/loterias/_includes/busca_casas_lotericas.asp?uf='+ this.value, 'no_municipio');" name=v_uf> <OPTION value="" selected></OPTION> <OPTION value=AC>AC</OPTION> <OPTION value=AL>AL</OPTION> <OPTION value=AP>AP</OPTION> <OPTION value=AM>AM</OPTION> <OPTION value=BA>BA</OPTION> <OPTION value=CE>CE</OPTION> <OPTION value=DF>DF</OPTION> <OPTION value=ES>ES</OPTION> <OPTION value=GO>GO</OPTION> <OPTION value=MA>MA</OPTION> <OPTION value=MT>MT</OPTION> <OPTION value=MS>MS</OPTION> <OPTION value=MG>MG</OPTION> <OPTION value=PA>PA</OPTION> <OPTION value=PB>PB</OPTION> <OPTION value=PR>PR</OPTION> <OPTION value=PE>PE</OPTION> <OPTION value=PI>PI</OPTION> <OPTION value=RJ>RJ</OPTION> <OPTION value=RN>RN</OPTION> <OPTION value=RS>RS</OPTION> <OPTION value=RO>RO</OPTION> <OPTION value=RR>RR</OPTION> <OPTION value=SC>SC</OPTION> <OPTION value=SP>SP</OPTION> <OPTION value=SE>SE</OPTION> <OPTION value=TO>TO</OPTION></SELECT> </DIV>
+<DIV id=campo_cidade><LABEL for=no_municipio>Cidade</LABEL><BR><SELECT id=no_municipio style="WIDTH: 111px" onchange="mostraCarrega1('block');pesquisa_casa_loterica('/loterias/_includes/busca_casas_lotericas.asp?uf='+document.getElementById('uf').value+'%26municipio='+this.value, 'no_bairro');setanomecidade(this.options[this.selectedIndex].text);" name=v_municipio> <OPTION value="" selected></OPTION></SELECT> </DIV>
+<DIV id=campo_bairro><LABEL for=no_bairro>Bairro</LABEL><BR><SELECT onkeypress=enter(event); id=no_bairro style="WIDTH: 163px" name=v_bairro> <OPTION value="" selected></OPTION></SELECT> </DIV><!-- inicio área obrigatória para usar a troca de msg entre servidores-->
+<DIV id=carregando><IMG alt=carregando... src="/loterias/_images/button/ampulheta_2.gif"> </DIV>
+<DIV id=botao_procurar><A class=btn_procuraLoterica onkeypress="Pesquisa(); return false;" title="Clique e procure uma lotérica por aqui" onclick="Pesquisa();return false;" href="#">Clique e procure uma lotérica por aqui.</A> </DIV><!-- fim área obrigatória para usar a troca de msg entre servidores--></DIV></FORM><!-- inicio área de troca de msg do iframe--><SPAN id=spanAjax><!--iframe id="iframeAjax" name="iframeAjax" style="display:block"></iframe--></SPAN><LABEL style="DISPLAY: none" for=bufferarea>bufferarea</LABEL> <TEXTAREA id=bufferarea style="DISPLAY: none" name=bufferarea rows=30 cols=80> </TEXTAREA> <!-- fim área de troca de msg do iframe--><!-- [ FIM ] ENCONTRE FÁCIL --><!-- [ INÍCIO ] DESTAQUE SITE ESPECIAL --><!--include virtual="/_newincludes/funcoes_placeholder.asp"--><!--	Include Destaque Especial 
+		com CSS no loterias.css				-->
+<DIV id=destaque_site_especial><A title="Seja um EmpresÃfÂ¡rio LotÃfÂ©rico" href="http://www1.caixa.gov.br/loterias/seja_empresario_loterico/index.asp"><IMG src="/loterias/resources/ban_seja_empresarioloterico.jpg" border=0></A><IMG src="/loterias/resources/btn_siteespecial.jpg" border=0> </DIV><!--	Fim Include Destaque Especial 	--><!-- [ FINAL ] DESTAQUE SITE ESPECIAL --></DIV></DIV>
+<DIV id=novo_rodape_geral><SPAN id=novo_rodape_barra_cinza><!-- Não tirar esse comentário --></SPAN><SPAN id=novo_rodape_titulo><!-- Não tirar esse comentário --></SPAN><SPAN id=novo_rodape_corpo_meio><SPAN id=novo_rodape_produtos_servicos><SPAN class=novo_rodape_titulo>Produtos e serviços para:</SPAN> <SPAN class=novo_rodape_link><A href="http://www.caixa.gov.br/voce/index.asp">Você</A></SPAN> <SPAN class=novo_rodape_link>Empresas: <A href="http://www.caixa.gov.br/pj/pj_comercial/mp/index.asp">Micro e Pequenas</A>, <A href="http://www.caixa.gov.br/pj/pj_comercial/mg/index.asp">Médias e Grandes</A></SPAN> <SPAN class=novo_rodape_link>Governo: <A href="http://www1.caixa.gov.br/gov/gov_comercial/municipal/index.asp">Municipal</A>, <A href="http://www1.caixa.gov.br/gov/gov_comercial/estadual/index.asp">Estadual</A>, <A href="http://www1.caixa.gov.br/gov/gov_comercial/federal/index.asp">Federal</A></SPAN> <SPAN class=novo_rodape_link><A href="http://www1.caixa.gov.br/judiciario/index.asp">Judiciário</A></SPAN> </SPAN><SPAN id=novo_rodape_veja_tambem><SPAN class=novo_rodape_titulo_2>Veja também:</SPAN> <SPAN class=novo_rodape_link_2><A href="http://www1.caixa.gov.br/loterias/index.asp">Loterias</A></SPAN> <SPAN class=novo_rodape_link_2><A href="http://www.caixa.gov.br/habitacao/index.asp">Habitação</A></SPAN> <SPAN class=novo_rodape_link_2><A href="http://www.caixa.gov.br/fgts/index.asp">FGTS</A></SPAN> </SPAN><SPAN id=novo_rodape_botao_acesso_conta><A id=novo_rodape_botao_acesso title="Clique aqui para acessar sua conta" onclick=maximized(); href="#"><!-- Comentario --></A></SPAN><SPAN id=novo_rodape_busca><LABEL for=novo_rodape_busca_rodape>Busca por: </LABEL><INPUT onkeypress="if ((window.event ? event.keyCode : event.which) == 13) buscar_deslizante(document.getElementById('novo_rodape_busca_rodape').value);" id=novo_rodape_busca_rodape onblur="if (document.getElementById('novo_rodape_busca_rodape').value=='') document.getElementById('novo_rodape_busca_rodape').value = 'busque aqui'" onfocus="if (document.getElementById('novo_rodape_busca_rodape').value=='busque aqui') document.getElementById('novo_rodape_busca_rodape').value = ''" value="busque aqui" name=novo_rodape_busca_rodape><A onkeypress="javascript:buscar_deslizante(document.getElementById('novo_rodape_busca_rodape').value);" id=novo_rodape_botao_ok title="Acesse sua conta" onclick="javascript:buscar_deslizante(document.getElementById('novo_rodape_busca_rodape').value);" href="#"></A></SPAN> </SPAN>
+<DIV id=novo_rodape_corpo_baixo><SPAN id=novo_rodape_idioma><A href="http://www1.caixa.gov.br/idiomas/ingles/index.asp">English</A> | <A href="http://www1.caixa.gov.br/idiomas/espanhol/index.asp">Español</A></SPAN> <SPAN id=novo_rodape_politica_termos><A href="http://www.caixa.gov.br/seguranca/politica_privacidade.asp">Política de Privacidade</A> | <A href="http://www.caixa.gov.br/seguranca/termos_de_uso.asp">Termos de uso</A></SPAN> <SPAN id=novo_rodape_mapa_seguranca_imprensa><A id=novo_rodape_mapa title="Mapa do Site" href="http://www.caixa.gov.br/mapa/index.asp">Mapa do Site</A> <A id=novo_rodape_seguranca title=Segurança href="http://www.caixa.gov.br/seguranca/index.asp">Segurança</A> <A id=novo_rodape_imprensa title=Imprensa href="http://www1.caixa.gov.br/imprensa/index.asp">Imprensa</A> <A id=novo_rodape_rss title=RSS href="http://www1.caixa.gov.br/rss/index.asp">RSS</A> </SPAN></DIV></DIV><!--
+-pvieira	
+-22-01-2010
+-rodape.inc
+-->
+<SCRIPT type=text/javascript>//carrega_concurso();</SCRIPT>
+<!-- INCLUDE DO DESIGN PALETTE [GERENCIADOR] -->
+<SCRIPT type=text/javascript>
+	
+		carrega_concurso();
+	
+</SCRIPT>
+<NOSCRIPT></NOSCRIPT><!-- Gerada em: 13/02/2010 08:41:35 --></BODY>

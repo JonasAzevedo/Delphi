@@ -1,0 +1,113 @@
+object frmLocalizar: TfrmLocalizar
+  Left = 658
+  Top = 149
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsToolWindow
+  Caption = 'Localizar'
+  ClientHeight = 462
+  ClientWidth = 854
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
+  PixelsPerInch = 96
+  TextHeight = 13
+  object grpBxPesquisar: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 854
+    Height = 44
+    Align = alTop
+    Caption = 'Pesquisar '
+    TabOrder = 0
+    object cbBxCampoLocalizar: TPlsComboBox
+      Left = 8
+      Top = 15
+      Width = 169
+      Height = 21
+      Style = csDropDownList
+      ItemHeight = 13
+      TabOrder = 0
+    end
+    object edLocalizar: TPlsEdit
+      Left = 184
+      Top = 15
+      Width = 664
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 1
+      Text = 'EDLOCALIZAR'
+      OnChange = edLocalizarChange
+    end
+  end
+  object pnlDados: TPanel
+    Left = 0
+    Top = 44
+    Width = 854
+    Height = 399
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 1
+    object grDados: TDBGrid
+      Left = 0
+      Top = 0
+      Width = 854
+      Height = 399
+      Align = alClient
+      DataSource = dsDados
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      OnDblClick = grDadosDblClick
+      OnTitleClick = grDadosTitleClick
+    end
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Top = 443
+    Width = 854
+    Height = 19
+    Panels = <
+      item
+        Width = 50
+      end
+      item
+        Width = 50
+      end>
+  end
+  object zQryDados: TZQuery
+    Connection = DM.ZConnection
+    Params = <>
+    Left = 20
+    Top = 126
+  end
+  object dspDados: TDataSetProvider
+    DataSet = zQryDados
+    Left = 49
+    Top = 126
+  end
+  object cdsDados: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspDados'
+    Left = 79
+    Top = 126
+  end
+  object dsDados: TDataSource
+    DataSet = cdsDados
+    Left = 107
+    Top = 126
+  end
+end

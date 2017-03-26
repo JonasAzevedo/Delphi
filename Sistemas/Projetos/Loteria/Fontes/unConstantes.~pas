@@ -1,0 +1,14 @@
+unit unConstantes;
+
+interface
+
+const
+  //integer
+  sAJUDA_NUMEROS_MAIS_SORTEADOS = 1;
+
+
+
+implementation
+
+
+end.

@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="bin\c6clx\RLibWinC6clx.bpl"/>
+    <OBJFILES value="bin\c6clx\RLibWinC6clx.obj bin\c6clx\RLConsts.obj 
+      bin\c6clx\RLDraftFilter.obj bin\c6clx\RLFeedBack.obj 
+      bin\c6clx\RLHTMLFilter.obj bin\c6clx\RLMetaFile.obj 
+      bin\c6clx\RLPreview.obj bin\c6clx\RLPrintDialog.obj bin\c6clx\RLReport.obj 
+      bin\c6clx\RLRichFilter.obj bin\c6clx\RLUtils.obj bin\c6clx\RLFilters.obj 
+      bin\c6clx\RLParser.obj bin\c6clx\RLPreviewForm.obj 
+      bin\c6clx\RLPrinters.obj bin\c6clx\RLTypes.obj bin\c6clx\RLAbout.obj 
+      bin\c6clx\RLBarcode.obj bin\c6clx\RLDesign.obj bin\c6clx\RLMetaCLX.obj 
+      bin\c6clx\RLMetaVCL.obj bin\c6clx\RLPDFFilter.obj bin\c6clx\RLReg.obj 
+      bin\c6clx\RLRichText.obj bin\c6clx\RLSpoolFilter.obj 
+      bin\c6clx\RLFindDialog.obj bin\c6clx\RLSaveDialog.obj 
+      bin\c6clx\RLXLSFilter.obj"/>
+    <RESFILES value="RLibWinC6clx.res RLReport.dcr"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES)"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value="bcb2kaxserver.lib indy.lib dbxcds.lib dclocx.lib soaprtl.lib nmfast.lib 
+      dbexpress.lib inetdbxpress.lib inetdbbde.lib dsnapcon.lib dsnapcrba.lib 
+      teeqr.lib dss.lib tee.lib teedb.lib teeui.lib qrpt.lib bdecds.lib cds.lib 
+      ibxpress.lib vcldbx.lib bdertl.lib adortl.lib vcldb.lib"/>
+    <SPARELIBS value="rtl.lib vcldb.lib adortl.lib bdertl.lib vcldbx.lib ibxpress.lib cds.lib 
+      bdecds.lib qrpt.lib teeui.lib teedb.lib tee.lib dss.lib teeqr.lib 
+      visualdbclx.lib dsnapcrba.lib dsnapcon.lib bcbsmp.lib inetdbbde.lib 
+      inetdbxpress.lib dbexpress.lib nmfast.lib bcbie.lib soaprtl.lib dclocx.lib 
+      dbxcds.lib indy.lib bcb2kaxserver.lib"/>
+    <PACKAGES value="rtl.bpi designide.bpi visualclx.bpi dbrtl.bpi visualdbclx.bpi bcbsmp.bpi 
+      bcbie.bpi vcl.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="CPP;CPP6;CLX"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="RLibWinC6clx.cpp"/>
+    <INCLUDEPATH value="$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Source\Toolsapi"/>
+    <LIBPATH value="$(BCB)\Projects;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Source\Toolsapi"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I$(BCB)\include -I$(BCB)\include\vcl -I$(BCB)\Source\Toolsapi -src_suffix 
+      cpp -DCPP -DCPP6 -DCLX -boa"/>
+    <CFLAG1 value="-O2 -w -Vx -Ve -X- -rd -a8 -b- -k- -vi -c -tWM"/>
+    <PFLAGS value="-N2bin\c6clx -N0bin\c6clx -$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zn"/>
+    <LFLAGS value="-lbin\c6clx -Ibin\c6clx -D&quot;FortesReport CLX Library&quot; -aa -Tpp -x -Gn -Gl -Gi"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0pkg32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="RLibWinC6clx.res" FORMNAME="" UNITNAME="RLibWinC6clx.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLibWinC6clx.cpp" FORMNAME="" UNITNAME="RLibWinC6clx" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\rtl.bpi" FORMNAME="" UNITNAME="rtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLConsts.pas" FORMNAME="" UNITNAME="RLConsts" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLDraftFilter.pas" FORMNAME="" UNITNAME="RLDraftFilter" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLFeedBack.pas" FORMNAME="" UNITNAME="RLFeedBack" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLHTMLFilter.pas" FORMNAME="" UNITNAME="RLHTMLFilter" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLMetaFile.pas" FORMNAME="" UNITNAME="RLMetaFile" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLPreview.pas" FORMNAME="" UNITNAME="RLPreview" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLPrintDialog.pas" FORMNAME="" UNITNAME="RLPrintDialog" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLReport.pas" FORMNAME="" UNITNAME="RLReport" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLReport.dcr" FORMNAME="" UNITNAME="" CONTAINERID="DcrTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLRichFilter.pas" FORMNAME="" UNITNAME="RLRichFilter" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\designide.bpi" FORMNAME="" UNITNAME="designide" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\visualclx.bpi" FORMNAME="" UNITNAME="visualclx" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\dbrtl.bpi" FORMNAME="" UNITNAME="dbrtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\visualdbclx.bpi" FORMNAME="" UNITNAME="visualdbclx" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\bcbsmp.bpi" FORMNAME="" UNITNAME="bcbsmp" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Arquivos de programas\Borland\CBuilder6\Source\vcl\bcbie.bpi" FORMNAME="" UNITNAME="bcbie" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLUtils.pas" FORMNAME="" UNITNAME="RLUtils" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLFilters.pas" FORMNAME="" UNITNAME="RLFilters" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLParser.pas" FORMNAME="" UNITNAME="RLParser" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLPreviewForm.pas" FORMNAME="" UNITNAME="RLPreviewForm" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLPrinters.pas" FORMNAME="" UNITNAME="RLPrinters" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLTypes.pas" FORMNAME="" UNITNAME="RLTypes" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLAbout.pas" FORMNAME="" UNITNAME="RLAbout" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLBarcode.pas" FORMNAME="" UNITNAME="RLBarcode" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLDesign.pas" FORMNAME="" UNITNAME="RLDesign" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLMetaCLX.pas" FORMNAME="" UNITNAME="RLMetaCLX" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLMetaVCL.pas" FORMNAME="" UNITNAME="RLMetaVCL" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLPDFFilter.pas" FORMNAME="" UNITNAME="RLPDFFilter" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLReg.pas" FORMNAME="" UNITNAME="RLReg" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLRichText.pas" FORMNAME="" UNITNAME="RLRichText" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLSpoolFilter.pas" FORMNAME="" UNITNAME="RLSpoolFilter" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLFindDialog.pas" FORMNAME="" UNITNAME="RLFindDialog" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLSaveDialog.pas" FORMNAME="" UNITNAME="RLSaveDialog" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RLXLSFilter.pas" FORMNAME="" UNITNAME="RLXLSFilter" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vcl.bpi" FORMNAME="" UNITNAME="vcl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1046
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[HistoryLists\hlIncludePath]
+Count=6
+Item0=$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Source\Toolsapi
+Item1=$(BCB)\include;$(BCB)\include\vcl
+Item2=$(BCB)\include;$(BCB)\include\vcl;C:\Arquivos de programas\Borland\CBuilder6\Source\Toolsapi
+Item3=$(BCB)\include;$(BCB)\include\vcl;$(BCB)\source\vcl
+Item4=C:\Arquivos de programas\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\source\vcl
+Item5=C:\Arquivos de programas\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=5
+Item0=$(BCB)\Projects;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Source\Toolsapi
+Item1=$(BCB)\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item2=$(BCB)\Source\vcl;$(BCB)\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item3=C:\Arquivos de programas\Borland\CBuilder6\Source\vcl;C:\Arquivos de programas\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item4=C:\Arquivos de programas\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=5
+Item0=CPP;CPP6;CLX
+Item1=CPP;CPP6;CLX;FormsHPP;StdCtrlsHPP;ControlsHPP;DialogsHPP;ToolWinHPP;ExtCtrlsHPP;ComCtrlsHPP;ButtonsHPP;MenusHPP;PrintersHPP
+Item2=CPP;CPP6;VCL
+Item3=DELPHI5;CPP;CPP6;VCL
+Item4=_DEBUG
+
+[HistoryLists\hlIntOutputDir]
+Count=2
+Item0=bin\c6clx
+Item1=bin\c6vcl
+
+[HistoryLists\hlFinalOutputDir]
+Count=4
+Item0=bin\c6clx\
+Item1=bin\c6clx
+Item2=bin\c6vcl\
+Item3=bin\c6vcl
+
+[HistoryLists\hIBPIOutputDir]
+Count=2
+Item0=bin\c6clx
+Item1=bin\c6vcl
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+  </IDEOPTIONS>
+</PROJECT>

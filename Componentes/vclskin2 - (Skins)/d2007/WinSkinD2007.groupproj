@@ -1,0 +1,31 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{fe3632bd-4b4e-4e40-ad2f-ad746d2d0bb4}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup />
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="WinSkinD2007">
+    <MSBuild Projects="WinSkinD2007.dproj" Targets="" />
+  </Target>
+  <Target Name="WinSkinD2007:Clean">
+    <MSBuild Projects="WinSkinD2007.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="WinSkinD2007:Make">
+    <MSBuild Projects="WinSkinD2007.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="WinSkinD2007" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="WinSkinD2007:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="WinSkinD2007:Make" />
+  </Target>
+</Project>

@@ -1,0 +1,9 @@
+PAGO
+0 = não foi tudo pago
+1 = tudo pago
+
+-----
+
+STATUS
+0=Aberta
+1=Finalizada

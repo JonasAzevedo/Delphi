@@ -1,0 +1,6 @@
+1 - MostrarHintCampos
+botar masculino/feminino
+
+2 - tela cadastro de sub-grupo de conf. de imóvel, quando seleciona o grupo "ÁREA ÚTIL" aparece a mensagem "Grupo não encontrado". Não ocorre todas as vezes. Notar para pesquisa com acento.
+
+3 - Verificar tela CADASTRO DE DICAS.Pesquisar uma dica de cada tela.

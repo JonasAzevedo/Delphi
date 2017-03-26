@@ -1,0 +1,54 @@
+package TPDF;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'aaa'}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcljpg,
+  vcl;
+
+contains
+  Adler in 'ADLER.PAS',
+  Crc in 'CRC.PAS',
+  dzlib in 'dzlib.pas',
+  gzIO in 'gzio.pas',
+  InfBlock in 'infblock.pas',
+  InfCodes in 'infcodes.pas',
+  InfFast in 'inffast.pas',
+  InfTrees in 'inftrees.pas',
+  infutil in 'infutil.pas',
+  Prgrs in 'Prgrs.pas' {FPrgrs},
+  strutil in 'strutil.pas',
+  tnpdf in 'Tnpdf.pas',
+  trees in 'Trees.pas',
+  zCompres in 'zcompres.pas',
+  zDeflate in 'ZDEFLATE.PAS',
+  zInflate in 'ZINFLATE.PAS',
+  Zlib in 'ZLIB.PAS',
+  zUnCompr in 'zuncompr.pas',
+  ZUtil in 'ZUTIL.PAS';
+
+end.

@@ -1,0 +1,80 @@
+unit unResumoInserirEmail;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TfrmResumoInseriuEmail = class(TForm)
+    lblAuxEmailsInseridos: TLabel;
+    lblAuxEmailRejeitados: TLabel;
+    lblTotalEmailsRejeitados: TLabel;
+    lblTotalEmailsInseridos: TLabel;
+    lblTotalEmailsRepetidos: TLabel;
+    lblAuxEmailsRepetidos: TLabel;
+    lblTotalEmails: TLabel;
+    lstBxEmailsInseridos: TListBox;
+    lstBxEmailsRepetidos: TListBox;
+    lstBxEmailsRejeitados: TListBox;
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  public
+    procedure passarParametro(pTipo:String; pValores:OleVariant);
+  end;
+
+var
+  frmResumoInseriuEmail: TfrmResumoInseriuEmail;
+
+implementation
+
+uses unConstantes;
+
+const
+  sTOTAL_EMAILS = 'Total Email''s: ';
+
+{$R *.dfm}
+
+{ TfrmResumoInseriuEmail }
+
+procedure TfrmResumoInseriuEmail.passarParametro(pTipo: String;
+  pValores: OleVariant);
+var
+  oLstEmailsInseridos: TStringList;
+  oLstEmailsRepetidos: TStringList;
+  oLstEmailsRejeitados: TStringList;
+begin
+  if(pTipo = PRM_EMAILS_TELA_RESUMO)then
+  begin
+    try
+      oLstEmailsInseridos := TStringList.Create;
+      oLstEmailsRepetidos := TStringList.Create;
+      oLstEmailsRejeitados := TStringList.Create;
+      oLstEmailsInseridos.CommaText := pValores[0];
+      oLstEmailsRepetidos.CommaText := pValores[1];
+      oLstEmailsRejeitados.CommaText := pValores[2];
+      lstBxEmailsInseridos.Items.AddStrings(oLstEmailsInseridos);
+      lstBxEmailsRepetidos.Items.AddStrings(oLstEmailsRepetidos);
+      lstBxEmailsRejeitados.Items.AddStrings(oLstEmailsRejeitados);
+      lblTotalEmailsInseridos.Caption := IntToStr(oLstEmailsInseridos.Count);
+      lblTotalEmailsRepetidos.Caption := IntToStr(oLstEmailsRepetidos.Count);
+      lblTotalEmailsRejeitados.Caption := IntToStr(oLstEmailsRejeitados.Count);
+      lblTotalEmails.Caption := sTOTAL_EMAILS +
+        IntToStr(oLstEmailsInseridos.Count + oLstEmailsRepetidos.Count +
+        oLstEmailsRejeitados.Count);
+    finally
+      FreeAndNil(oLstEmailsInseridos);
+      FreeAndNil(oLstEmailsRepetidos);
+      FreeAndNil(oLstEmailsRejeitados);
+    end;
+  end;
+end;
+
+procedure TfrmResumoInseriuEmail.FormKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (key = #27) then
+    Close;
+end;
+
+end.

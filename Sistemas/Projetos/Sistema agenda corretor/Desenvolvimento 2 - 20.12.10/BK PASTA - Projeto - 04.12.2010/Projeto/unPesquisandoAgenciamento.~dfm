@@ -1,0 +1,5 @@
+inherited frmPesquisandoRegistro1: TfrmPesquisandoRegistro1
+  Caption = 'frmPesquisandoRegistro1'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

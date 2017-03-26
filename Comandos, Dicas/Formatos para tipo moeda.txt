@@ -1,0 +1,7 @@
+DISPLAY FORMAT
+###.##0,00
+
+
+
+EDIT FORMAT
+0,00

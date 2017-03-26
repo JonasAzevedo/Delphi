@@ -1,0 +1,255 @@
+unit unSelecionaProduto;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, AppEvnts, ComCtrls, ExtCtrls, StdCtrls, Buttons, Grids,
+  DBGrids;
+
+type
+  TfrmSelecionaProduto = class(TForm)
+    grpBxProdutos: TGroupBox;
+    DBGridProdutos: TDBGrid;
+    btBtnNovoProduto: TBitBtn;
+    grpBxPesquisa: TGroupBox;
+    rdBtnCodigo: TRadioButton;
+    rdBtnNome: TRadioButton;
+    edPesquisa: TEdit;
+    btBtnPesquisar: TBitBtn;
+    pnlDivisao: TPanel;
+    StatusBar: TStatusBar;
+    btBtnSelecionarProduto: TBitBtn;
+    btBtnMostrarTodosProdutos: TBitBtn;
+    ApplicationEvents: TApplicationEvents;
+    PopupMenu: TPopupMenu;
+    ppMnMostrarTodosFornecedores: TMenuItem;
+    procedure rdBtnCodigoClick(Sender: TObject);
+    procedure rdBtnNomeClick(Sender: TObject);
+    procedure edPesquisaChange(Sender: TObject);
+    procedure edPesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure btBtnPesquisarClick(Sender: TObject);
+    procedure DBGridProdutosCellClick(Column: TColumn);
+    procedure DBGridProdutosExit(Sender: TObject);
+    procedure btBtnSelecionarProdutoClick(Sender: TObject);
+    procedure btBtnMostrarTodosProdutosClick(Sender: TObject);
+    procedure btBtnNovoProdutoClick(Sender: TObject);
+    procedure ApplicationEventsHint(Sender: TObject);
+    procedure ppMnMostrarTodosFornecedoresClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    //variáveis para controle do Produto
+    codigo: Integer;
+    nome: String;
+
+    procedure limpar();//limpa componentes de apresentação
+  public
+    tela: String;//tela que chamou esta
+    procedure mostraTodosProdutos();//exibe todos os Produtos
+  end;
+
+
+var
+  frmSelecionaProduto: TfrmSelecionaProduto;
+
+implementation
+
+uses unDataModule, unCompra, unProduto, unSelecionaContaPagar, unItemVenda;
+
+{$R *.dfm}
+
+(*PROCEDURES DE CONTROLE*)
+
+{limpa componentes de apresentação}
+procedure TfrmSelecionaProduto.limpar();
+begin
+  rdBtnCodigo.Checked := false;
+  rdBtnNome.Checked := false;
+  edPesquisa.Clear;
+end;
+
+{exibe todos os Fornecedores}
+procedure TfrmSelecionaProduto.mostraTodosProdutos();
+begin
+  DM.qryProduto.Close;
+  DM.qryProduto.SQL.Clear;
+  DM.qryProduto.SQL.Add('SELECT * From Produto p ORDER BY p.codigo');
+  DM.qryProduto.Prepared := true;
+  DM.qryProduto.Open;
+
+  DM.cdsProduto.Active := false;
+  DM.cdsProduto.Active := true;
+  DM.cdsProduto.Refresh;
+
+  limpar();
+end;
+
+(*FIM PROCEDURES DE CONTROLE*)
+
+procedure TfrmSelecionaProduto.rdBtnCodigoClick(Sender: TObject);
+begin
+  edPesquisa.Enabled := true;
+  edPesquisa.Clear;
+  edPesquisa.SetFocus;
+  btBtnPesquisar.Enabled := false;
+  StatusBar.Panels[1].Text := 'Pesquisar';  
+end;
+
+procedure TfrmSelecionaProduto.rdBtnNomeClick(Sender: TObject);
+begin
+  edPesquisa.Enabled := true;
+  edPesquisa.Clear;
+  edPesquisa.SetFocus;
+  btBtnPesquisar.Enabled := false;
+  StatusBar.Panels[1].Text := 'Pesquisar';  
+end;
+
+procedure TfrmSelecionaProduto.edPesquisaChange(Sender: TObject);
+begin
+  if (edPesquisa.Text = '')then
+    btBtnPesquisar.Enabled := false;
+
+  if(edPesquisa.Text <> '')then
+    begin
+    if((rdBtnCodigo.Checked = true)or(rdBtnNome.Checked = true))then
+      btBtnPesquisar.Enabled := true
+    else
+      btBtnPesquisar.Enabled := false;
+    end;
+end;
+
+procedure TfrmSelecionaProduto.edPesquisaKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (rdBtnCodigo.Checked = true) then
+    begin
+    if not (Key in['0'..'9',Chr(8)])then
+      Key:= #0;
+    end;
+end;
+
+procedure TfrmSelecionaProduto.btBtnPesquisarClick(Sender: TObject);
+begin
+ {código}
+  if (rdBtnCodigo.Checked = true) then
+    begin
+    DM.qryProduto.Close;
+    DM.qryProduto.SQL.Clear;
+    DM.qryProduto.SQL.Add('SELECT * FROM Produto p WHERE p.codigo = :cod');
+    DM.qryProduto.ParamByName('cod').AsInteger := StrToInt(edPesquisa.Text);
+    DM.qryProduto.Prepared := true;
+    DM.qryProduto.Open;
+
+    DM.cdsProduto.Refresh;
+
+    if(DM.cdsProduto.RecordCount = 0)then
+      begin
+      MessageDlg('Nenhum Produto encontrado com o código ' + edPesquisa.Text + '!', mtError,[mbOk],0);
+      edPesquisa.Clear;
+      mostraTodosProdutos();
+      end;
+
+    DM.cdsProduto.Refresh;
+    DM.cdsProduto.Last;
+    end;
+
+  {nome}
+  if (rdBtnNome.Checked = true) then
+    begin
+    DM.qryProduto.Close;
+    DM.qryProduto.SQL.Clear;
+    DM.qryProduto.SQL.Add('SELECT * FROM Produto p WHERE p.nome LIKE  ' + QuotedStr('%' + edPesquisa.Text + '%'));
+    DM.qryProduto.Prepared := true;
+    DM.qryProduto.Open;
+
+    DM.cdsProduto.Refresh;
+
+    if(DM.cdsProduto.RecordCount = 0)then
+      begin
+      MessageDlg('Nenhum Produto encontrado com os caracteres ' + edPesquisa.Text + '!', mtError,[mbOk],0);
+      edPesquisa.Clear;
+      mostraTodosProdutos();
+      end;
+
+    DM.cdsProduto.Refresh;
+    DM.cdsProduto.Last;
+    end;
+
+  StatusBar.Panels[1].Text := '';
+end;
+
+procedure TfrmSelecionaProduto.DBGridProdutosCellClick(Column: TColumn);
+begin
+  Self.codigo := DM.cdsProdutoCODIGO.AsInteger;
+  Self.nome := DM.cdsProdutoNOME.AsString;
+
+  StatusBar.Panels[1].Text := 'OPERAÇÃO = Navegação';
+end;
+
+procedure TfrmSelecionaProduto.DBGridProdutosExit(Sender: TObject);
+begin
+  StatusBar.Panels[1].Text := '';
+end;
+
+procedure TfrmSelecionaProduto.btBtnSelecionarProdutoClick(
+  Sender: TObject);
+begin
+  DM.cdsProduto.Refresh;
+  Self.codigo := DM.cdsProdutoCODIGO.AsInteger;
+  Self.nome := DM.cdsProdutoNOME.AsString;
+
+  if (tela = 'compra') then
+    begin
+    frmCompra.codProduto := Self.codigo;
+    frmCompra.nomeProduto := Self.nome;
+    frmCompra.edProduto.Text := Self.nome;
+    end
+  else if (tela = 'relatorioContaPagar') then
+    begin
+    frmSelecionaContaPagar.codProduto := Self.codigo;
+    frmSelecionaContaPagar.edProduto.Text := Self.nome;
+    end
+  else if (tela = 'venda') then
+    begin
+    frmItemVenda.edProduto.Text := IntToStr(Self.codigo);
+    frmItemVenda.pegaProduto();
+    end;
+
+  Self.Close;
+end;
+
+procedure TfrmSelecionaProduto.btBtnMostrarTodosProdutosClick(
+  Sender: TObject);
+begin
+  mostraTodosProdutos();
+end;
+
+procedure TfrmSelecionaProduto.btBtnNovoProdutoClick(Sender: TObject);
+begin
+  StatusBar.Panels[1].Text := 'Cadastro de um Novo Produto';
+  limpar();
+
+  frmProduto.operacao := 'novo';
+  frmProduto.ShowModal;
+end;
+
+procedure TfrmSelecionaProduto.ApplicationEventsHint(Sender: TObject);
+begin
+  StatusBar.Panels[0].Text := Application.Hint;
+end;
+
+procedure TfrmSelecionaProduto.ppMnMostrarTodosFornecedoresClick(
+  Sender: TObject);
+begin
+  mostraTodosProdutos();
+end;
+
+procedure TfrmSelecionaProduto.FormShow(Sender: TObject);
+begin
+  if (tela = 'compra')then
+    btBtnNovoProduto.Visible := true
+  else if (tela = 'relatorioContaPagar')then
+    btBtnNovoProduto.Visible := false;
+end;
+
+end.

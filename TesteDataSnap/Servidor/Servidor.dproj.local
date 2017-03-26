@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2015/04/27 15:46:34.000.790,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\WebModuleUnit1.pas</Transaction>
+    <Transaction>2015/04/27 15:46:34.000.108,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\FormUnit1.pas</Transaction>
+    <Transaction>2015/04/27 15:46:34.000.376,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2015/04/27 15:46:34.000.601,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.773,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\ServerFunctions.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.828,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\images\expand.png</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.805,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\css\main.css</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.785,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\ServerFunctionExecutor-min.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.815,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\templates\ReverseString.html</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.754,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\json2.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.788,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\CallbackFramework-min.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.819,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\templates\ServerFunctionInvoker.html</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.811,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\css\ServerFunctionInvoker.css</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.800,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\ServerFunctionInvoker.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.782,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\json2-min.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.763,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\CallbackFramework.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.715,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\ServerFunctionExecutor.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.824,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\images\collapse.png</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.706,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\base64.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.792,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\connection.js</Transaction>
+    <Transaction>2015/04/27 15:46:35.000.778,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\js\base64-min.js</Transaction>
+    <Transaction>2015/04/27 15:47:02.000.843,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\FormUnit1.pas=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmServidor.pas</Transaction>
+    <Transaction>2015/04/27 15:47:02.000.843,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\FormUnit1.dfm=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmServidor.dfm</Transaction>
+    <Transaction>2015/04/27 15:47:10.000.055,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\WebModuleUnit1.dfm=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmWM.dfm</Transaction>
+    <Transaction>2015/04/27 15:47:10.000.055,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\WebModuleUnit1.pas=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmWM.pas</Transaction>
+    <Transaction>2015/04/27 15:47:13.000.712,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ServerContainerUnit1.dfm=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmSC.dfm</Transaction>
+    <Transaction>2015/04/27 15:47:13.000.712,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ServerContainerUnit1.pas=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmSC.pas</Transaction>
+    <Transaction>2015/04/27 15:47:17.000.060,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ServerMethodsUnit1.dfm=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmSM.dfm</Transaction>
+    <Transaction>2015/04/27 15:47:17.000.060,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ServerMethodsUnit1.pas=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\ufrmSM.pas</Transaction>
+    <Transaction>2015/04/27 15:50:38.000.985,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\Unit1.pas</Transaction>
+    <Transaction>2015/04/27 15:51:07.000.419,C:\Users\hugo.silva\Desktop\TesteDataSnap\Servidor\Unit1.pas=C:\Users\hugo.silva\Desktop\TesteDataSnap\Comum\uMinhaClasse.pas</Transaction>
+    <Transaction>2015/04/27 15:54:36.000.116,C:\Users\hugo.silva\Desktop\TesteDataSnap\Comum\uMinhaClasse.pas=C:\Users\hugo.silva\Desktop\TesteDataSnap\Comum\uMinhaClasseMetodos.pas</Transaction>
+    <Transaction>2015/04/27 15:54:45.000.667,=C:\Users\hugo.silva\Desktop\TesteDataSnap\Comum\uMinhaClasse.pas</Transaction>
+  </Transactions>
+</BorlandProject>

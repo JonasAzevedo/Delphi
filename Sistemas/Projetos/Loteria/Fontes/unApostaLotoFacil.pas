@@ -1,0 +1,130 @@
+unit unApostaLotoFacil;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DBAdvGrid, Grids, BaseGrid, AdvGrid, asgcheck, ExtCtrls,
+  AdvPanel, AdvGlowButton, StdCtrls;
+
+type
+  TfrmApostaLotoFacil = class(TForm)
+    advGlwBtn01: TAdvGlowButton;
+    advGlwBtn03: TAdvGlowButton;
+    advGlwBtn05: TAdvGlowButton;
+    advGlwBtn02: TAdvGlowButton;
+    advGlwBtn04: TAdvGlowButton;
+    advGlwBtn06: TAdvGlowButton;
+    advGlwBtn08: TAdvGlowButton;
+    advGlwBtn10: TAdvGlowButton;
+    advGlwBtn07: TAdvGlowButton;
+    advGlwBtn09: TAdvGlowButton;
+    advGlwBtn11: TAdvGlowButton;
+    advGlwBtn13: TAdvGlowButton;
+    advGlwBtn15: TAdvGlowButton;
+    advGlwBtn12: TAdvGlowButton;
+    advGlwBtn14: TAdvGlowButton;
+    advGlwBtn16: TAdvGlowButton;
+    advGlwBtn18: TAdvGlowButton;
+    advGlwBtn20: TAdvGlowButton;
+    advGlwBtn17: TAdvGlowButton;
+    advGlwBtn19: TAdvGlowButton;
+    advGlwBtn21: TAdvGlowButton;
+    advGlwBtn23: TAdvGlowButton;
+    advGlwBtn25: TAdvGlowButton;
+    advGlwBtn22: TAdvGlowButton;
+    advGlwBtn24: TAdvGlowButton;
+    Button1: TButton;
+    lblTotalNumerosMarcados: TLabel;
+    procedure advGlwBtn01Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    FbNumerosAposta: array[1..25] of Boolean;
+    FnNumerosMarcados: Integer;
+
+    procedure LimparNumerosAposta();
+    procedure MarcarNumeroAposta(Sender: TObject);
+    function RetornarNumerosMarcados(): Integer;
+  end;
+
+var
+  frmApostaLotoFacil: TfrmApostaLotoFacil;
+
+implementation
+
+{$R *.dfm}
+
+function TfrmApostaLotoFacil.RetornarNumerosMarcados(): Integer;
+var
+  n: Integer;
+  nTotal: Integer;
+begin
+  nTotal := 0;
+  for n:=1 to 25 do
+  begin
+    if(FbNumerosAposta[n])then
+      Inc(nTotal);
+  end;
+  Result :=nTotal;
+end;
+
+procedure TfrmApostaLotoFacil.LimparNumerosAposta();
+var
+  n: Integer;
+begin
+  FnNumerosMarcados := 0;
+  for n:=1 to 25 do
+    FbNumerosAposta[n] := False;
+end;
+
+procedure TfrmApostaLotoFacil.MarcarNumeroAposta(Sender: TObject);
+var
+  nNumeroAposta: Integer;
+begin
+  if(Sender is TAdvGlowButton)then //se objeto recebido é um botão do tipo TAdvGlowButton
+  begin
+    nNumeroAposta := StrToInt((Sender as TAdvGlowButton).Caption); //pega o número que se está apostando
+    if(FbNumerosAposta[nNumeroAposta] = False)then //se número não está marcado...
+    begin
+      if(FnNumerosMarcados < 15)then //verifica se ainda não foi marcado 15 números
+      begin
+        FbNumerosAposta[nNumeroAposta] := not FbNumerosAposta[nNumeroAposta]; //marca número na aposta
+        FnNumerosMarcados := RetornarNumerosMarcados;
+      end
+      else
+      begin
+        MessageDlg('Pode-se apostar no máximo 15 números.',mtInformation,[mbOK],0);
+      end
+    end
+    else
+    begin
+      FbNumerosAposta[nNumeroAposta] := not FbNumerosAposta[nNumeroAposta]; //desmarca número da aposta
+      FnNumerosMarcados := RetornarNumerosMarcados;
+    end;
+    
+    lblTotalNumerosMarcados.Caption := IntToStr(FnNumerosMarcados);
+  end;
+end;
+
+
+procedure TfrmApostaLotoFacil.advGlwBtn01Click(Sender: TObject);
+begin
+  MarcarNumeroAposta(Sender);
+end;
+
+procedure TfrmApostaLotoFacil.Button1Click(Sender: TObject);
+var
+  n: Integer;
+  s: String;
+begin
+  for n:=1 to 25 do
+  begin
+    if(FbNumerosAposta[n])then
+      s := 'true'
+    else
+      s := 'false';
+    ShowMessage(IntToStr(n) + ' - ' + s);
+  end;
+end;
+
+end.

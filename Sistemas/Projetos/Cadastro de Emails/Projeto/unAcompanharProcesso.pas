@@ -1,0 +1,45 @@
+unit unAcompanharProcesso;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls;
+
+type
+  TfrmAcompanharProcesso = class(TForm)
+    prgBarAcompanhamentoProcesso: TProgressBar;
+  private
+    FnTotalEmails: Integer;
+    FnTotalEmailProcessados: Integer;
+  public
+    procedure PassarParametro(psTipo:String; poValores:OleVariant);
+  end;
+
+var
+  frmAcompanharProcesso: TfrmAcompanharProcesso;
+
+implementation
+
+uses unConstantes;
+
+{$R *.dfm}
+
+{ TfrmAcompanharProcesso }
+
+procedure TfrmAcompanharProcesso.PassarParametro(psTipo: String;
+  poValores: OleVariant);
+begin
+  if(psTipo = PRM_DEFINIR_MAX_PROGRESS_BAR)then
+  begin
+    prgBarAcompanhamentoProcesso.Max := poValores;
+    prgBarAcompanhamentoProcesso.Min := NUMERO_NULO;
+  end
+
+  else if(psTipo = PRM_DEFINIR_POSITION_PROGRESS_BAR)then
+  begin
+    prgBarAcompanhamentoProcesso.Position := poValores;
+  end;
+end;
+
+end.

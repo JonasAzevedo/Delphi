@@ -1,0 +1,312 @@
+object frmSelecionaContaPagar: TfrmSelecionaContaPagar
+  Left = 351
+  Top = 199
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'EMP'#211'RIO --> Contas '#224' Pagar'
+  ClientHeight = 141
+  ClientWidth = 492
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox1: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 492
+    Height = 121
+    Align = alTop
+    Caption = 'Selecionando Contas '#224' Pagar'
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 10
+      Top = 30
+      Width = 57
+      Height = 13
+      Caption = 'Fornecedor:'
+    end
+    object Label2: TLabel
+      Left = 10
+      Top = 60
+      Width = 40
+      Height = 13
+      Caption = 'Produto:'
+    end
+    object Label3: TLabel
+      Left = 10
+      Top = 90
+      Width = 26
+      Height = 13
+      Caption = 'Data:'
+    end
+    object Label4: TLabel
+      Left = 80
+      Top = 90
+      Width = 24
+      Height = 13
+      Caption = 'entre'
+    end
+    object Label5: TLabel
+      Left = 216
+      Top = 90
+      Width = 6
+      Height = 13
+      Caption = 'e'
+    end
+    object edFornecedor: TEdit
+      Left = 80
+      Top = 24
+      Width = 209
+      Height = 21
+      Hint = 'Pesquisar por Fornecedor da Conta '#224' Pagar'
+      Enabled = False
+      TabOrder = 0
+      Text = 'edFornecedor'
+    end
+    object edProduto: TEdit
+      Left = 80
+      Top = 54
+      Width = 209
+      Height = 21
+      Hint = 'Pesquisar por Produto da Conta '#224' Pagar'
+      Enabled = False
+      TabOrder = 1
+      Text = 'edProduto'
+    end
+    object btBtnSelecionaFornecedor: TBitBtn
+      Left = 288
+      Top = 22
+      Width = 33
+      Height = 25
+      Hint = 'Seleciona Fornecedor das Contas '#224' Pagar'
+      Caption = '...'
+      TabOrder = 2
+      OnClick = btBtnSelecionaFornecedorClick
+    end
+    object btBtnSelecionaProduto: TBitBtn
+      Left = 288
+      Top = 52
+      Width = 33
+      Height = 25
+      Hint = 'Seleciona Produto das Contas '#224' Pagar'
+      Caption = '...'
+      TabOrder = 3
+      OnClick = btBtnSelecionaProdutoClick
+    end
+    object mEdDataInicial: TMaskEdit
+      Left = 118
+      Top = 84
+      Width = 78
+      Height = 21
+      Hint = 'Data Inicial das Contas '#224' Pagar'
+      CharCase = ecUpperCase
+      EditMask = '00/00/0000;1;_'
+      MaxLength = 10
+      TabOrder = 4
+      Text = '  /  /    '
+    end
+    object mEdDataFinal: TMaskEdit
+      Left = 243
+      Top = 84
+      Width = 78
+      Height = 21
+      Hint = 'Data Final das Contas '#224' Pagar'
+      CharCase = ecUpperCase
+      EditMask = '00/00/0000;1;_'
+      MaxLength = 10
+      TabOrder = 5
+      Text = '  /  /    '
+    end
+    object btBtnGerarRelatorio: TBitBtn
+      Left = 352
+      Top = 72
+      Width = 129
+      Height = 33
+      Hint = 'Gera Relat'#243'rio de Contas '#224' Pagar'
+      Caption = 'GERAR RELAT'#211'RIO'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = btBtnGerarRelatorioClick
+    end
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Top = 122
+    Width = 492
+    Height = 19
+    Panels = <
+      item
+        Width = 350
+      end
+      item
+        Width = 50
+      end>
+  end
+  object ApplicationEvents: TApplicationEvents
+    OnHint = ApplicationEventsHint
+    Left = 328
+    Top = 20
+  end
+  object qryContaPagar: TSQLQuery
+    Active = True
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      
+        'SELECT c.codigo,p.nome AS Produto,f.razao_social AS Fornecedor,c' +
+        '.data,c.quantidade,c.valor_total,c.valor_pago FROM Compra c, Pro' +
+        'duto p, Fornecedor f'
+      'WHERE c.pago = 2'
+      'AND c.cod_produto = p.codigo'
+      'AND c.cod_fornecedor = f.codigo')
+    SQLConnection = DM.SQLConnection
+    Left = 368
+    Top = 22
+    object qryContaPagarCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object qryContaPagarPRODUTO: TStringField
+      FieldName = 'PRODUTO'
+      Size = 80
+    end
+    object qryContaPagarFORNECEDOR: TStringField
+      FieldName = 'FORNECEDOR'
+      Size = 80
+    end
+    object qryContaPagarDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object qryContaPagarQUANTIDADE: TFMTBCDField
+      FieldName = 'QUANTIDADE'
+      Precision = 15
+      Size = 3
+    end
+    object qryContaPagarVALOR_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_TOTAL'
+      Precision = 15
+      Size = 2
+    end
+    object qryContaPagarVALOR_PAGO: TFMTBCDField
+      FieldName = 'VALOR_PAGO'
+      Precision = 15
+      Size = 2
+    end
+  end
+  object dspContaPagar: TDataSetProvider
+    DataSet = qryContaPagar
+    Left = 398
+    Top = 22
+  end
+  object cdsContaPagar: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspContaPagar'
+    Left = 428
+    Top = 22
+    object cdsContaPagarCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object cdsContaPagarPRODUTO: TStringField
+      FieldName = 'PRODUTO'
+      Size = 80
+    end
+    object cdsContaPagarFORNECEDOR: TStringField
+      FieldName = 'FORNECEDOR'
+      Size = 80
+    end
+    object cdsContaPagarDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object cdsContaPagarQUANTIDADE: TFMTBCDField
+      FieldName = 'QUANTIDADE'
+      DisplayFormat = '#0.00'
+      Precision = 15
+      Size = 3
+    end
+    object cdsContaPagarVALOR_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_TOTAL'
+      DisplayFormat = '#0.00'
+      Precision = 15
+      Size = 2
+    end
+    object cdsContaPagarVALOR_PAGO: TFMTBCDField
+      FieldName = 'VALOR_PAGO'
+      DisplayFormat = '#0.00'
+      Precision = 15
+      Size = 2
+    end
+  end
+  object dsContaPagar: TDataSource
+    DataSet = cdsContaPagar
+    Left = 456
+    Top = 22
+  end
+  object qrySoma: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT SUM(c.valor_total)AS Total, SUM(c.valor_pago) AS Pago'
+      'FROM Compra c, Fornecedor f, Produto p'
+      'WHERE c.pago = 2'
+      'AND c.cod_produto = p.codigo'
+      'AND c.cod_fornecedor = f.codigo')
+    SQLConnection = DM.SQLConnection
+    Left = 368
+    Top = 56
+    object qrySomaTOTAL: TFMTBCDField
+      FieldName = 'TOTAL'
+      Precision = 15
+      Size = 2
+    end
+    object qrySomaPAGO: TFMTBCDField
+      FieldName = 'PAGO'
+      Precision = 15
+      Size = 2
+    end
+  end
+  object dspSoma: TDataSetProvider
+    DataSet = qrySoma
+    Left = 396
+    Top = 56
+  end
+  object cdsSoma: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspSoma'
+    Left = 426
+    Top = 56
+    object cdsSomaTOTAL: TFMTBCDField
+      FieldName = 'TOTAL'
+      DisplayFormat = '#0.00'
+      Precision = 15
+      Size = 2
+    end
+    object cdsSomaPAGO: TFMTBCDField
+      FieldName = 'PAGO'
+      DisplayFormat = '#0.00'
+      Precision = 15
+      Size = 2
+    end
+  end
+  object dsSoma: TDataSource
+    DataSet = cdsSoma
+    Left = 455
+    Top = 56
+  end
+end

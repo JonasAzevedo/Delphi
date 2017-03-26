@@ -1,0 +1,147 @@
+=================
+EXPORTPACK v. 1.2
+=================
+
+Conjunto de componentes VCL para la exportación de informes de QuickReport y FastReport
+a formatos gráficos: JPG, BMP, WMF, EMF, PDF.
+
+NOTA: Estos componentes utilizan librerías y componentes ya existentes como:
+   TPrintPDF. Autor: K. Nishita. -> Componente de generación de ficheros PDF.
+   ZLIB. -> Utilizada por TPrintPDF -> Librería de compresión.
+
+El componente TPrintPDF de K. Nishita ha sido modificado para guarde la paleta de colores de las
+imágenes y admita imágenes JPG así como una pequeña implementación de orientación horizontal.
+
+Gracias a sus autores.
+
+Ultima revisión: Mayo 2002
+
+Más información en: http://usuarios.lycos.es/isma
+
+-------------------
+TABLA DE CONTENIDOS
+-------------------
+Últimos cambios
+Preliminar
+Historia
+Instalación
+Ejemplos
+Código Fuente
+Agradecimientos
+
+---------------
+Últimos cambios
+---------------
+Mayo 2003
+---------
+* Versión 1.2
+
+Abril 2002
+----------
+* Versión 1.0 ve la luz
+
+----------
+Preliminar
+----------
+
+ExportPack es una librería que permite la exportación de listados e informes
+creados con QuickReport y FastReport a formatos gráficos: JPG, BMP, EMF, WMF y PDF.
+Ha sido realizado utilizando Delphi 6 pero debería ser posible compilarlo con
+versiones anteriores.
+
+ExportPack es un producto freeware. Eres libre de distribuir los componentes
+siempre que los ficheros se distribuyan de forma conjunta.
+
+Los autores no se hacen responsables de la utilización de este software, el
+único responsable es el usuario, no se incluyen garantías de ningún tipo.
+La utilización es bajo su responsabilidad, comentarios y críticas son
+aceptados.
+
+1. Componentes:
+
+TExportQR -> Permite la exportación de listados de QuickReport.
+TExportFR -> Permite la exportación de listados de FastReport.
+
+--------
+Historia
+--------
+
+ExportPack 1.2 (Mayo 2002). Soporte para Delphi 7.
+    NUEVO MÉTODO en TExportFR (ExportFRFromPreview) debido a un error cuando el FastReport tenía dialogo.
+   // Ver Ex2 de la carpeta DEMOS para ver el nuevo funcionamiento.
+    Nueva Propiedad PixelFormat
+    Corregidos errores en la exportación de informes de FastReport con ventanas de diálogo.
+		
+ExportPack 1.0 (Abril 2002). Delphi 6. Inicio.
+
+
+-----------
+Instalación
+-----------
+
+1. Delphi 7.x:
+
+Opción: File\Open del IDE de Delphi, abrir el fichero ExPack7.DPK
+Click en Compilar
+Click en Instalar
+
+NOTA, no guardar los cambios de ExPack7.DPK
+
+Si no se posee FastReport abrir el fichero ExportPack.Pas y
+eliminar la linea {$DEFINE FASTREPORT}
+
+Para idioma ingles modificar la linea {$DEFINE SPANISH} indicando
+en su lugar {$DEFINE ENGLISH}
+
+Asegurarse de que en Tools\Environment Options en el Library Path
+se encuentra incluida la ruta de los fuentes de ExportPack 1.2
+
+2. Delphi 6.x:
+
+Opción: File\Open del IDE de Delphi, abrir el fichero ExPack6.DPK
+Click en Compilar
+Click en Instalar
+
+NOTA, no guardar los cambios de ExPack6.DPK
+
+Si no se posee FastReport abrir el fichero ExportPack.Pas y
+eliminar la linea {$DEFINE FASTREPORT}
+
+Para idioma ingles modificar la linea {$DEFINE SPANISH} indicando
+en su lugar {$DEFINE ENGLISH}
+
+Asegurarse de que en Tools\Environment Options en el Library Path
+se encuentra incluida la ruta de los fuentes de ExportPack 1.2
+
+--------
+Ejemplos
+--------
+
+Los ejemplos incluidos se encuentran en la carpeta DEMOS de la
+distribución de ExportPack, utilizan la base de datos DBDEMOS
+de Delphi. En la carpeta Demos hay un fichero TXT con la
+descripción de la misma
+
+-------------
+Código fuente
+-------------
+
+Todo el código fuente de Export Pack 1.2 se encuentra disponible
+en el directorio Source
+
+
+---------------
+Agradecimientos
+---------------
+
+Me gustaría dar las gracias a:
+
+* K. Nishita por su componente TPrintPDF (sin el cual no hubiera sido posible hacer nada)
+* Autores de la librería ZLIB.
+* Mucha gente que estuvo apoyandome.
+* Y a toda la que olvido...
+
+Autores:
+   - Ismael Fernández Bustos (ismafb@terra.es)
+   - K. Nishita (indirectamente) (info@nishita.com).
+   - ZLIB (indirectamente).

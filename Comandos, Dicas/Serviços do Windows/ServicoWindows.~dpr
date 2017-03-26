@@ -1,0 +1,13 @@
+program ServicoWindows;
+
+uses
+  SvcMgr,
+  unPrincipal in 'unPrincipal.pas' {Service1: TService};
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TService1, Service1);
+  Application.Run;
+end.

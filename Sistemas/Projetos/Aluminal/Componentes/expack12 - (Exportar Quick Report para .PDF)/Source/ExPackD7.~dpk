@@ -1,0 +1,66 @@
+package ExPackD7;
+
+{$R *.res}
+{$R 'ExportPack.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'ExportPack 1.0'}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcljpg,
+  vcl,
+  qrpt,
+  vclx,
+  bdertl,
+  dbrtl,
+  FR7,
+  tee,
+  vcldb,
+  designide,
+  vclactnband,
+  VclSmp;
+
+contains
+  Adler in 'ADLER.PAS',
+  Crc in 'CRC.PAS',
+  dzlib in 'dzlib.pas',
+  ExportPack in 'ExportPack.pas',
+  gzIO in 'gzio.pas',
+  InfBlock in 'infblock.pas',
+  InfCodes in 'infcodes.pas',
+  InfFast in 'inffast.pas',
+  InfTrees in 'inftrees.pas',
+  infutil in 'infutil.pas',
+  Prgrs in 'Prgrs.pas' {FPrgrs},
+  strutil in 'strutil.pas',
+  tnpdf in 'Tnpdf.pas',
+  trees in 'Trees.pas',
+  zCompres in 'zcompres.pas',
+  zDeflate in 'ZDEFLATE.PAS',
+  zInflate in 'ZINFLATE.PAS',
+  Zlibep in 'ZLIBEP.PAS',
+  zUnCompr in 'zuncompr.pas',
+  ZUtil in 'ZUTIL.PAS';
+
+end.

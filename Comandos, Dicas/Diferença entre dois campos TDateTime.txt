@@ -1,0 +1,14 @@
+var
+  dataIni, dataFin: TDateTime;
+  datDif: TDateTime;
+  dif1: Integer;
+  dif2: Real;
+begin
+  dataIni := StrToDateTime(MaskEdit1.Text);
+  dataFin := StrToDateTime(MaskEdit2.Text);
+
+  dif1 := DaysBetween(dataIni,dataFin);
+  ShowMessage(IntToStr(dif1));
+
+  dif2 := DaySpan(dataIni,dataFin);
+  ShowMessage(FormatFloat('#0.00',dif2));

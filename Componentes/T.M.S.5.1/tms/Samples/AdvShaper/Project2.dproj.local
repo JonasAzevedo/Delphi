@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/09/05 12:54:20.750.pas,C:\Documents and Settings\Bart\My Documents\RAD Studio\Projects\Unit2.pas=C:\Documents and Settings\Bart\Desktop\Demos\AdvShaper Demo\AdvShaperDemo.pas</Transaction>
+    <Transaction>2007/09/05 12:54:20.750.dfm,C:\Documents and Settings\Bart\My Documents\RAD Studio\Projects\Unit2.dfm=C:\Documents and Settings\Bart\Desktop\Demos\AdvShaper Demo\AdvShaperDemo.dfm</Transaction>
+    <Transaction>2007/09/05 12:54:22.421.dproj,C:\Documents and Settings\Bart\My Documents\RAD Studio\Projects\Project2.dproj=C:\Documents and Settings\Bart\Desktop\Demos\AdvShaper Demo\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

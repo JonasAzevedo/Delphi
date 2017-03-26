@@ -1,0 +1,23 @@
+unit unRelatorioOperacoesVenda;
+
+interface
+
+uses Windows, SysUtils, Messages, Classes, Graphics, Controls,
+  StdCtrls, ExtCtrls, Forms, QuickRpt, QRCtrls;
+
+type
+  TqckRepOperacoesVenda = class(TQuickRep)
+  private
+
+  public
+
+  end;
+
+var
+  qckRepOperacoesVenda: TqckRepOperacoesVenda;
+
+implementation
+
+{$R *.DFM}
+
+end.

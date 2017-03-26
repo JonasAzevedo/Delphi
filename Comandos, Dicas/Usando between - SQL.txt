@@ -1,0 +1,29 @@
+var
+  dataI: TDateTime;
+  dataF: TDateTime;
+
+  dataInicio: String;
+  dataFinal: String;
+begin
+  dataInicio := medDataIni.Text;
+  dataI := StrToDate(dataInicio);
+  dataInicio := FormatDateTime('mm,dd,yyyy', dataI);
+
+
+  dataFinal := medDataFin.Text;
+  dataF := StrToDate(dataFinal);
+  dataFinal := FormatDateTime('mm,dd,yyyy',dataF);
+
+  DM.qryRelatorios.Close;
+  DM.qryRelatorios.SQL.Clear;
+  DM.qryRelatorios.SQL.Add('select v.placa, v.marca, v.modelo, v.ano, v.anomodelo, ven.data_venda, ven.valor_pago from veiculo v, venda ven ');
+  DM.qryRelatorios.SQL.Add('where v.status = 2 and v.codigo = ven.cod_veiculo ');
+  DM.qryRelatorios.SQL.Add('and ven.data_venda between :dtIni and :dtFin');
+
+  DM.qryRelatorios.ParamByName('dtIni').AsString := dataInicio;
+  DM.qryRelatorios.ParamByName('dtFin').AsString := dataFinal;
+
+
+  DM.qryRelatorios.Prepare;
+  DM.qryRelatorios.Open;
+
